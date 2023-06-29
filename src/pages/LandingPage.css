@@ -1,4 +1,33 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
 #title{
     color:white;
     text-align: center;
+}
+
+#linkButton{
+    background-color: #0078E8;
+    border:none;
+    border-radius: 10px;
+    font-size: 24px;
+    font-family:'Inter';
+    width: 200px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color:white;
+    font-weight:500;
+}
+
+#linkButton:hover{
+    background-color: #3d92e2;
+    cursor: pointer;
+}
+
+#link{
+    color: white;
+    text-decoration: none;
+    float:right;
+    padding-right: 40px;
+    padding-top: 20px;
 }
