@@ -7,7 +7,7 @@ function LandingPage(){
         <div id="landing-page">
             
             
-            <Link to="/login&signup" id="link">
+            <Link to="/login" id="link">
                 <button id="linkButton">Get Started</button>
             </Link>
             <h1 id="title">Welcome to GameReview</h1>

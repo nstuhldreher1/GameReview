@@ -1,0 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+#login{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 450px;
+    height: 510px;
+    background-color: #404F71;
+    border-radius: 5px;
+}
+
+#login-title{
+    font: 'Inter';
+    font-size: 36px;
+    color: white;
+    padding-top: 20px;
+}
+
+.form-data{
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius: 15px;
+    border: none;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    font:"Inter";
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#login-inside{
+    padding-left: 65px;
+}
+
+#form-login{
+    line-height: 10px;
+}
+
+.form-text{
+    font: 'Inter';
+    color: white;
+    font-size: 16px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+#login-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0078E8;
+    color: white;
+    border: none;
+    font: 'Inter';
+    width: 190px;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin: auto;
+}
+
+#login-button:hover{
+    cursor: pointer;
+    background-color: #3d92e2;
+}
+
+#button-position{
+    padding-top: 120px;
+}
+
+#signup-prompt{
+    text-align: center;
+    padding-top: 10px;
+}
+
+#signup-link{
+    color: inherit;
+}
