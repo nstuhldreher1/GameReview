@@ -1,0 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+.nav-text{
+    font-family: 'Inter';
+    color: rgb(169, 169, 169);
+    text-decoration: none;
+}
+
+.nav-text:hover{
+    color: white;
+}
+
+#navbar{
+    padding-top: 40px;
+    padding-left: 40px;
+    width: 170px;
+}
+
+#icon-navbar{
+    height:100px;
+}
