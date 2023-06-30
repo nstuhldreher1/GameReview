@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+#signup{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 450px;
+    height: 540px;
+    background-color: #404F71;
+    border-radius: 5px;
+}
+
+#signup-title{
+    font: 'Inter';
+    font-size: 36px;
+    color: white;
+    padding-top: 20px;
+}
+
+.form-data{
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius: 15px;
+    border: none;
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+    font:"Inter";
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#signup-inside{
+    padding-left: 65px;
+}
+
+#form-signup{
+    line-height: 10px;
+}
+
+.form-text{
+    font: 'Inter';
+    color: white;
+    font-size: 16px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+#signup-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0078E8;
+    color: white;
+    border: none;
+    font: 'Inter';
+    width: 190px;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin: auto;
+}
+
+#signup-button:hover{
+    cursor: pointer;
+    background-color: #3d92e2;
+}
+
+#button-position-signup{
+    padding-top: 30px;
+}
+
+#login-prompt{
+    text-align: center;
+    padding-top: 10px;
+}
+
+#login-link{
+    color: inherit;
+}
+
+#first-last{
+    display: grid;
+    grid-template-columns: 160px 160px;
+    column-gap: px;
+}
+
+.form-data-small{
+    display: grid;
+    border-radius: 15px;
+    border: none;
+    width: 135px;
+    height: 30px;
+    padding-left: 10px;
+    font:"Inter";
+    font-size: 14px;
+    font-weight: 500;
+}
