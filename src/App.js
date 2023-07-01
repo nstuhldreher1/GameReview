@@ -5,8 +5,8 @@ import Login from './pages/Login.js';
 import Signup from './pages/Signup.js';
 import Feed from './pages/Feed.js';
 import Search from './pages/Search.js';
-import Review from './pages/Review.js';
 import Profile from './pages/Profile.js';
+import Game from './pages/Game.js';
 
 
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {path: '/feed', element: <Feed/>},
   {path: '/profile', element: <Profile/>},
   {path: '/search', element: <Search/>},
-  {path: '/review', element: <Review/>}
+  {path: '/game', element: <Game/>}
 ]);
 
 function App() {
