@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+#searchPage{
+    display: grid;
+    grid-template-columns: repeat(20, 100px);
+    grid-template-rows: repeat(28, 50px);
+}
+
+#navigation{
+    height: 100vh;
+    grid-row: 2 / 22;
+    grid-column: 1 / 4;
+}
+
+#search{
+
+}
+
+#searchBar{
+
+}
+
+#searchButton{
+
+}
+
+#searchIcon{
+
+}
