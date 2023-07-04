@@ -1,7 +1,7 @@
 #gamePage{
     display: grid;
     grid-template-columns: repeat(20, 100px);
-    grid-template-rows: repeat(22, 50px);
+    grid-template-rows: repeat(28, 50px);
 }
 
 #navigation{
@@ -11,12 +11,14 @@
 }
 
 #game{
-    grid-column: 5 / 17;
-    grid-row: 2 / 11;
+    width: 1000px;
+    height: 400px;
+    grid-column: 5 / 11;
+    grid-row: 2 / 9;
 }
 
 #review{
     grid-column: 5 / 15;
-    grid-row: 13 / 22;
-    background-color: aqua;
+    grid-row: 11 / 22;
+    height: 85vh;
 }
