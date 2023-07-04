@@ -11,8 +11,12 @@
 }
 
 #navbar{
+    /* I added margins to your navbar so your links dont get overlapped by
+    by others*/
+    margin-left: 40px;
+    margin-right: 40px;
     padding-top: 40px;
-    padding-left: 40px;
+    /*padding-left: 40px;*/
     width: 170px;
 }
 
