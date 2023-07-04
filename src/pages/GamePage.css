@@ -1,4 +1,22 @@
-#container{
-    display: flex;
+#gamePage{
+    display: grid;
+    grid-template-columns: repeat(20, 100px);
+    grid-template-rows: repeat(22, 50px);
 }
 
+#navigation{
+    height: 100vh;
+    grid-row: 2 / 22;
+    grid-column: 1 / 4;
+}
+
+#game{
+    grid-column: 5 / 17;
+    grid-row: 2 / 11;
+}
+
+#review{
+    grid-column: 5 / 15;
+    grid-row: 13 / 22;
+    background-color: aqua;
+}
