@@ -1,0 +1,9 @@
+
+#feed{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#posts{
+    padding-top: 150px;
+}

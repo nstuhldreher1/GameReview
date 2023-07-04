@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+.post-text{
+    color:white;
+    font-family: 'Inter';
+    padding-left: 20px;
+    padding-top: 10px;
+    font-weight: 600;
+}
+
+#post{
+    background-color: #404F71;
+    height: 140px;
+    width: 760px;
+}
