@@ -1,3 +1,5 @@
+/* for the search page */
+
 function GameCard(){
     return (
         <div>   
