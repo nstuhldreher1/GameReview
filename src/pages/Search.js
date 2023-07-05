@@ -25,7 +25,7 @@ function Search(){
             </form>
             <button id="users" onClick={() => toggleTab(0)} style={{ textDecoration: toggleState ? 'none' : 'underline' }}>Users</button>
             <button id="games" onClick={() => toggleTab(1)} style={{ textDecoration: toggleState ? 'underline' : 'none' }}>Games</button>
-            {toggleState === 1 ? <div id="userTab"></div> : <div id="gameTab"></div>}
+            {toggleState === 0 ? <div id="userTab"></div> : <div id="gameTab"></div>}
 
         </div>
     );
