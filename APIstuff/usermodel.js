@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const userObject = new mongoose.Schema({ // reference as const User = require('./usermodel'); in main files I think.
     username: {
         type: String,
@@ -21,10 +22,10 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         type: String,
         required: true,
         unique: true 
-    }
+    },
 
     userID: {
-        type: String:,
+        type: String,
         requried: true,
         unique:true
     }
