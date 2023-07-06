@@ -21,6 +21,17 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
+
+
+//function registerUser(username, password, email) {
+  //  const newUser = new User({
+    //    userID: mongoose.Types.ObjectId().toString(),
+      //  username,
+        //password,
+       // email,
+        //isverified: false
+    // });
+
 const User = mongoose.model('User', userSchema);
 
 // Middleware
