@@ -46,6 +46,8 @@
     grid-row: 1 / 2;
     border-style: none;
     border-radius: 20px;
+    font-family: 'Inter';
+    font-size: 35px;
 }
 
 #usersButton{
