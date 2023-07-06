@@ -28,8 +28,8 @@ function Search(){
                 <input id="searchInput"></input>
             </form>
 
-            <button id="users" onClick={() => toggleTab(0)} style={{ textDecoration: toggleState ? 'none' : 'underline' }}>Users</button>
-            <button id="games" onClick={() => toggleTab(1)} style={{ textDecoration: toggleState ? 'underline' : 'none' }}>Games</button>
+            <button id="usersButton" onClick={() => toggleTab(0)} style={{ textDecoration: toggleState ? 'none' : 'underline' }}>Users</button>
+            <button id="gamesButton" onClick={() => toggleTab(1)} style={{ textDecoration: toggleState ? 'underline' : 'none' }}>Games</button>
             
             {toggleState === 0 ? 
                 <div id="userTab">

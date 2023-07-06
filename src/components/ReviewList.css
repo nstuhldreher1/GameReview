@@ -3,4 +3,6 @@
 #reviewContainer{
     width: 1000px;
     height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
 }

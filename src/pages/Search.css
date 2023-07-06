@@ -48,7 +48,7 @@
     border-radius: 20px;
 }
 
-#users{
+#usersButton{
     height: 50px;
     width: 100px;
     background: transparent;
@@ -61,7 +61,7 @@
     cursor: pointer;
 }
 
-#games{
+#gamesButton{
     height: 50px;
     width: 100px;
     background: transparent;
