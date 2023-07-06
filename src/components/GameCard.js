@@ -1,11 +1,11 @@
-/* for the search page */
+import placeHolder from '../images/placeHolderImage.png';
+import './GameCard.css';
 
 function GameCard(){
     return (
-        <div>   
-            <div class="item1">item1</div>
-            <div class="item2">item2</div>
-            <div class="item3">item3</div>
+        <div className="card">
+            <img id="cardImage" src={placeHolder} alt="Game cover art."></img>
+            <p id="cardGameTitle">Game Title</p>
         </div>
     )
 }

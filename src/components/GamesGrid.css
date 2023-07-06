@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+#grid{
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+    height: 100%;
+}
+
+#cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
