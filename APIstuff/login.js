@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = 3000;
 
-const user = require('./APIstuff/usermodel')
+const User = require('./APIstuff/usermodel')
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/    ', { useNewUrlParser: true, useUnifiedTopology: true })
