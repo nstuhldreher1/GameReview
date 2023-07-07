@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
+/* this "box" holds all the review components */
+/* the review components are all those light blue rectangles */
 #reviewContainer{
     width: 1000px;
     height: 100%;

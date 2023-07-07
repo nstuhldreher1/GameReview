@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
+/* every review has this */
 #gamereviewContainer{
     font-family: 'Inter';
     color: white;
@@ -22,6 +23,7 @@
     margin-left: 10px;
 }
 
+/* example: ryan kolano reviewed x game */
 #activity{
     width: 800px;
     height: 10px;
@@ -51,6 +53,7 @@
     height: 25px;
 }
 
+/* text associated with how many likes */
 #likes{
     font-size: 14px;
     align-self: center;

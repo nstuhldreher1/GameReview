@@ -1,0 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+#list{
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+}

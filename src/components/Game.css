@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
+/* the box that holds the game's info */
 #gameContainer{
     display: grid;
     grid-template-rows: repeat(8, 50px);

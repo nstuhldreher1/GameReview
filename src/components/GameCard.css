@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
+/* the box that holds the image/name of the game */
 .card{
     flex: 0 0 calc(33.33% - 20px);
     max-width: calc(33.33% - 20px);
@@ -9,6 +10,7 @@
     border: 2px solid transparent;
 }
   
+/* make the card bigger when its hovered */
 .card:hover{
     transform: scale(1.1); 
     cursor: pointer;

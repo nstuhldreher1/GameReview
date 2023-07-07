@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
+/* the overall box that houses the game cards */
 #grid{
     max-width: 1000px;
     width: 100%;
@@ -7,9 +8,10 @@
     height: 100%;
     padding: 25px;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
+/* how each game card should behave in response to viewport changes */
 #cards{
     display: flex;
     flex-wrap: wrap;
