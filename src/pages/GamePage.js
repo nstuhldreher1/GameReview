@@ -11,11 +11,11 @@ function GamePage(){
             <div id="navigation">
                 <NavBar/>
             </div>
-            <div id="game">
-                <Game/>
-            </div>
             <div id="review">
                 <ReviewList/>
+            </div>
+            <div id="game">
+                <Game/>
             </div>
         </div>
     );
