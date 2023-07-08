@@ -54,3 +54,27 @@
     font-size: 16px;
     font-weight: bold;
 } 
+
+/* below contains the css for the review popup for when the review button is clicked */
+/* my idea of putting the review popup here is because the review button is part of */
+/* the game component so having the form here would maintain that consistency */
+
+#reviewPopup{
+    
+}
+
+#reviewPopupCloseButton{
+
+}
+
+#reviewPopupForm{
+    
+}
+
+#reviewPopupInput{
+
+}
+
+#reviewPopupPostButton{
+    
+}
