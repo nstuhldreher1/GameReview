@@ -1,15 +1,18 @@
-const express = require('express');
+require('dotenv').config();
+const  port = 3001;
+const  express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const  bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-require('dotenv').config();
-
 const app = express();
-const port = 3000;
+const cors = require('cors');
 
+app.use(cors());
+
+// require('dotenv').config();
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/LargeProjectDB', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -19,8 +22,8 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
 
 // User model
 const userSchema = new mongoose.Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    UserID: {type: Integer, default: Math.random() * 10000},
+    name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -36,7 +39,7 @@ app.use(express.json());
 app.post('/signup', async (req, res) => {
 
 const { firstName, lastName, email, username, password } = req.body;
-
+  console.log(firstName, lastName, email, username, password);
   try {
     // Check if user with the same email or username already exists
     const existingUser = await User.findOne().or([{ email }, { username }]);
@@ -55,7 +58,7 @@ const { firstName, lastName, email, username, password } = req.body;
         username,
         password: hashedPassword,
     });
-
+    console.log("line 61");
     // Save the user to the database
     await user.save();
 
@@ -74,7 +77,7 @@ const { firstName, lastName, email, username, password } = req.body;
       subject: 'Confirm Account Creation',
       text: 'Please confirm your account by clicking the following link: http://example.com/confirm',
     };
-
+    console.log("line 80");
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error('Email sending failed', error);
