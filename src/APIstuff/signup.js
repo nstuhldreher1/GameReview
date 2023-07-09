@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
 
 // User model
 const userSchema = new mongoose.Schema({
-    UserID: {type: Integer, default: Math.random() * 10000},
+    UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true },
@@ -38,8 +38,8 @@ app.use(express.json());
 // Registration route
 app.post('/signup', async (req, res) => {
 
-const { firstName, lastName, email, username, password } = req.body;
-  console.log(firstName, lastName, email, username, password);
+const { name, email, username, password } = req.body;
+  console.log(name, email, username, password);
   try {
     // Check if user with the same email or username already exists
     const existingUser = await User.findOne().or([{ email }, { username }]);
@@ -52,8 +52,7 @@ const { firstName, lastName, email, username, password } = req.body;
 
     // Create a new user
     const user = new User({
-        firstName,
-        lastName,
+        name,
         email,
         username,
         password: hashedPassword,
