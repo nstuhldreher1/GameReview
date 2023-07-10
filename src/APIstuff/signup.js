@@ -24,14 +24,13 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
 const userSchema = new mongoose.Schema({
     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true},
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isConfirmed: { type: Boolean, default: false },
   });
   
 const User = mongoose.model('User', userSchema);
-
 // Middleware
 app.use(express.json());
 
@@ -42,7 +41,7 @@ const { name, email, username, password } = req.body;
   console.log(name, email, username, password);
   try {
     // Check if user with the same email or username already exists
-    const existingUser = await User.findOne().or([{ email }, { username }]);
+    const existingUser = await User.findOne().or([{ username }]);
     if (existingUser) {
       return res.status(409).json({ error: 'User already exists' });
     }
@@ -58,6 +57,7 @@ const { name, email, username, password } = req.body;
         password: hashedPassword,
     });
     console.log("line 61");
+
     // Save the user to the database
     await user.save();
 
@@ -91,6 +91,9 @@ const { name, email, username, password } = req.body;
     res.status(500).json({ error: 'An internal server error occurred' });
   }
 });
+
+
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
