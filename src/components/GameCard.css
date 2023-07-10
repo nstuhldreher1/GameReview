@@ -8,6 +8,7 @@
     margin-bottom: 20px;
     transition: all .2s ease-in-out; 
     border: 2px solid transparent;
+    background: transparent;
 }
   
 /* make the card bigger when its hovered */
