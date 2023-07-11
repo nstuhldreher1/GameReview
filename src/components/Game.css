@@ -17,7 +17,7 @@
 }
 
 #gameTitle{
-    grid-row: 1 / 2;
+    grid-row: 2 / 3;
     grid-column: 4 / 7;
     font-size: 40px;
     font-weight: bold;
@@ -39,6 +39,7 @@
 }
 
 #avgRating{
+    margin-top: 20px;
     width: 500px;
     height: 10px;
     grid-row: 3 / 4;

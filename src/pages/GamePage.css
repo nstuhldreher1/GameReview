@@ -26,3 +26,8 @@
     grid-row: 11 / 22;
     height: 85vh;
 }
+
+/* if the viewport goes below 1400px... */
+@media (max-width: 1400px){
+    
+}
