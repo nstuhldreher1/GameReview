@@ -1,33 +1,72 @@
 /* this is the entire page */
 #gamePage{
     display: grid;
-    grid-template-columns: repeat(20, 100px);
-    grid-template-rows: repeat(28, 50px);
+    grid-template-columns: 1fr 3fr 1fr;
+    margin: 20px;
 }
 
 /* section that contains the nav bar*/
 #navigation{
-    height: 100vh;
-    grid-row: 2 / 22;
-    grid-column: 1 / 4;
+    /* background-color: red; */
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    padding-right: 20px;
+}
+
+#content{
+    /* background-color: white; */
+    display: grid;
+    grid-template-rows: 440px 800px;
+
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
 }
 
 /* section that contains info about a certain game */
 #game{
-    width: 1000px;
-    height: 400px;
-    grid-column: 5 / 11;
-    grid-row: 2 / 9;
+    /* background-color: aqua; */
+    grid-row: 1 / 2;
+    padding: 20px;
 }
 
 /* section that contains user reviews */
 #review{
-    grid-column: 5 / 15;
-    grid-row: 11 / 22;
-    height: 85vh;
+    /* background-color: black; */
+    padding: 20px;
+    grid-row: 2;
 }
 
-/* if the viewport goes below 1400px... */
-@media (max-width: 1400px){
-    
+@media (max-width: 1149px) and (min-width: 890px){
+    #content{
+        grid-template-rows: 590px 800px;
+    }
+}
+
+@media (max-width: 889px) and (min-width: 750px){
+    #content{  
+        grid-column: 2 / 4;
+        grid-template-rows: 640px 800px;
+    }
+}
+
+@media (max-width: 749px) {
+    #gamePage{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 500px 1540px;
+        margin: 20px;
+    }
+
+    #navigation{
+        /* background-color: red; */
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        padding-right: 20px;
+    }
+
+    #content{  
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        grid-template-rows: 740px 800px;
+    }
 }

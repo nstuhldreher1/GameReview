@@ -4,22 +4,29 @@
 /* the box that holds the game's info */
 #gameContainer{
     display: grid;
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(8, 50px);
-    grid-template-columns: repeat(10, 100px);
+
     color: white;
+    /* background-color: red; */
 }
 
-#gameImage{
-    width: 250px;
-    height: 350px;
-    grid-row: 2 / 8;
+#imageContainer{
+    /* background-color: black; */
+    grid-row: 2 / 9;
     grid-column: 1 / 3;
 }
 
+#gameImage{
+    width: 100%;
+    height: 100%;
+}
+
 #gameTitle{
+    margin: 0 0 0 10px;
     grid-row: 2 / 3;
-    grid-column: 4 / 7;
-    font-size: 40px;
+    grid-column: 3 / 7;
+    font-size: clamp(26px, 2vw, 40px);
     font-weight: bold;
 }
 
@@ -30,7 +37,7 @@
     text-align: center;
     font-family: 'Inter';
     color: white;
-    font-size: 24px;
+    font-size: clamp(16px, 2vw, 24px);
     border-radius: 10px;
     border-style: none;
     grid-row: 2 / 3;
@@ -39,21 +46,18 @@
 }
 
 #avgRating{
-    margin-top: 20px;
-    width: 500px;
-    height: 10px;
-    grid-row: 3 / 4;
-    grid-column: 4 / -1;
-    font-size: 35px;
+    margin: 0 0 0 10px;
+    grid-row: 4 / 5;
+    grid-column: 3 / 10;
+    font-size: clamp(21px, 1.5vw, 35px);
     font-weight: bold;
 }
 
 #gameDescription{
-    width: 700px;
-    height: 200px;
+    margin-left: 15px;
     grid-row: 5 / -1;
-    grid-column: 4 / 10;
-    font-size: 16px;
+    grid-column: 3 / 10;
+    font-size: clamp(12px, 2vw, 16px);
     font-weight: bold;
 } 
 
@@ -62,64 +66,59 @@
 /* the game component so having the form here would maintain that consistency */
 
 #reviewPopup{
-    width: 800px;
-    height: 500px;
     background-color: #404F71;
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    display: grid;
-    grid-template-columns: repeat(10, 80px);
-    grid-template-rows: repeat(25, 20px);
-    position: inherit;
-    grid-column: 2 / 10;
-    grid-row: 5 / 10;
+    z-index: 9999;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 450px;
+    height: 420px;
 }
 
 #reviewPopupCloseButton{
     background: transparent;
-    width: 80px;
-    height: 60px;
     border-style: none;
     color: #D9D9D9;
     font-family: 'Kalam';
     font-size: 50px;
     font-weight: bold;
-    grid-row: 1 / 4;
-    grid-column: 10 / 11;
-    padding-right: 10px;
-    padding-top: 10px;
+    padding: 10px;
     cursor: pointer;
+    float: right;
 }
 
 #reviewPopupRateText{
     color: #D9D9D9;
     font-family: 'Inter';
-    font-size: 50px;
+    font-size: clamp(32px, 4vw, 50px);
     font-weight: bold;
     width: 320px;
     height: 60px;
-    margin-top: 0;
+    margin-top: 60px;
     margin-bottom: 0;
-    grid-row: 4 / 5;
-    grid-column: 2 / 6;
+    margin-left: 20px;
 }
 
 /* acts as a div */
 #reviewPopupForm{
-    width: 640px;
-    height: 260px;
-    grid-row: 8 / 22;
-    grid-column: 2 / 9;
+    width: 80%;
+    height: 50%;
+    margin-left: 20px;
 }
 
 #reviewPopupInput{
-    width: 632px;
-    height: 254px;
+    width: 100%;
+    height: 100%;
     background-color: #D9D9D9;
     border-style: none;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: clamp(12px 3vw 20px);
     padding: 5px;
     resize: none;
 }
@@ -131,10 +130,127 @@
     text-align: center;
     font-family: 'Inter';
     color: white;
-    font-size: 24px;
+    font-size: clamp(16px, 2vw, 24px);
     border-radius: 10px;
     border-style: none;
     cursor: pointer;
-    grid-row: 22 / 23;
-    grid-column: 8 / 10;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+/* if the viewport is less than 1400px */
+@media (max-width: 1400px) and (min-width: 1150px){
+
+    #imageContainer{
+        grid-row: 2 / 7;
+        grid-column: 1 / 3;
+    }
+
+    #avgRating{
+        grid-row: 3 / 4;
+        grid-column: 3 / 10;
+    }
+
+    #gameDescription{
+        grid-row: 4 / 5;
+    }
+}
+
+@media (max-width: 1149px) and (min-width: 890px){
+    #gameContainer{
+        grid-template-rows: repeat(11, 50px);
+    }
+
+    #imageContainer{
+        grid-row: 2 / 7;
+        grid-column: 1 / 4;
+    }
+
+    #gameTitle{
+        grid-row: 3 / 4;
+        grid-column: 4 / 8;
+    }
+    
+    #reviewButton{
+        margin-left: 10px;
+        grid-row: 2 / 3;
+        grid-column: 4 / 5;
+    }
+    
+    #avgRating{
+        grid-row: 4 / 5;
+        grid-column: 4 / 10;
+    }
+    
+    #gameDescription{
+        grid-row: 7 / -1;
+        grid-column: 1 / 10;
+        margin-left: 0;
+    } 
+}
+
+@media (max-width: 889px) and (min-width: 750px){
+    #gameContainer{
+        grid-template-rows: repeat(12, 50px);
+    }
+
+    #imageContainer{
+        grid-row: 2 / 7;
+        grid-column: 1 / 4;
+    }
+
+    #gameTitle{
+        grid-row: 3 / 4;
+        grid-column: 4 / 7;
+    }
+    
+    #reviewButton{
+        margin-left: 10px;
+        grid-row: 2 / 3;
+        grid-column: 4 / 4;
+    }
+    
+    #avgRating{
+        grid-row: 4 / 5;
+        grid-column: 4 / 10;
+    }
+    
+    #gameDescription{
+        grid-row: 7 / -1;
+        grid-column: 1 / 10;
+    } 
+}
+
+@media (max-width: 749px) {
+    #gameContainer{
+        grid-template-rows: repeat(14, 50px);
+    }
+
+    #imageContainer{
+        grid-row: 2 / 7;
+        grid-column: 3 / 6;
+    }
+
+    #gameTitle{
+        grid-row: 8 / 9;
+        grid-column: 1 / 10;
+    }
+    
+    #reviewButton{
+        margin-top: 10px;
+        width: 100px;
+        height: 30px;
+        grid-row: 7 / 7;
+        grid-column: 4 / 4;
+    }
+    
+    #avgRating{
+        grid-row: 9 / 10;
+        grid-column: 1 / 10;
+    }
+    
+    #gameDescription{
+        grid-row: 11 / -1;
+        grid-column: 1 / 10;
+    } 
 }

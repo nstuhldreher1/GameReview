@@ -9,13 +9,15 @@ function GamePage(){
     return(
         <div id="gamePage">
             <div id="navigation">
-                <NavBar/>
+                <NavBar/>    
             </div>
-            <div id="review">
-                <ReviewList/>
-            </div>
-            <div id="game">
-                <Game/>
+            <div id="content">
+                <div id="review">
+                    <ReviewList />
+                </div>
+                <div id="game">
+                    <Game/>
+                </div>
             </div>
         </div>
     );
