@@ -6,8 +6,7 @@ import { useState } from 'react';
 // import {doRegistration} from '../APIstuff/signup'
 
 function Signup(){
-    const [firstName, setfirstName] = useState('');
-    const [lastName, setlastName] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,16 +14,15 @@ function Signup(){
     async function registerUser(event) {
         event.preventDefault();
 
-        const response = await fetch('http://localhost:3000/signup', {
-            method: 'GET',
+        const response = await fetch('http://localhost:3001/signup', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
 
             },
 
             body: JSON.stringify({
-                firstName,
-                lastName,
+                name,
                 email,
                 username,
                 password
@@ -44,9 +42,9 @@ function Signup(){
                     <div id="first-last">
                         <p class="form-text">First Name</p>
                         <p class="form-text">Last Name</p>
-                        <input type="text" onChange={(e) => setfirstName(e.target.value)} 
+                        <input type="text" onChange={(e) => setName(e.target.value)} 
                         class="form-data-small" id="signup-firstname"/>
-                        <input type="text" onChange={(e) => setlastName(e.target.value)} 
+                        <input type="text" onChange={(e) => setName(name + " " + e.target.value)} 
                          class="form-data-small" id="signup-lastname"/>
                     </div>
                     <p class="form-text">Email</p>

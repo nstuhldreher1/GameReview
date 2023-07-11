@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import LandingPage from './pages/LandingPage.js';
