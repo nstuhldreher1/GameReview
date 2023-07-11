@@ -45,6 +45,10 @@
     cursor: pointer;
 }
 
+#reviewButton:hover{
+    background-color: #3d92e2;
+}
+
 #avgRating{
     margin: 0 0 0 10px;
     grid-row: 4 / 5;
@@ -68,8 +72,9 @@
 #reviewPopup{
     background-color: #404F71;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     border-color: black;
+    border-radius: 15px;
     z-index: 9999;
     position: absolute;
     top:0;
@@ -77,7 +82,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    width: 450px;
+    width: 40%;
     height: 420px;
 }
 
@@ -88,7 +93,7 @@
     font-family: 'Kalam';
     font-size: 50px;
     font-weight: bold;
-    padding: 10px;
+    margin: 5px;
     cursor: pointer;
     float: right;
 }
@@ -136,6 +141,10 @@
     cursor: pointer;
     margin-left: 20px;
     margin-top: 20px;
+}
+
+#reviewPopupPostButton:hover{
+    background-color: #3d92e2;
 }
 
 /* if the viewport is less than 1400px */
@@ -252,5 +261,7 @@
     #gameDescription{
         grid-row: 11 / -1;
         grid-column: 1 / 10;
+        overflow: hidden;
+        overflow-y: auto;
     } 
 }

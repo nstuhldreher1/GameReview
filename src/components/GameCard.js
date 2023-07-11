@@ -8,9 +8,9 @@ function GameCard(){
     return (
         <div className="card">
             <img id="cardImage" src={placeHolder} alt="Game cover art."></img>
-            <p id="cardGameTitle">Game Title</p>
+            <p id="cardGameTitle">The Legend of Zelda: Tears of the Kingdom</p>
         </div>
-    )
+    );
 }
 
 export default GameCard;

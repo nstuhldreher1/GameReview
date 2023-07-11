@@ -2,10 +2,7 @@
 
 /* the box that holds the image/name of the game */
 .card{
-    flex: 0 0 calc(33.33% - 20px);
-    max-width: calc(33.33% - 20px);
-    width: 100%;
-    margin-bottom: 20px;
+    width: 250px;
     transition: all .2s ease-in-out; 
     border: 2px solid transparent;
     background: transparent;
@@ -24,7 +21,13 @@
 
 #cardGameTitle{
     font-family: 'Inter';
-    font-size: 30px;
+    font-size: clamp(20px, 3vw, 30px);
     color: white;
     text-align: center;
+}
+
+@media(max-width: 859px) and (min-width: 576px){
+    .card{
+        width: 200px;
+    }
 }

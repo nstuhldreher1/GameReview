@@ -3,55 +3,42 @@
 /* the overall layout of the page */
 #searchPage{
     display: grid;
-    grid-template-columns: repeat(20, 100px);
-    grid-template-rows: repeat(28, 50px);
+    grid-template-columns: 1fr 3fr 1fr;
+    margin: 20px;
 }
 
 /* for the nav bar */
-#navigation{
-    height: 100vh;
-    grid-row: 2 / 22;
-    grid-column: 1 / 4;
-}
-
-/* a section for the search form */
-#searchBar{
-    width: 1000px;
-    height: 50px;
-    grid-row: 3 / 4;
-    grid-column: 5 / 15;
-    display: grid;
-    grid-template-columns: repeat(10, 100px);
-    grid-template-rows: 50px;
-    
-}
-
-#searchButton{
-    height: 50px;
-    width: 50px;
+#searchNavigation{
+    /* background-color: red; */
     grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    background: transparent;
-    border-style: none;
-    cursor: pointer;
+    grid-row: 1 / 3;
+    padding-right: 20px;
 }
 
-#searchIcon{
-    height: 50px;
-    width: 50px;
+#searchContent{
+    /* background-color: white; */
+    display: grid;
+    grid-template-rows: 240px 1000px;
+
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
 }
 
-/* form input */
-#searchInput{
-    background-color: #d9d9d9;
-    height: 50px;
-    width: 900px;
-    grid-column: 2 / 10;
+#searchHeader{
+    /* background-color: blue; */
     grid-row: 1 / 2;
-    border-style: none;
-    border-radius: 20px;
-    font-family: 'Inter';
-    font-size: 35px;
+    padding: 20px;
+}
+
+#searchedItems{
+    /* background-color: black; */
+    padding: 20px;
+    grid-row: 2;
+}
+
+#searchTabs{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
 }
 
 /* show users tab */
@@ -61,10 +48,9 @@
     background: transparent;
     color: #d9d9d9;
     border-style: none;
-    font-size: 30px;
+    font-size: clamp(25px, 3.5vw, 30px);
     font-weight: bold;
-    grid-row: 5 / 6;
-    grid-column: 7 / 9;
+    grid-column: 3 / 4;
     cursor: pointer;
 }
 
@@ -75,27 +61,38 @@
     background: transparent;
     color: #d9d9d9;
     border-style: none;
-    font-size: 30px;
+    font-size: clamp(25px, 3.5vw, 30px);
     font-weight: bold;
-    grid-row: 5 / 6;
-    grid-column: 12 / 14;
+    grid-column: 8 / 9;
     cursor: pointer;
 }
 
-#gameTab{
-    grid-column: 5 / 15;
-    grid-row: 7 / 28;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 1500px) and (min-width: 860px){
+    #searchPage{
+        grid-template-columns: 1fr 3fr;
+    }
 }
 
-#userTab{
-    grid-column: 5 / 15;
-    grid-row: 7 / 28;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 859px) and (min-width: 576px){
+    #searchPage{
+        grid-template-columns: 1fr 3fr;
+    }
+}
+
+@media(max-width: 575px){
+    #searchPage{
+        grid-template-columns: 1fr;
+    }
+
+    #searchNavigation{
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #searchContent {
+        display: grid;
+        grid-template-rows: 240px 1000px;
+        grid-column: 1;
+        grid-row: 2;
+    }
 }

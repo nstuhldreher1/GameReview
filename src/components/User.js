@@ -11,7 +11,7 @@ function User(){
             <p id="userName">Nicholas Stuhlreher</p>
             <p id="userEmail">@nstuhldreher</p>
         </div>
-    )
+    );
 }
 
 export default User;

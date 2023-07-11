@@ -7,16 +7,14 @@ import './GamesGrid.css';
 function GamesGrid(){
     return(
         <div id="grid">
-            <div id="cards">
-                {/* placeholder cards */}
-                <GameCard/>
-                <GameCard/>
-                <GameCard/>
-                <GameCard/>
-                <GameCard/>
-                <GameCard/>
-                <GameCard/>
-            </div> 
+            {/* placeholder cards */}
+            <GameCard/>
+            <GameCard/>
+            <GameCard/>
+            <GameCard/>
+            <GameCard/>
+            <GameCard/>
+            <GameCard/>
         </div>
     );
 }
