@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
 
 // User model
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true},
+  username: { type: String, required: true, unique: true},
   password: { type: String, required: true },
 });
 
@@ -27,11 +27,11 @@ app.use(express.json());
 
 // Login route
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     // Check if user exists
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
