@@ -110,4 +110,5 @@
 .error-text{
     color: white;
     font:"Inter";
+    font-weight: bold;
 }

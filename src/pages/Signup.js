@@ -1,6 +1,6 @@
 import './Signup.css';
 import {Link} from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // require('dotenv').config();
 // import {doRegistration} from '../APIstuff/signup'
@@ -21,6 +21,12 @@ function Signup(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    // concat both the first and last name into name useState
+    // used to update the name useState
+    useEffect(() => {
+        setName(firstName + " " + lastName);
+    }, [firstName, lastName, name]);
+
     const checkInput = (event) => {
         let isValid = true;
 
@@ -30,8 +36,8 @@ function Signup(){
         // check for proper email format
         // check for empty input for username
         // check for empty input for password
-        if (firstName.length == 0 || lastName.length == 0 || email.length == 0 ||
-            username.length == 0 || password.length == 0) {
+        if (firstName.length === 0 || lastName.length === 0 || email.length === 0 ||
+            username.length === 0 || password.length === 0) {
                 // display error message to user about missing fields
                 isValid = false;
                 toggleMissingField(true);
@@ -48,7 +54,7 @@ function Signup(){
 
         // credit: https://regexlib.com/REDetails.aspx?regexp_id=2558
         const emailRegex = /^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/;
-        if (emailRegex.test(email) == false) {
+        if (emailRegex.test(email) === false) {
             // display error message to user about invalid email
             isValid = false;
             toggleInvalidEMail(true);
@@ -65,35 +71,41 @@ function Signup(){
 
         // credit: https://regexlib.com/REDetails.aspx?regexp_id=1111
         const passRegex = /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
-        if (passRegex.test(password) == false) {
+        if (passRegex.test(password) === false) {
             // display error message to user about invalid password
             isValid = false;
             toggleInvalidPass(true);
         } else {
             toggleInvalidPass(false);
         }
+
+        return isValid;
     }
 
     async function registerUser(event) {
         event.preventDefault();
 
-        const response = await fetch('http://localhost:3001/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        // check to see if the form input is valid
+        // if it is, go ahead with the API
+        if (checkInput(event) === true) {
+            const response = await fetch('http://localhost:3001/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
 
-            },
+                },
 
-            body: JSON.stringify({
-                name,
-                email,
-                username,
-                password
-            }),
-        })
+                body: JSON.stringify({
+                    name,
+                    email,
+                    username,
+                    password
+                }),
+            })
 
-        const data = await response.json();
-        console.log(data);
+            const data = await response.json();
+            console.log(data);
+        }
     }
 
     return(
@@ -123,7 +135,7 @@ function Signup(){
             </div>
             
             <div id="button-position-signup">
-                <input type = "button" onClick={checkInput}  id="signup-button" value="Signup"/>
+                <input type = "button" onClick={registerUser}  id="signup-button" value="Signup"/>
             </div>
             <p class="form-text" id="login-prompt"><Link to='/login' id="login-link">Login</Link></p>
 
