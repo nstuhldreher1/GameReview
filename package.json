@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
-    "dev": "nodemon src/APIstuff/signup.js"
+    "dev": "nodemon src/APIstuff/server.js"
   },
   "eslintConfig": {
     "extends": [

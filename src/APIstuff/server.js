@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
 app.use(cors());
 
@@ -38,7 +39,6 @@ app.use(express.json());
 app.post('/signup', async (req, res) => {
 
 const { name, email, username, password } = req.body;
-  console.log(name, email, username, password);
   try {
     // Check if user with the same email or username already exists
     const existingUser = await User.findOne().or([{ username }]);
@@ -92,7 +92,31 @@ const { name, email, username, password } = req.body;
   }
 });
 
+// Login route
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
 
+  try {
+    // Check if user exists
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Compare passwords
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+    if (!passwordsMatch) {
+      return res.status(401).json({ error: 'Invalid password' });
+    }
+
+    // Generate and return JWT token
+    const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY');
+    res.json({ token });
+  } catch (err) {
+    console.error('Login error', err);
+    res.status(500).json({ error: 'An internal server error occurred' });
+  }
+});
 
 
 app.listen(port, () => {
