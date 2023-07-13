@@ -63,12 +63,13 @@ const { name, email, username, password } = req.body;
 
     // Send email to confirm account creation
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.ethereal.email',
+      port: 587,
       auth: {
-        user: 'process.env.EMAIL',
-        pass: 'process.env.EMAIL_PASSWORD',
-      },
-    });
+          user: 'rick.ledner@ethereal.email',
+          pass: 'T7j7GQNb3mKAY9MsWt'
+      }
+      });
 
     const mailOptions = {
       from: 'process.env.EMAIL',
