@@ -2,7 +2,7 @@ import './GamePage.css';
 
 import NavBar from '../components/NavBar.js';
 import Game from '../components/Game.js';
-import ReviewList from '../components/ReviewList';
+import ReviewList from '../components/ReviewList.js';
 
 // returns a JSX that holds sections for the above components
 function GamePage(){
@@ -13,7 +13,7 @@ function GamePage(){
             </div>
             <div id="content">
                 <div id="review">
-                    <ReviewList />
+                    <ReviewList/>
                 </div>
                 <div id="game">
                     <Game/>

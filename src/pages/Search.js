@@ -5,8 +5,6 @@ import GamesGrid from '../components/GamesGrid.js';
 import UsersList from '../components/UsersList';
 import SearchBar from '../components/SearchBar';
 
-
-
 import { useState } from 'react';
 
 function Search(){
@@ -18,6 +16,11 @@ function Search(){
     const toggleTab = (tabType) => {
         setToggleState(tabType);
     };
+
+    // function that either searches for users or games 
+    // depending on what tab is open
+
+
 
     return (
         <div id="searchPage">

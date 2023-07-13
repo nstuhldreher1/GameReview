@@ -100,3 +100,14 @@
     font-size: 14px;
     font-weight: 500;
 }
+
+/*signup error messages*/
+#signup-errors{
+    background-color: #404F71;
+    border-radius: 5px;
+}
+
+.error-text{
+    color: white;
+    font:"Inter";
+}
