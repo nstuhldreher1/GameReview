@@ -23,6 +23,7 @@
     font-family: 'Inter';
     font-size: clamp(20px, 3vw, 30px);
     color: white;
+    
     text-align: center;
 }
 

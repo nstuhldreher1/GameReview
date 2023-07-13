@@ -18,6 +18,7 @@
     height: 80px;
     width: 80px;
     border-radius: 80px;
+
     margin-top: 10px;
     margin-left: 10px;
     grid-row: 1 / 2;
@@ -41,24 +42,27 @@
 
 #likeButton{
     display: flex;
-    grid-row: 3 / 4;
-    grid-column: 1 / 2;
     background: transparent;
     border-style: none;
+
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
     margin-left: 3px;
 }
 
 #heart{
-    align-self: center;
     width: 25px;
     height: 25px;
+
+    align-self: center;
 }
 
 /* text associated with how many likes */
 #likes{
     font-size: 13px;
-    align-self: center;
     color: white;
     font-family: 'Inter';
+
+    align-self: center;
     margin-left: 8px;
 }

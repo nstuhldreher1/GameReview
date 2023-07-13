@@ -6,6 +6,7 @@ function SearchBar(){
     // user input
     var input;
 
+    // search function
     const search = async event =>
     {
         event.preventDefault();

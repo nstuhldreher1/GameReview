@@ -4,7 +4,8 @@ import NavBar from '../components/NavBar.js';
 import Game from '../components/Game.js';
 import ReviewList from '../components/ReviewList.js';
 
-// returns a JSX that holds sections for the above components
+// gamepage split into navigation and content sections
+// content section split into game and review sections
 function GamePage(){
     return(
         <div id="gamePage">

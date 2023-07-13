@@ -1,18 +1,26 @@
-/* this is the entire page */
+/* NOTE: styling for each element split into two parts */
+/* first half: styling, colors, display, etc. */
+/* second half: position, placement, etc. */
+
+/* entire page */
 #gamePage{
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr; /* 3 columns */
+
     margin: 20px;
 }
 
-/* section that contains the nav bar*/
+/* section that contains the nav bar */
 #navigation{
+    /* to see how the sections are placed, uncomment the background colors */
     /* background-color: red; */
+
     grid-column: 1 / 2;
     grid-row: 1 / 3;
     padding-right: 20px;
 }
 
+/* section that contains the game and reviews section */
 #content{
     /* background-color: white; */
     display: grid;
@@ -25,6 +33,7 @@
 /* section that contains info about a certain game */
 #game{
     /* background-color: aqua; */
+
     grid-row: 1 / 2;
     padding: 20px;
 }
@@ -32,10 +41,14 @@
 /* section that contains user reviews */
 #review{
     /* background-color: black; */
+
     padding: 20px;
     grid-row: 2;
 }
 
+/* media queries to change how the page looks based on screen width */
+
+/* if the viewport is between 1149px and 890px, do this */
 @media (max-width: 1149px) and (min-width: 890px){
     #content{
         grid-template-rows: 590px 800px;
@@ -44,8 +57,9 @@
 
 @media (max-width: 889px) and (min-width: 750px){
     #content{  
-        grid-column: 2 / 4;
         grid-template-rows: 640px 800px;
+
+        grid-column: 2 / 4;   
     }
 }
 
@@ -54,19 +68,22 @@
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 500px 1540px;
+
         margin: 20px;
     }
 
     #navigation{
         /* background-color: red; */
+
         grid-column: 1 / 2;
         grid-row: 1 / 2;
         padding-right: 20px;
     }
 
     #content{  
+        grid-template-rows: 740px 800px;
+
         grid-column: 1 / 2;
         grid-row: 2 / 3;
-        grid-template-rows: 740px 800px;
     }
 }

@@ -1,20 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
-/* the overall layout of the page */
+/* entire page */
 #searchPage{
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
+
     margin: 20px;
 }
 
-/* for the nav bar */
+/* section that contains the nav bar */
 #searchNavigation{
     /* background-color: red; */
+
     grid-column: 1 / 2;
     grid-row: 1 / 3;
     padding-right: 20px;
 }
 
+/* section that contains the search header and game/user tabs */
 #searchContent{
     /* background-color: white; */
     display: grid;
@@ -24,18 +27,15 @@
     grid-row: 1 / 3;
 }
 
+/* section that contains the search bar and user/games buttons */
 #searchHeader{
     /* background-color: blue; */
+
     grid-row: 1 / 2;
     padding: 20px;
 }
 
-#searchedItems{
-    /* background-color: black; */
-    padding: 20px;
-    grid-row: 2;
-}
-
+/* contains users/games buttons */
 #searchTabs{
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -48,10 +48,11 @@
     background: transparent;
     color: #d9d9d9;
     border-style: none;
-    font-size: clamp(25px, 3.5vw, 30px);
     font-weight: bold;
-    grid-column: 3 / 4;
     cursor: pointer;
+
+    font-size: clamp(25px, 3.5vw, 30px);
+    grid-column: 3 / 4;
 }
 
 /* show games tab */
@@ -61,15 +62,25 @@
     background: transparent;
     color: #d9d9d9;
     border-style: none;
-    font-size: clamp(25px, 3.5vw, 30px);
-    font-weight: bold;
-    grid-column: 8 / 9;
     cursor: pointer;
+    font-weight: bold;
+
+    font-size: clamp(25px, 3.5vw, 30px);
+    grid-column: 8 / 9;
 }
 
+/* section that contains the user/games */
+#searchedItems{
+    /* background-color: black; */
+
+    padding: 20px;
+    grid-row: 2;
+}
+
+/* if the screen width is between 1500px and 860px, do this */
 @media (max-width: 1500px) and (min-width: 860px){
     #searchPage{
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 1fr 3fr; /* change grid layout */
     }
 }
 
@@ -92,6 +103,7 @@
     #searchContent {
         display: grid;
         grid-template-rows: 240px 1000px;
+        
         grid-column: 1;
         grid-row: 2;
     }

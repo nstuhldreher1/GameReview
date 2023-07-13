@@ -17,28 +17,31 @@
     height: 80px;
     width: 80px;
     border-radius: 80px;
+
     margin-top: 10px;
     margin-left: 10px;
 }
 
 #userName{
+    font-weight: bold;
+
     grid-column: 2 / -1;
     grid-row: 1 / 2;
     font-size: clamp(20px, 3vw, 40px);
     margin: 0;
-    font-weight: bold;
     margin-left: 20px;
     margin-top: 5px;
 }
 
 #userEmail{
-    margin: 0;
     grid-column: 2 / -1;
     grid-row: 2 / 3;
     font-size: clamp(16px, 3vw, 25px);
+    margin: 0;
     margin-left: 20px;
 }
 
+/* if the screen width goes below 440px, do this */
 @media (max-width: 439px){
     #userContainer{
         grid-template-rows: repeat(4, 50px);

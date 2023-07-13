@@ -7,7 +7,7 @@ import placeHolder from '../images/placeHolderImage.png';
 function User(){
     return(
         <div id = "userContainer">
-            <img id="userProfilePicture" src={placeHolder} alt="of user."></img>
+            <img id="userProfilePicture" src={placeHolder} alt=" of user."></img>
             <p id="userName">Nicholas Stuhlreher</p>
             <p id="userEmail">@nstuhldreher</p>
         </div>
