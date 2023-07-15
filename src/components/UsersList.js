@@ -6,15 +6,7 @@ import User from './User.js';
 function UsersList(){
     return(
         <div id="list">
-            <User/>
-            <User/>
-            <User/>
-            <User/>
-            <User/>
-            <User/>
-            <User/>
-            <User/>
-            <User/>
+
         </div>
     )
 }

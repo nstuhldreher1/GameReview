@@ -8,13 +8,7 @@ function GamesGrid(){
     return(
         <div id="grid">
             {/* placeholder cards */}
-            <GameCard/>
-            <GameCard/>
-            <GameCard/>
-            <GameCard/>
-            <GameCard/>
-            <GameCard/>
-            <GameCard/>
+
         </div>
     );
 }

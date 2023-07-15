@@ -20,12 +20,19 @@ function Signup(){
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isVerified, setIsVerified] = useState(false);
 
     // concat both the first and last name into name useState
     // used to update the name useState
     useEffect(() => {
-        setName(firstName + " " + lastName);
+        setName(name => firstName + " " + lastName);
     }, [firstName, lastName, name]);
+
+    // initially set to false to hide form
+    // once the user's information is valid from signup,
+    // set to true to show email verification as the next step
+    // complete the verify step to hide form
+    const [showVerifyForm, setShowVerifyForm] = useState(false);
 
     const checkInput = (event) => {
         let isValid = true;
@@ -86,8 +93,10 @@ function Signup(){
         event.preventDefault();
 
         // check to see if the form input is valid
-        // if it is, go ahead with the API
+        // if it is, go to email verification step
         if (checkInput(event) === true) {
+            setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
+            
             const response = await fetch('http://localhost:3001/signup', {
                 method: 'POST',
                 headers: {
@@ -109,50 +118,59 @@ function Signup(){
     }
 
     return(
-        <div id="signup">
-            <div id="signup-inside">
-                <h1 id="signup-title">Signup</h1>
-                <form id="form-signup">
+        <div>
+            <div id="signup">
+                <div id="signup-inside">
+                    <h1 id="signup-title">Signup</h1>
+                    <form id="form-signup">
 
-                    <div id="first-last">
-                        <p class="form-text">First Name</p>
-                        <p class="form-text">Last Name</p>
-                        <input type="text" onChange={(e) => setFN(e.target.value)}
-                        class="form-data-small" id="signup-firstname"/>
-                        <input type="text" onChange={(e) => setLN(e.target.value)} 
-                         class="form-data-small" id="signup-lastname"/>
+                        <div id="first-last">
+                            <p class="form-text">First Name</p>
+                            <p class="form-text">Last Name</p>
+                            <input type="text" onChange={(e) => setFN(e.target.value)}
+                            class="form-data-small" id="signup-firstname"/>
+                            <input type="text" onChange={(e) => setLN(e.target.value)} 
+                            class="form-data-small" id="signup-lastname"/>
+                        </div>
+                        <p class="form-text">Email</p>
+                        <input type="text" onChange={(e) => setEmail(e.target.value)}
+                        id="signup-email" class="form-data"/>
+                        <p class="form-text">Username</p>
+                        <input type = "text" onChange={(e) => setUsername(e.target.value)}  
+                        id="signup-username" class="form-data"/>
+                        <p class="form-text">Password</p>
+                        <input type ="password" onChange={(e) => setPassword(e.target.value)} 
+                        id="signup-password" class="form-data"/>
+                    </form>
+                </div>
+                
+                <div id="button-position-signup">
+                    <input type = "button" onClick={registerUser} class="formButton" id="signup-button" value="Signup"/>
+                </div>
+                <p class="form-text" id="login-prompt"><Link to='/login' id="login-link">Login</Link></p>
+
+                {/* error message section for user */}
+                <div id="signup-errors">
+                    {missingField && <p class="error-text">Please fill out all fields.</p>}
+                    {invalidEmail && <p class="error-text">Email invalid. Please check that the email is formatted correctly.</p>}
+                    {invalidPass && <div><p class="error-text">Password invalid. Please verify that the password meets these requirements: </p>
+                                        <ul class="error-text">
+                                            <li>Length between 6-10 characters.</li>
+                                            <li>MUST have at least one uppercase letter.</li>
+                                            <li>MUST have at least one lowercase letter.</li>
+                                            <li>MUST have at least one digit.</li>
+                                            <li>MUST have at least one special character.</li>
+                                        </ul>
+                                    </div>}
+                </div>
+            </div>
+            {showVerifyForm && 
+                <div id="verify">
+                    <div id="verify-inside">
+                        <h1 id="verify-title">Verify Email Address</h1>
+                        <p id="verify-description">We have sent an email to {email}. Follow the instructions on that email to proceed with account creation.</p>
                     </div>
-                    <p class="form-text">Email</p>
-                    <input type="text" onChange={(e) => setEmail(e.target.value)}
-                      id="signup-email" class="form-data"/>
-                    <p class="form-text">Username</p>
-                    <input type = "text" onChange={(e) => setUsername(e.target.value)}  
-                    id="signup-username" class="form-data"/>
-                    <p class="form-text">Password</p>
-                    <input type ="password" onChange={(e) => setPassword(e.target.value)} 
-                     id="signup-password" class="form-data"/>
-                </form>
-            </div>
-            
-            <div id="button-position-signup">
-                <input type = "button" onClick={registerUser}  id="signup-button" value="Signup"/>
-            </div>
-            <p class="form-text" id="login-prompt"><Link to='/login' id="login-link">Login</Link></p>
-
-            {/* error message section for user */}
-            <div id="signup-errors">
-                {missingField && <p class="error-text">Please fill out all fields.</p>}
-                {invalidEmail && <p class="error-text">Email invalid. Please check that the email is formatted correctly.</p>}
-                {invalidPass && <div><p class="error-text">Password invalid. Please verify that the password meets these requirements: </p>
-                                    <ul class="error-text">
-                                        <li>Length between 6-10 characters.</li>
-                                        <li>MUST have at least one uppercase letter.</li>
-                                        <li>MUST have at least one lowercase letter.</li>
-                                        <li>MUST have at least one digit.</li>
-                                        <li>MUST have at least one special character.</li>
-                                    </ul>
-                                </div>}
-            </div>
+                </div>}
         </div>
     );
 }

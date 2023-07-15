@@ -1,10 +1,34 @@
+import { useState, createContext } from 'react';
+
 import Login from '../components/Login.js';
+import ForgotPassword from '../components/ForgotPassword.js';
+import Otp from '../components/Otp.js';
+import ResetPassword from '../components/ResetPassword.js';
+import RecoveredPassword from '../components/RecoveredPassword.js';
+
+export const RecoveryContext = createContext();
 
 function LoginPage(){
+    const [page, setPage] = useState("login");
+    const [email, setEmail] = useState();
+    const [otp, setOTP] = useState();
+
+    function Navigate() {
+        if (page === "login") return <Login/>;
+        if (page === "forgot") return <ForgotPassword/>;
+        if (page === "otp") return <Otp/>;
+        if (page === "reset") return <ResetPassword/>;
+        return <RecoveredPassword/>;
+    }
+
+
+
     return(
-        <div>
-            <Login/>
-        </div>
+        <RecoveryContext.Provider value={{ page, setPage, otp, setOTP, email, setEmail }}>
+            <div className="flex justify-center items-center">
+                <Navigate/>
+            </div>
+        </RecoveryContext.Provider>
     );
 }
 
