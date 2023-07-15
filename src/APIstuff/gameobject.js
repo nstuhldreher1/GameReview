@@ -1,3 +1,4 @@
+// gameobject
 const mongoose = require('mongoose');
 
 const gameObject = new mongoose.Schema({
@@ -12,13 +13,13 @@ const gameObject = new mongoose.Schema({
     gameCover: {
         type: String, // This will store the file location path
         required: true
-    }
+    },
     gameId: {
         type: Number, // this will store the randomly generated game ID to ensure reviews are properly attributed to the game object
         required: true
     }
 });
 
-const Game = mongoose.model('Game', gameObject );
+const Game = mongoose.model('Game', gameObject);
 
 module.exports = Game;
