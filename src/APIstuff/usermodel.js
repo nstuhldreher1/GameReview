@@ -29,4 +29,9 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         requried: true,
         unique:true
     }
+
+    following: {
+        type: [Number], // following will be an integer array used to store the userid's of the users this person is following
+        default: []
+    }
 });
