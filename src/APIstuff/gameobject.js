@@ -16,7 +16,8 @@ const gameObject = new mongoose.Schema({
     },
     gameId: {
         type: Number, // this will store the randomly generated game ID to ensure reviews are properly attributed to the game object
-        required: true
+        required: true,
+        unique: true
     }
 });
 
