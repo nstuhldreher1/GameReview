@@ -97,7 +97,7 @@ function Signup(){
         if (checkInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch('https://localhost:3000/signup', {
+            const response = await fetch('https://localhost:3001/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

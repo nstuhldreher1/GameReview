@@ -54,7 +54,7 @@ const { name, email, username, password } = req.body;
         name,
         email,
         username,
-        password: hashedPassword,
+        password: hashedPassword
     });
     console.log("line 61");
 
