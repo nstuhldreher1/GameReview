@@ -3,6 +3,8 @@
 /* the box that holds the image/name of the game */
 .card{
     width: 250px;
+    margin-left: auto;
+    margin-right: auto;
     transition: all .2s ease-in-out; 
     border: 2px solid transparent;
     background: transparent;

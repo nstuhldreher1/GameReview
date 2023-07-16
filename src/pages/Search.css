@@ -72,8 +72,7 @@
 /* section that contains the user/games */
 #searchedItems{
     /* background-color: black; */
-
-    padding: 20px;
+    
     grid-row: 2;
 }
 

@@ -6,7 +6,6 @@ import User from './User.js';
 function UsersList(){
     return(
         <div id="list">
-
         </div>
     )
 }

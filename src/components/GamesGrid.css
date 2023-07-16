@@ -5,8 +5,7 @@
     height: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-
-    padding: 20px;
+    padding: 50px;
     grid-gap: 20px;
     overflow: hidden;
     overflow-y: auto;

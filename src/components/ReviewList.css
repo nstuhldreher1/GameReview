@@ -8,5 +8,5 @@
     height: 750px;
     /* background-color: blue; */
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
