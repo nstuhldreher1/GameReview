@@ -94,7 +94,7 @@ const { name, email, username, password } = req.body;
 });
 
 // Login route
-app.post('/login', async (req, res) => {
+app.post('/login-api', async (req, res) => {
   const { username, password } = req.body;
 
   try {
