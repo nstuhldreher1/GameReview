@@ -93,27 +93,31 @@ function Signup(){
         event.preventDefault();
 
         // check to see if the form input is valid
-        // if it is, go to email verification step
+        // if it is, create the account
         if (checkInput(event) === true) {
-            setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
-            
-            const response = await fetch('http://localhost:3001/signup', {
+
+            // call signup API to create user
+            const response = await fetch('https://localhost:3000/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-
                 },
-
                 body: JSON.stringify({
-                    name,
-                    email,
-                    username,
-                    password
+                    name: name,
+                    email: email,
+                    username: username,
+                    password: password
                 }),
             })
+            if (response === 409) {
+                console.log("User already taken");
+            } else if (response.ok) {
+                var res = JSON.parse(await response.text());
+                console.log("User account creation successful.");
 
-            const data = await response.json();
-            console.log(data);
+                // proceed to verification step
+                setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
+            }
         }
     }
 
