@@ -71,11 +71,15 @@ const { name, email, username, password } = req.body;
       }
       });
 
+    // create verification token
+    const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY');
+    const verificationLink = `localhost:3000/verify?token=${verificationToken}`;
+  
     const mailOptions = {
       from: 'process.env.EMAIL',
       to: email,
       subject: 'Confirm Account Creation',
-      text: 'Please confirm your account by clicking the following link: http://example.com/confirm',
+      html: '<p>Please confirm your account by clicking the following link:</p><a href="${verificationLink}">${verificationLink}</a>',
     };
     console.log("line 80");
     transporter.sendMail(mailOptions, (error, info) => {
