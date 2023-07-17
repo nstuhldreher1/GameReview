@@ -10,7 +10,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 app.use(cors({
-  origin: "http://www.cop4331group9.xyz/"
+  origin: "http://localhost:3001"
 }));
 
 // require('dotenv').config();
