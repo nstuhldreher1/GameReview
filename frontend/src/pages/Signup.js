@@ -109,7 +109,7 @@ function Signup(){
         if (checkInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch(buildPath('/signup'), {
+            const response = await fetch(buildPath('api/signup'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
