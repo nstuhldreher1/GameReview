@@ -2,10 +2,6 @@
   "name": "gamereview",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD
-  "proxy": "http://localhost:3000/"
-=======
->>>>>>> ab9d9db50e27bbf77a2f0bb23d28672b4a7f6fb9
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

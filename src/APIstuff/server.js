@@ -63,7 +63,7 @@ app.post('/signup', async (req, res) => {
     // Save the user to the database
     // await user.save();
 
-    // Send email to confirm account creation
+    // Send email to confirm account creation usind nodemailer
     const transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
