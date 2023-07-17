@@ -14,8 +14,9 @@ app.use(cors());
 app.set('port', (process.env.PORT || 3001));
 
 
-// require('dotenv').config();
-// Connect to MongoDB
+//require('dotenv').config();
+//Connect to MongoDB
+
 mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/LargeProjectDB', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
