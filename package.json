@@ -24,11 +24,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "WATCHPACK_POLLING=true react-scripts start",
+    "start": "node server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject",
-    "dev": "nodemon src/APIstuff/server.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
