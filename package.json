@@ -24,8 +24,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node server.js",
-    "heroku-postbuild": "npm run start && npm run build"
+    "start": "WATCHPACK_POLLING=true react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
