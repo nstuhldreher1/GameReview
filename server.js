@@ -1,6 +1,5 @@
-require('dotenv').config();
 const path = require('path');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 const express = require('express');
 const mongoose = require('mongoose');
 const  bcrypt = require('bcrypt');
@@ -11,9 +10,9 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 app.use(cors());
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 3001));
 
-app.use(express.static(path.join(__dirname + "/public")));
+app.use(express.static(path.join(__dirname + "/frontend/build")));
 
 
 //require('dotenv').config();
