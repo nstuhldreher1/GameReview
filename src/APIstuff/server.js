@@ -9,7 +9,9 @@ const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000"
+}));
 
 // require('dotenv').config();
 // Connect to MongoDB
@@ -38,7 +40,7 @@ app.use(express.json());
 // Registration route
 app.post('/signup', async (req, res) => {
 
-const { name, email, username, password } = req.body;
+  const { name, email, username, password } = req.body;
   try {
     // Check if user with the same email or username already exists
     const existingUser = await User.findOne().or([{ username }]);
@@ -54,12 +56,12 @@ const { name, email, username, password } = req.body;
         name,
         email,
         username,
-        password: hashedPassword
+        password: hashedPassword,
     });
     console.log("line 61");
 
     // Save the user to the database
-    await user.save();
+    // await user.save();
 
     // Send email to confirm account creation
     const transporter = nodemailer.createTransport({
@@ -75,17 +77,17 @@ const { name, email, username, password } = req.body;
       from: 'process.env.EMAIL',
       to: email,
       subject: 'Confirm Account Creation',
-      html: 'Please confirm your account by clicking the following link: http://example.com/confirm',
+      text: 'Please confirm your account by clicking the following link: http://example.com/confirm',
     };
     console.log("line 80");
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error('Email sending failed', error);
         return res.status(500).json({ error: 'An internal server error occurred' });
+      } else {
+        console.log('Email sent:', info.response);
+        res.json({ message: 'Account created. Please check your email for confirmation instructions.' });
       }
-      console.log('Email sent:', info.response);
-      res.json({ message: 'Account created. Please check your email for confirmation instructions.' });
-
     });
   } catch (err) {
     console.error('Registration error', err);
