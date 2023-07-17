@@ -9,10 +9,7 @@ const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
 app.set('port', (process.env.PORT || 3001));
 
 app.use(express.static(path.join(__dirname + "/frontend/build")));
