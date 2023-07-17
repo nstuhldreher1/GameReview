@@ -26,10 +26,7 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
     console.error('Failed to connect to MongoDB', err);
   });
 
-  app.use((req, res, next) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    next();
-  });
+  
 // User model
 const userSchema = new mongoose.Schema({
     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
@@ -143,4 +140,9 @@ app.use((req, res, next) => {
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
+});
+
+app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  next();
 });
