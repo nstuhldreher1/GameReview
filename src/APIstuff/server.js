@@ -9,9 +9,7 @@ const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-app.use(cors({
-  origin: "http://localhost:3000"
-}));
+app.use(cors());
 
 // require('dotenv').config();
 // Connect to MongoDB
@@ -63,7 +61,7 @@ app.post('/signup', async (req, res) => {
     // Save the user to the database
     // await user.save();
 
-    // Send email to confirm account creation
+    // Send email to confirm account creation using nodemailer
     const transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
@@ -121,6 +119,18 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PATCH, DELETE, OPTIONS'
+  );
+  next();
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
