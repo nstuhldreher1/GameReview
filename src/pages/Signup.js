@@ -22,6 +22,18 @@ function Signup(){
     const [password, setPassword] = useState('');
     const [isVerified, setIsVerified] = useState(false);
 
+    const app_name = 'GameReview'
+    
+    //Dynamically sets build path for fetch
+    function buildPath(route){
+        if(process.env.NODE_ENV === 'production'){
+            return 'https://' + app_name +'.herokuapp.com/' + route;
+        }
+        else{
+            return 'http://localhost:3001/' + route;
+        }
+    }
+
     // concat both the first and last name into name useState
     // used to update the name useState
     useEffect(() => {
@@ -97,7 +109,7 @@ function Signup(){
         if (checkInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch('http://localhost:3001/signup', {
+            const response = await fetch(buildPath('/login'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

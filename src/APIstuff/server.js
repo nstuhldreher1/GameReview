@@ -1,6 +1,7 @@
 require('dotenv').config();
-const  port = 3001;
-const  express = require('express');
+const path = require('path');
+const port = process.env.PORT || 3001;
+const express = require('express');
 const mongoose = require('mongoose');
 const  bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
@@ -10,7 +11,15 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 app.use(cors());
+app.set('port', (process.env.PORT || 3001));
 
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('frontend/build'));
+
+  app.get('*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 // require('dotenv').config();
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/LargeProjectDB', { useNewUrlParser: true, useUnifiedTopology: true })
