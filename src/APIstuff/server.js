@@ -10,7 +10,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 app.use(cors({
-  origin: "http://localhost:3001"
+  origin: "http://www.cop4331group9.xyz"
 }));
 
 // require('dotenv').config();
@@ -63,7 +63,7 @@ app.post('/signup', async (req, res) => {
     // Save the user to the database
     // await user.save();
 
-    // Send email to confirm account creation usind nodemailer
+    // Send email to confirm account creation using nodemailer
     const transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
