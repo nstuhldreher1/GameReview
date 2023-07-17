@@ -42,7 +42,7 @@ const User = mongoose.model('User', userSchema);
 app.use(express.json());
 
 // Registration route
-app.post('api/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
 
   const { name, email, username, password } = req.body;
   try {
@@ -100,7 +100,7 @@ app.post('api/signup', async (req, res) => {
 });
 
 // Login route
-app.post('api/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
