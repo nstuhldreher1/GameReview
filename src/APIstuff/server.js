@@ -9,9 +9,7 @@ const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-app.use(cors({
-  origin: "http://www.cop4331group9.xyz"
-}));
+app.use(cors());
 
 // require('dotenv').config();
 // Connect to MongoDB
@@ -121,6 +119,18 @@ app.post('/login-api', async (req, res) => {
   }
 });
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PATCH, DELETE, OPTIONS'
+  );
+  next();
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
