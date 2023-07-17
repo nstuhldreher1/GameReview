@@ -27,8 +27,7 @@
     "start": "WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject",
-    "dev": "nodemon src/APIstuff/server.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
