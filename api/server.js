@@ -1,6 +1,6 @@
 require('dotenv').config();
 const path = require('path');
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 const express = require('express');
 const mongoose = require('mongoose');
 const  bcrypt = require('bcrypt');
@@ -11,7 +11,9 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 app.use(cors());
-app.set('port', (process.env.PORT || 3001));
+app.set('port', (process.env.PORT || 5000));
+
+app.use(express.static(path.join(__dirname + "/public")));
 
 
 //require('dotenv').config();
@@ -40,7 +42,7 @@ const User = mongoose.model('User', userSchema);
 app.use(express.json());
 
 // Registration route
-app.post('/signup', async (req, res) => {
+app.post('api/signup', async (req, res) => {
 
   const { name, email, username, password } = req.body;
   try {
@@ -98,7 +100,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // Login route
-app.post('/login', async (req, res) => {
+app.post('api/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
