@@ -6,5 +6,30 @@
 
 #posts{
     position: relative;
+    top: 42%;
     left: 10%;
+}
+
+#yourratings{
+    position: fixed;
+    color: white;
+    font-family: 'Inter';
+    left: 28%;
+    top: 12%;
+    font-size: clamp(0.983rem, -0.179rem + 2.976vw, 2.5rem);
+}
+
+@media (max-width: 869px) and (min-width: 701px){
+    #yourratings{
+        top: 14%;
+        left: 35%;
+    }
+}
+
+@media (max-width: 700px) {
+     #yourratings{
+        font-size: 30px;
+        top: 470px;
+        left: 35%;
+    }
 }
