@@ -33,26 +33,41 @@ function Search(){
 
         // depending on what tab is open, make API call for the tab
         if (toggleTab === 0) {
-            // make API search call for users
-            var object = {searchUsers: input.value};
-            var js = JSON.stringify(object);
-    
-            const response = await fetch('https://jsonplaceholder.typicode.com/posts',
-                {method: 'POST', body: js, headers: {'Content-Type': 'application/json'}});
-            var txt = await response.text();
-            var res = JSON.parse(txt);
+            console.log("searchUsers: " + input.value);
+            // make API search call for users    
+            const response = await fetch('http://demo7429171.mockable.io/searchUsers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    searchUsers: input.value
+                }),
+            });
+
+            // must parse response to become js object instead of json
+            var res = JSON.parse(await response.text());
             console.log(res);
+            // console.log(res.game_id);
+            
         } else {
+
+            console.log("searchGames: " + input.value);
             // make API search call for games
-            var object = {searchGames: input.value};
-    
-            const response = await fetch('https://jsonplaceholder.typicode.com/todos', 
-                {method: 'POST', body: JSON.stringify(object), headers:{'Content-Type': 'application/json'}});
-            var result = JSON.parse(await response.text());
-            console.log(result);
+            const response = await fetch('https://www.reddit.com/.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    searchGames: input.value
+                }),
+            });
+
+            // must parse response to become js object instead of json
+            var res = JSON.parse(await response.text());
+            console.log(res);
         }
-
-
     };
 
     return (

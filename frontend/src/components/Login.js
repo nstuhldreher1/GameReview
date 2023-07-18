@@ -20,7 +20,7 @@ function Login() {
         var obj = {username: username.value, password: password.value};
         var js = JSON.stringify(obj);
 
-        const response = await fetch('http://localhost:3000/login-api', 
+        const response = await fetch('http://localhost:3001/login-api', 
             {method: 'POST', body: js, headers:{'Content-Type': 'application/json'}});
             
         var result = JSON.parse(await response.text());
