@@ -2,6 +2,8 @@ import './Signup.css';
 import {Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+import EmailVerifyForm from '../components/EmailVerifyForm';
+
 // require('dotenv').config();
 // import {doRegistration} from '../APIstuff/signup'
 
@@ -12,27 +14,15 @@ function Signup(){
 
     // error message toggles for user
     const [missingField, toggleMissingField] = useState(false);
-    const [invalidEmail, toggleInvalidEMail] = useState(false);
+    const [invalidEmail, toggleInvalidEmail] = useState(false);
     const [invalidPass, toggleInvalidPass] = useState(false);
+    const [userTaken, toggleUserTaken] = useState(false);
 
     // to be sent to API
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isVerified, setIsVerified] = useState(false);
-
-    const app_name = 'GameReview'
-    
-    //Dynamically sets build path for fetch
-    function buildPath(route){
-        if(process.env.NODE_ENV === 'production'){
-            return 'https://' + app_name +'.herokuapp.com' + route;
-        }
-        else{
-            return 'http://localhost:3001' + route;
-        }
-    }
 
     // concat both the first and last name into name useState
     // used to update the name useState
@@ -76,9 +66,9 @@ function Signup(){
         if (emailRegex.test(email) === false) {
             // display error message to user about invalid email
             isValid = false;
-            toggleInvalidEMail(true);
+            toggleInvalidEmail(true);
         } else {
-            toggleInvalidEMail(false);
+            toggleInvalidEmail(false);
         }
         
         // check for password requirements:
@@ -109,7 +99,7 @@ function Signup(){
         if (checkInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch(buildPath('/signup'), {
+            const response = await fetch('http://localhost:3001/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,14 +111,17 @@ function Signup(){
                     password: password
                 }),
             })
-            if (response === 409) {
-                console.log("User already taken");
+            if (response.status === 409) {
+                toggleUserTaken(true);
+                console.log("user already taken")
             } else if (response.ok) {
                 var res = JSON.parse(await response.text());
                 console.log("User account creation successful.");
 
                 // proceed to verification step
                 setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
+
+                toggleUserTaken(false);
             }
         }
     }
@@ -167,6 +160,7 @@ function Signup(){
 
                 {/* error message section for user */}
                 <div id="signup-errors">
+                    {userTaken && <p class="error-text" id="userTaken">Username taken. Please try another.</p>}
                     {missingField && <p class="error-text">Please fill out all fields.</p>}
                     {invalidEmail && <p class="error-text">Email invalid. Please check that the email is formatted correctly.</p>}
                     {invalidPass && <div><p class="error-text">Password invalid. Please verify that the password meets these requirements: </p>
@@ -180,13 +174,7 @@ function Signup(){
                                     </div>}
                 </div>
             </div>
-            {showVerifyForm && 
-                <div id="verify">
-                    <div id="verify-inside">
-                        <h1 id="verify-title">Verify Email Address</h1>
-                        <p id="verify-description">We have sent an email to {email}. Follow the instructions on that email to proceed with account creation.</p>
-                    </div>
-                </div>}
+            {showVerifyForm && <EmailVerifyForm userEmail= {email} username = {username}/>}
         </div>
     );
 }

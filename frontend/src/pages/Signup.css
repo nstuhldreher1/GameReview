@@ -109,36 +109,10 @@
 
 .error-text{
     color: white;
-    font:"Inter";
+    font-family:"Inter";
     font-weight: bold;
 }
 
-/* email verification */
-#verify{
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 450px;
-    height: 510px;
-    background-color: #404F71;
-    border-radius: 5px;
-}
-
-#verify-inside{
-    padding-left: 65px;
-}
-
-#verify-title{
-    font: 'Inter';
-    font-size: 36px;
-    color: white;
-    padding-top: 20px;
-}
-
-#verify-description{
-    padding-right: 40px;
-    color: white;
+#userTaken{
+    text-align: center;
 }

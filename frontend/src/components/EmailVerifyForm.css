@@ -1,0 +1,72 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+/* email verification */
+#verify{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 450px;
+    height: 510px;
+    background-color: #404F71;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#verify-inside{
+    padding-left: 65px;
+}
+
+#verify-title{
+    font-family: 'Inter';
+    font-size: 36px;
+    color: white;
+    padding-top: 20px;
+}
+
+#verify-description{
+    padding-right: 40px;
+    color: white;
+}
+
+#verify-form{
+    margin-top: 20px;
+    text-align: center;
+}
+
+#verify-input-code{
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    letter-spacing: 2ch;
+    border-radius: 15px;
+}
+
+#verify-button{
+    background-color: #0078E8;
+    color: white;
+    border: none;
+    font-family: 'Inter';
+    width: 190px;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin: 20px auto 0 auto;
+}
+
+#verify-button:hover{
+    cursor: pointer;
+    background-color: #3d92e2;
+}
+
+#verify-error{
+    margin-top: 30px;
+    text-align: center;
+    color: white;
+    font-family: "Inter";
+    font-weight: bold;
+}

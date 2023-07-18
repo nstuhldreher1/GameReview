@@ -36,9 +36,9 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         default: []
     },
 
-    rewiewIds: {
-        type: Number,
-        unique: true
+    rewiewIds: { // stores ID's of user reviews
+        type: [Number], // will become irrelevant when gameobjects are organized using userId's
+        required: true
     },
     firstName: {
         type: String,
