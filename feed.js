@@ -12,5 +12,5 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
     });
 
 app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the right term but idk
-    
+    const {username, rewiewIds} = req.body;
 }
