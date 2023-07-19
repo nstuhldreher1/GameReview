@@ -48,17 +48,6 @@ app.get('/*', function(req, res) {
 })
   
 // User model
-<<<<<<< Updated upstream
-const userSchema = new mongoose.Schema({
-    UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
-    name: { type: String, required: true },
-    email: { type: String, required: true},
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    isConfirmed: { type: Boolean, default: false },
-    verifyCode: {type: Number, required: true},
-  });
-=======
 // const userSchema = new mongoose.Schema({
 //     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
 //     name: { type: String, required: true },
@@ -68,7 +57,6 @@ const userSchema = new mongoose.Schema({
 //     isConfirmed: { type: Boolean, default: false },
 //   });
 
->>>>>>> Stashed changes
   
 const User = new userModel();
 const Review = new reviewModel();
@@ -200,29 +188,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-<<<<<<< Updated upstream
-// check if user is confirmed
-app.post('/api/check', async (req, res) => {
-  const { username } = req.body;
-
-  try {
-    // Check if user exists
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    // return the isConfirmed attribute
-    return res.status(200).json({error: '', isConfirmed: user.isConfirmed});
-
-  } catch (err) {
-    console.error('Login error', err);
-    res.status(500).json({ error: 'An internal server error occurred' });
-  }
-});
-
-// added this to hopefully solve the cors issue
-=======
 app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the right term but idk
   const { username } = req.body; // changing to have req store userID
   const user = await Review.findOne({username});
@@ -245,7 +210,6 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
   }
 })
 
->>>>>>> Stashed changes
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
