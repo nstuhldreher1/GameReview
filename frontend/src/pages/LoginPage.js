@@ -1,10 +1,12 @@
 import { useState, createContext } from 'react';
 
 import Login from '../components/Login.js';
+import EmailVerifyForm from '../components/EmailVerifyForm.js';
 import ForgotPassword from '../components/ForgotPassword.js';
 import Otp from '../components/Otp.js';
 import ResetPassword from '../components/ResetPassword.js';
 import RecoveredPassword from '../components/RecoveredPassword.js';
+
 
 export const RecoveryContext = createContext();
 
@@ -15,6 +17,7 @@ function LoginPage(){
 
     function Navigate() {
         if (page === "login") return <Login/>;
+        if (page === "email") return <EmailVerifyForm/>;
         if (page === "forgot") return <ForgotPassword/>;
         if (page === "otp") return <Otp/>;
         if (page === "reset") return <ResetPassword/>;
