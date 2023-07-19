@@ -48,14 +48,14 @@ app.get('/*', function(req, res) {
 })
   
 // User model
-// const userSchema = new mongoose.Schema({
-//     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
-//     name: { type: String, required: true },
-//     email: { type: String, required: true},
-//     username: { type: String, required: true, unique: true },
-//     password: { type: String, required: true },
-//     isConfirmed: { type: Boolean, default: false },
-//   });
+ const userSchema = new mongoose.Schema({
+     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
+     name: { type: String, required: true },
+     email: { type: String, required: true},
+     username: { type: String, required: true, unique: true },
+     password: { type: String, required: true },
+     isConfirmed: { type: Boolean, default: false },
+   });
 
   
 const User = new userModel();
