@@ -1,4 +1,6 @@
 const path = require('path');
+const userModel = require('./usermodel');
+const reviewModel = require('./reviewschema');
 const port = process.env.PORT || 3001;
 const express = require('express');
 const mongoose = require('mongoose');
@@ -46,6 +48,7 @@ app.get('/*', function(req, res) {
 })
   
 // User model
+<<<<<<< Updated upstream
 const userSchema = new mongoose.Schema({
     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
     name: { type: String, required: true },
@@ -55,8 +58,21 @@ const userSchema = new mongoose.Schema({
     isConfirmed: { type: Boolean, default: false },
     verifyCode: {type: Number, required: true},
   });
+=======
+// const userSchema = new mongoose.Schema({
+//     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
+//     name: { type: String, required: true },
+//     email: { type: String, required: true},
+//     username: { type: String, required: true, unique: true },
+//     password: { type: String, required: true },
+//     isConfirmed: { type: Boolean, default: false },
+//   });
+
+>>>>>>> Stashed changes
   
-const User = mongoose.model('User', userSchema);
+const User = new userModel();
+const Review = new reviewModel();
+
 // Middleware
 app.use(express.json());
 
@@ -94,7 +110,7 @@ app.post('/api/signup', async (req, res) => {
     console.log("line 61");
 
     // Save the user to the database
-    // await user.save();
+     await user.save();
 
 
     // Send email to confirm account creation using send grid
@@ -184,6 +200,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+<<<<<<< Updated upstream
 // check if user is confirmed
 app.post('/api/check', async (req, res) => {
   const { username } = req.body;
@@ -205,6 +222,30 @@ app.post('/api/check', async (req, res) => {
 });
 
 // added this to hopefully solve the cors issue
+=======
+app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the right term but idk
+  const { username } = req.body; // changing to have req store userID
+  const user = await Review.findOne({username});
+  if(user)
+  {
+    let userID = user.UserID;
+    const reviews = await Review.findOne({userID});
+    if(reviews) 
+    {
+      return reviews;
+    }
+    else {
+      return 'no reviews found ';
+    }
+  }
+  else 
+  {
+      console.log("User not found");
+      return null;
+  }
+})
+
+>>>>>>> Stashed changes
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -217,6 +258,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
