@@ -15,8 +15,8 @@ app.set('port', (process.env.PORT || 3001));
 app.use(express.static(path.join(__dirname + "/frontend/build")));
 
 
-//require('dotenv').config();
-//Connect to MongoDB
+// require('dotenv').config();
+// Connect to MongoDB
 
 mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/LargeProjectDB', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -35,6 +35,7 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isConfirmed: { type: Boolean, default: false },
+    verifyCode: {type: Number, required: true},
   });
   
 const User = mongoose.model('User', userSchema);
@@ -55,49 +56,89 @@ app.post('/api/signup', async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // create the six digit verification code
+    // the current idea is to store this in the users collection and when
+    // the user enters the code on the frontend, that is sent to the api and 
+    // the api grabs the code from the database using the username to query
+    // and then compares the two
+    const min = 100000;
+    const max = 999999;
+    const code = Math.floor((Math.random() * (max - min + 1))) + min;
+
     // Create a new user
     const user = new User({
         name,
         email,
         username,
         password: hashedPassword,
+        verifyCode: code,
     });
     console.log("line 61");
 
     // Save the user to the database
     // await user.save();
 
-    // Send email to confirm account creation using nodemailer
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      auth: {
-          user: 'rick.ledner@ethereal.email',
-          pass: 'T7j7GQNb3mKAY9MsWt'
-      }
-      });
-  
-    const mailOptions = {
-      from: 'process.env.EMAIL',
+
+    // Send email to confirm account creation using send grid
+    // requires api key
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SEND_GRID);
+
+    // one of my burner emails is being used (gonna have to put it in .env)
+    const message = {
       to: email,
-      subject: 'Confirm Account Creation',
-      text: 'Please confirm your account by clicking the following link: http://example.com/confirm',
-    };
-    console.log("line 80");
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Email sending failed', error);
-        return res.status(500).json({ error: 'An internal server error occurred' });
-      } else {
-        console.log('Email sent:', info.response);
-        res.json({ message: 'Account created. Please check your email for confirmation instructions.' });
-      }
-    });
+      from: 'rkol2litkoya@gmail.com',
+      subject: 'Game Review Email Verification',
+      text: `Your verification code is: ${code}`,
+    }
+
+    sgMail
+      .send(message)
+      .then((response) => {
+        console.log('Email Sent');
+        console.log(response[0].statusCode);
+        console.log(response[0].headers);
+      })
+      .catch((error) => {
+        return res.status(400).json({error: error});
+      });
+
+    // if all goes well, return 200
+    return res.status(200).json({error: ''});
+    
   } catch (err) {
     console.error('Registration error', err);
     res.status(500).json({ error: 'An internal server error occurred' });
   }
 });
+
+// cant figure out how to change the user's isConfirmed to true 
+// Verify route
+app.post('/verify-api', async (req, res) => {
+
+  const { username, code } = req.body;
+
+  // search db for username and compare codes
+  const existingUser = await User.findOne().or([{ username }]);
+  if (existingUser) {
+    console.log(existingUser);
+    // if found, compare codes
+    console.log(code);
+    console.log(existingUser.verifyCode);
+    if (code === existingUser.verifyCode) {
+      console.log("yay");
+      // if code matches, update their isConfirmed boolean to true
+      console.log()
+      User.updateOne({username: username}, {$set:{isConfirmed: true}}, { new: true });
+      return res.status(200).json({error: ''});
+    } else {
+      return res.status(400).json({error: 'Incorrect verification code'});
+    }
+  } else {
+    return res.status(404).json({error: 'User not found'});
+  }
+});
+
 
 // Login route
 app.post('/api/login', async (req, res) => {
@@ -125,6 +166,27 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+// check if user is confirmed
+app.post('/api/check', async (req, res) => {
+  const { username } = req.body;
+
+  try {
+    // Check if user exists
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // return the isConfirmed attribute
+    return res.status(200).json({error: '', isConfirmed: user.isConfirmed});
+
+  } catch (err) {
+    console.error('Login error', err);
+    res.status(500).json({ error: 'An internal server error occurred' });
+  }
+});
+
+// added this to hopefully solve the cors issue
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
