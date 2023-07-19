@@ -1,6 +1,33 @@
 import './ForgotPassword.css';
 
 function ForgotPassword(){
+
+    async function requestPass(event) {
+        event.preventDefault();
+
+        // call signup API to create user
+        const response = await fetch('http://localhost:3001/verify-api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: props.username,
+                code: code,
+            }),
+        })
+        .then((response) => {
+            console.log('resolved', response);
+        })
+        .then (data => {
+
+        })
+        .catch((err) => {
+            console.log('rejected', err);
+        });
+    }
+
+
     return (
         <div id="forgot">
             <div id="forgot-inside">
@@ -14,7 +41,7 @@ function ForgotPassword(){
 
 
             <div id="button-position">
-                <input type="button" id="forgot-button" value="Request Password Reset"  />
+                <input type="button" id="forgot-button" value="Request Password Reset" onClick={requestPass} />
             </div>
         </div>
     );
