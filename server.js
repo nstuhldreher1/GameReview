@@ -26,6 +26,17 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
     console.error('Failed to connect to MongoDB', err);
   });
 
+const {Redirect} = require('react-router-dom');
+
+
+//Server side routing to allow refresh
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'frontend/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
   
 // User model
 const userSchema = new mongoose.Schema({
