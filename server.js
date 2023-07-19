@@ -1,6 +1,6 @@
 const path = require('path');
-const userModel = require('./usermodel');
-const reviewModel = require('./reviewschema');
+const User = require('./usermodel');
+const Review = require('./reviewschema');
 const port = process.env.PORT || 3001;
 const express = require('express');
 const mongoose = require('mongoose');
@@ -10,6 +10,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 
 const corsOptions = {
@@ -47,20 +49,17 @@ app.get('/*', function(req, res) {
   })
 })
   
-// User model
- const userSchema = new mongoose.Schema({
-     UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
-     name: { type: String, required: true },
-     email: { type: String, required: true},
-     username: { type: String, required: true, unique: true },
-     password: { type: String, required: true },
-     isConfirmed: { type: Boolean, default: false },
-   });
+// // User model
+//  const userSchema = new mongoose.Schema({
+//      UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
+//      name: { type: String, required: true },
+//      email: { type: String, required: true},
+//      username: { type: String, required: true, unique: true },
+//      password: { type: String, required: true },
+//      isConfirmed: { type: Boolean, default: false },
+//    });
 
   
-const User = new userModel();
-const Review = new reviewModel();
-
 // Middleware
 app.use(express.json());
 
@@ -104,6 +103,7 @@ app.post('/api/signup', async (req, res) => {
     // Send email to confirm account creation using send grid
     // requires api key
     const sgMail = require('@sendgrid/mail');
+ 
     sgMail.setApiKey(process.env.SEND_GRID);
 
     // one of my burner emails is being used (gonna have to put it in .env)
@@ -150,8 +150,8 @@ app.post('/verify-api', async (req, res) => {
     if (code === existingUser.verifyCode) {
       console.log("yay");
       // if code matches, update their isConfirmed boolean to true
-      console.log()
-      User.updateOne({username: username}, {$set:{isConfirmed: true}}, { new: true });
+      const update = await User.findOneAndUpdate({username: username},{isConfirmed: true}, {new: true});
+      console.log(update);
       return res.status(200).json({error: ''});
     } else {
       return res.status(400).json({error: 'Incorrect verification code'});
@@ -190,14 +190,17 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the right term but idk
   const { username } = req.body; // changing to have req store userID
-  const user = await Review.findOne({username});
+  const user = await User.findOne({username});
+  console.log("line 192");
   if(user)
   {
-    let userID = user.UserID;
-    const reviews = await Review.findOne({userID});
-    if(reviews) 
+    console.log("line 195");
+    const userID = user.UserID;
+    const docuements = await Review.find({userID: userID});
+    console.log("line 198");
+    if(docuements) 
     {
-      return reviews;
+      return docuements;
     }
     else {
       return 'no reviews found ';
