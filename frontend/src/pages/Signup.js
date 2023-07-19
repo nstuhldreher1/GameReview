@@ -14,7 +14,7 @@ function Signup(){
             return 'https://' + app_name +'.herokuapp.com' + route;
         }
         else{
-            return 'http://localhost:3001/' + route;
+            return 'http://localhost:3001' + route;
         }
     }
     // first/last name useStates to be concatenated later
@@ -108,7 +108,7 @@ function Signup(){
         if (checkInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch('http://localhost:3001/signup', {
+            const response = await fetch(buildPath('/api/signup'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
