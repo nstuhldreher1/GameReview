@@ -1,6 +1,6 @@
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {HashRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 import LandingPage from './pages/LandingPage.js';
 import LoginPage from './pages/LoginPage.js';
 import Signup from './pages/Signup.js';
@@ -9,18 +9,34 @@ import Search from './pages/Search.js';
 import Profile from './pages/Profile.js';
 import GamePage from './pages/GamePage.js';
 
-const router = createBrowserRouter([
-  {path: '/', element: <LandingPage/>},
-  {path: '/login', element: <LoginPage/>},
-  {path: '/signup', element: <Signup/>},
-  //{path: '/feed', element: <Feed/>},
-  {path: '/profile', element: <Profile/>},
-  {path: '/search', element: <Search/>},
-  {path: '/game', element: <GamePage/>}
-]);
+
 
 function App() {
-  return <RouterProvider router={router}/>;
+  return (
+    <Router>
+      <Switch>
+        <Route path= "/" exact>
+          <LandingPage/>
+        </Route>
+        <Route path ="/login" exact>
+          <LoginPage/>
+        </Route>
+        <Route path="/signup" exact>
+          <Signup/>
+        </Route>
+        <Route path = "/profile" exact>
+          <Profile/>
+        </Route>
+        <Route path="/search" exact>
+          <Search/>
+        </Route>
+        <Route path="/game" exact>
+          <GamePage/>
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
