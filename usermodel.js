@@ -1,5 +1,8 @@
 // user model
 const mongoose = require('mongoose');
+const reviewObject = require('./reviewschema');
+const gameObject = require('./gameschema');
+
 
 const userObject = new mongoose.Schema({ // reference as const User = require('./usermodel'); in main files I think.
     username: {
@@ -14,7 +17,7 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         unique: true
     },
 
-    isverified: {
+    isVerified: {
         type: Boolean,
         default: false
     },
@@ -25,21 +28,14 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         unique: true
     },
 
-    userID: {
-        type: String,
-        requried: true,
-        unique: true
-    },
+    UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
 
     following: {
         type: [Number], // following will be an integer array used to store the userid's of the users this person is following
         default: []
     },
-
-    rewiewIds: { // stores ID's of user reviews
-        type: [Number], // will become irrelevant when gameobjects are organized using userId's
-        required: true
-    },
+    reviews: reviewObject,
+    
     firstName: {
         type: String,
         required: true,
@@ -52,3 +48,5 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
     }
 
 });
+
+module.exports = mongoose.model('user', userObject);
