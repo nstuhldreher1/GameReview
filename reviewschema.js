@@ -2,14 +2,8 @@ const mongoose = require('mongoose');
 
 const reviewObject = new mongoose.Schema({
 
-    reviewID: {
-        type: Number,
-        unique: true,
-
-    },
     userID: {
         type: Number,
-        unique: true,
     },
 
     gameID: {

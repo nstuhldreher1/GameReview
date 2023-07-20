@@ -48,18 +48,7 @@ app.get('/*', function(req, res) {
     }
   })
 })
-  
-// // User model
-//  const userSchema = new mongoose.Schema({
-//      UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
-//      name: { type: String, required: true },
-//      email: { type: String, required: true},
-//      username: { type: String, required: true, unique: true },
-//      password: { type: String, required: true },
-//      isConfirmed: { type: Boolean, default: false },
-//    });
 
-  
 // Middleware
 app.use(express.json());
 
@@ -191,16 +180,18 @@ app.post('/api/login', async (req, res) => {
 app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the right term but idk
   const { username } = req.body; // changing to have req store userID
   const user = await User.findOne({username});
+
   console.log("line 192");
   if(user)
   {
     console.log("line 195");
-    const userID = user.UserID;
-    const docuements = await Review.find({userID: userID});
-    console.log("line 198");
-    if(docuements) 
+    console.log(user.UserID);
+    const documents = await Review.find({userID: user.UserID.valueOf()});
+    console.log(documents);
+
+    if(documents) 
     {
-      return docuements;
+      return documents;
     }
     else {
       return 'no reviews found ';
@@ -211,6 +202,38 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
       console.log("User not found");
       return null;
   }
+})
+app.post('/api/addreview', async (req, res) => {
+  const { userID, gameID, reviewID, rating, comment } = req.body;
+  // check if same reviewID is found
+  const found = await Review.findOne({reviewID});
+
+  try {
+    // Create a new review document
+    const newReview = new Review({ reviewID, userID, gameID, rating, comment });
+
+    // Save the review to the database
+    await newReview.save();
+
+    res.status(201).json({ message: 'Review saved successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+
+  if (found) 
+  {
+    const groupedReviews = await Review.aggregate([
+      {
+        $group: {
+          _id: '$reviewID', // Group by reviewID
+          reviews: { $push: '$$ROOT' }, // Collect all documents in an array called "reviews"
+        },
+      },
+    ]);
+    
+  }
+
+    
 })
 
 app.use((req, res, next) => {
