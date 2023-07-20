@@ -1,6 +1,6 @@
 import './ForgotPassword.css';
 
-function ForgotPassword(){
+function ForgotPassword(props){
 
     async function requestPass(event) {
         event.preventDefault();
