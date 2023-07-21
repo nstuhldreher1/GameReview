@@ -26,7 +26,7 @@ app.set('port', (process.env.PORT || 3001));
 app.use(express.static(path.join(__dirname + "/frontend/build")));
 
 
-// require('dotenv').config();
+require('dotenv').config();
 // Connect to MongoDB
 
 mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.net/LargeProjectDB', { useNewUrlParser: true, useUnifiedTopology: true })
