@@ -107,7 +107,6 @@ function Signup(){
         // check to see if the form input is valid
         // if it is, create the account
         if (checkInput(event) === true) {
-
             // call signup API to create user
             const response = await fetch(buildPath('/api/signup'), {
                 method: 'POST',
@@ -127,11 +126,10 @@ function Signup(){
             } else if (response.ok) {
                 var res = JSON.parse(await response.text());
                 console.log("User account creation successful.");
+                toggleUserTaken(false);
 
                 // proceed to verification step
                 setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
-
-                toggleUserTaken(false);
             }
         }
     }
@@ -144,37 +142,37 @@ function Signup(){
                     <form id="form-signup">
 
                         <div id="first-last">
-                            <p class="form-text">First Name</p>
-                            <p class="form-text">Last Name</p>
+                            <p className="form-text">First Name</p>
+                            <p className="form-text">Last Name</p>
                             <input type="text" onChange={(e) => setFN(e.target.value)}
-                            class="form-data-small" id="signup-firstname"/>
+                            className="form-data-small" id="signup-firstname"/>
                             <input type="text" onChange={(e) => setLN(e.target.value)} 
-                            class="form-data-small" id="signup-lastname"/>
+                            className="form-data-small" id="signup-lastname"/>
                         </div>
-                        <p class="form-text">Email</p>
+                        <p className="form-text">Email</p>
                         <input type="text" onChange={(e) => setEmail(e.target.value)}
-                        id="signup-email" class="form-data"/>
-                        <p class="form-text">Username</p>
+                        id="signup-email" className="form-data"/>
+                        <p className="form-text">Username</p>
                         <input type = "text" onChange={(e) => setUsername(e.target.value)}  
-                        id="signup-username" class="form-data"/>
-                        <p class="form-text">Password</p>
+                        id="signup-username" className="form-data"/>
+                        <p className="form-text">Password</p>
                         <input type ="password" onChange={(e) => setPassword(e.target.value)} 
-                        id="signup-password" class="form-data"/>
+                        id="signup-password" className="form-data"/>
                     </form>
                 </div>
                 
                 <div id="button-position-signup">
-                    <input type = "button" onClick={registerUser} class="formButton" id="signup-button" value="Signup"/>
+                    <input type = "button" onClick={registerUser} className="formButton" id="signup-button" value="Signup"/>
                 </div>
-                <p class="form-text" id="login-prompt"><Link to='/login' id="login-link">Login</Link></p>
+                <p className="form-text" id="login-prompt"><Link to='/login' id="login-link">Login</Link></p>
 
                 {/* error message section for user */}
                 <div id="signup-errors">
-                    {userTaken && <p class="error-text" id="userTaken">Username taken. Please try another.</p>}
-                    {missingField && <p class="error-text">Please fill out all fields.</p>}
-                    {invalidEmail && <p class="error-text">Email invalid. Please check that the email is formatted correctly.</p>}
-                    {invalidPass && <div><p class="error-text">Password invalid. Please verify that the password meets these requirements: </p>
-                                        <ul class="error-text">
+                    {userTaken && <p className="error-text" id="userTaken">Username taken. Please try another.</p>}
+                    {missingField && <p className="error-text">Please fill out all fields.</p>}
+                    {invalidEmail && <p className="error-text">Email invalid. Please check that the email is formatted correctly.</p>}
+                    {invalidPass && <div><p className="error-text">Password invalid. Please verify that the password meets these requirements: </p>
+                                        <ul className="error-text">
                                             <li>Length between 6-10 characters.</li>
                                             <li>MUST have at least one uppercase letter.</li>
                                             <li>MUST have at least one lowercase letter.</li>

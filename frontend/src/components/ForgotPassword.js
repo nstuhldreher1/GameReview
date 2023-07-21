@@ -34,8 +34,8 @@ function ForgotPassword(props){
                 <h1 id="forgot-title">Forgot Password</h1>
                 <p id="forgot-description">To begin resetting your password, enter your email below.</p>
                 <form id="form-forgot">
-                    <p class="form-text">Email</p>
-                    <input type="text" id="forgot-email" class="form-data"/>
+                    <p className="form-text">Email</p>
+                    <input type="text" id="forgot-email" className="form-data"/>
                 </form>
             </div>
 
