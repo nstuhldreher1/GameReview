@@ -2,6 +2,7 @@ import './Signup.css';
 import {Link} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+
 import EmailVerifyForm from '../components/EmailVerifyForm';
 
 const app_name = "gamereview-debf57bc9a85";

@@ -1,30 +1,29 @@
 import './ForgotPassword.css';
 
-function ForgotPassword(props){
+import { useContext } from 'react'; 
+import { RecoveryContext } from '../pages/LoginPage';
+
+function ForgotPassword(){
+    const { setPage, setEmail, email } = useContext(RecoveryContext);
 
     async function requestPass(event) {
         event.preventDefault();
 
         // call signup API to create user
-        const response = await fetch('http://localhost:3001/verify-api', {
+        const response = await fetch('http://localhost:3001/api/requestPassReset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: props.username,
-                code: code,
+                email: email
             }),
-        })
-        .then((response) => {
-            console.log('resolved', response);
-        })
-        .then (data => {
-
-        })
-        .catch((err) => {
-            console.log('rejected', err);
         });
+
+        if (response.status === 200) {
+            setPage("otp");
+        }
+
     }
 
 
@@ -35,7 +34,7 @@ function ForgotPassword(props){
                 <p id="forgot-description">To begin resetting your password, enter your email below.</p>
                 <form id="form-forgot">
                     <p className="form-text">Email</p>
-                    <input type="text" id="forgot-email" className="form-data"/>
+                    <input type="text" onChange={(e) => setEmail(e.target.value)}></input>
                 </form>
             </div>
 

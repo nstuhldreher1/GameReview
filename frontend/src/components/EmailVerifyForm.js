@@ -2,7 +2,18 @@ import './EmailVerifyForm.css';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
+const app_name = "gamereview-debf57bc9a85";
+
 function EmailVerifyForm(props) {
+    //Dynamically sets build path for fetch
+    function buildPath(route){
+        if(process.env.NODE_ENV === 'production'){
+            return 'https://' + app_name +'.herokuapp.com' + route;
+        }
+        else{
+            return 'http://localhost:3001' + route;
+        }
+    }
 
     // user input code
     const [code, setCode] = useState(0);
@@ -48,7 +59,7 @@ function EmailVerifyForm(props) {
         if (checkCodeInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch('http://localhost:3001/verify-api', {
+            const response = await fetch(buildPath('/api/verify'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

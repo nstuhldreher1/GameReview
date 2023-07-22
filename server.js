@@ -38,6 +38,7 @@ mongoose.connect('mongodb+srv://TheBeast:WeLoveCOP4331@cluster0.z1q4jd5.mongodb.
   });
 
 const {Redirect} = require('react-router-dom');
+const { truncateSync } = require('fs');
 
 
 //Server side routing to allow refresh
@@ -125,7 +126,7 @@ app.post('/api/signup', async (req, res) => {
 
 // cant figure out how to change the user's isConfirmed to true 
 // Verify route
-app.post('/verify-api', async (req, res) => {
+app.post('/api/verify', async (req, res) => {
 
   const { username, code } = req.body;
 
@@ -150,7 +151,6 @@ app.post('/verify-api', async (req, res) => {
   }
 });
 
-
 // Login route
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
@@ -168,13 +168,51 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid password' });
     }
 
-    // Generate and return JWT token
-    const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY');
-    res.json({ token });
-  } catch (err) {
-    console.error('Login error', err);
-    res.status(500).json({ error: 'An internal server error occurred' });
-  }
+    // if the user is not confirmed
+    if (user.isConfirmed === false) {
+      const min = 100000;
+      const max = 999999;
+      const code = Math.floor((Math.random() * (max - min + 1))) + min;
+
+      // update the existing user's verify code
+      const update = await User.findOneAndUpdate({username: username}, {verifyCode: code}, {new: true});
+      console.log("updated verifycode: " + update);
+
+      const sgMail = require('@sendgrid/mail');
+      sgMail.setApiKey(process.env.SEND_GRID);
+
+      // one of my burner emails is being used (gonna have to put it in .env)
+      const message = {
+        to: user.email,
+        from: 'rkol2litkoya@gmail.com',
+        subject: 'Game Review Email Verification',
+        text: `Your verification code is: ${code}`,
+      }
+
+        sgMail
+          .send(message)
+          .then((response) => {
+            console.log('Email Sent');
+            console.log(response[0].statusCode);
+            console.log(response[0].headers);
+          })
+          .catch((error) => {
+            return res.status(400).json({error: error});
+          });
+
+        // if all goes well, return 200
+        return res.status(200).json({error: '', isConfirmed: user.isConfirmed, email: user.email});
+
+      } else {
+        // Generate and return JWT token and isConfirmed
+        const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY');
+        res.json({ token: token, isConfirmed: user.isConfirmed });
+      }
+      
+    } catch (err) {
+      console.error('Login error', err);
+      res.status(500).json({ error: 'An internal server error occurred' });
+   }
 });
 
 app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the right term but idk
@@ -202,7 +240,8 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
       console.log("User not found");
       return null;
   }
-})
+});
+
 app.post('/api/addreview', async (req, res) => {
   const { userID, gameID, reviewID, rating, comment } = req.body;
   // check if same reviewID is found
@@ -234,7 +273,52 @@ app.post('/api/addreview', async (req, res) => {
   }
 
     
-})
+});
+
+// request a password reset
+app.post('/api/requestPassReset', async (req, res) => {
+  const { email } = req.body();
+
+  // find user in database and send otp email
+  try {
+    const existingUser = await User.findOne({ email });
+
+    // if user does not exist
+    if (!existingUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // if the user exists, begin creating 4-digit otp email
+    const min = 1000;
+    const max = 9999;
+    const otp = Math.floor((Math.random() * (max - min + 1))) + min;
+    const sgMail = require('@sendgrid/mail');
+
+    sgMail.setApiKey(process.env.SEND_GRID);
+
+    // one of my burner emails is being used (gonna have to put it in .env)
+    const message = {
+      to: email,
+      from: 'rkol2litkoya@gmail.com',
+      subject: 'Game Review Email Verification',
+      text: `Your email recovery code is: ${otp}`,
+    }
+
+    sgMail
+      .send(message)
+      .then((response) => {
+        console.log('Email Sent');
+        console.log(response[0].statusCode);
+        console.log(response[0].headers);
+      })
+      .catch((error) => {
+        return res.status(400).json({error: error});
+      });
+
+  } catch (err) {
+    res.status(500).json({ error: 'An internal server error occurred' });
+  }
+});
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
