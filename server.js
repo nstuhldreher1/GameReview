@@ -23,19 +23,6 @@ app.set('port', (process.env.PORT || 3001));
 
 app.use(express.static(path.join(__dirname + "/frontend/build")));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
-  );
-  next();
-});
-
 require('dotenv').config();
 // Connect to MongoDB
 
@@ -102,28 +89,28 @@ app.post('/api/signup', async (req, res) => {
 
     // Send email to confirm account creation using send grid
     // requires api key
-    const sgMail = require('@sendgrid/mail');
+    // const sgMail = require('@sendgrid/mail');
  
-    sgMail.setApiKey(process.env.SEND_GRID);
+    // sgMail.setApiKey(process.env.SEND_GRID);
 
-    // one of my burner emails is being used (gonna have to put it in .env)
-    const message = {
-      to: email,
-      from: 'ryanskolano@gmail.com',
-      subject: 'Game Review Email Verification',
-      text: `Your email verification code is: ${code}`,
-    }
+    // // one of my burner emails is being used (gonna have to put it in .env)
+    // const message = {
+    //   to: email,
+    //   from: 'ryanskolano@gmail.com',
+    //   subject: 'Game Review Email Verification',
+    //   text: `Your email verification code is: ${code}`,
+    // }
 
-    sgMail.send(message, function (err, info) {
-      if (err) {
-        console.log(err);
-        //return res.status(400).json({error: err});
-      } else { 
-        console.log('Email Sent');
-        console.log(info[0].statusCode);
-        console.log(info[0].headers);
-      }
-    });
+    // sgMail.send(message, function (err, info) {
+    //   if (err) {
+    //     console.log(err);
+    //     //return res.status(400).json({error: err});
+    //   } else { 
+    //     console.log('Email Sent');
+    //     console.log(info[0].statusCode);
+    //     console.log(info[0].headers);
+    //   }
+    // });
     
     // if all goes well, return 200
     return res.status(200).json({error: ''});
@@ -374,7 +361,18 @@ app.post('/api/resetPassword', async (req, res) => {
 });
 
 
-
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PATCH, DELETE, OPTIONS'
+  );
+  next();
+});
 
 
 app.listen(port, () => {
