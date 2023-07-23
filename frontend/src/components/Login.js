@@ -66,6 +66,8 @@ function Login() {
 
                 if (data.isConfirmed) {
                     setGoToProfile(true);
+                    console.log('welcome user id: ' + data.userID);
+                    localStorage.setItem("userID", data.userID);
                 } else if (data.isConfirmed === false) {
                     setShowVerifyForm(true);
                 }

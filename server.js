@@ -184,7 +184,7 @@ app.post('/api/login', async (req, res) => {
         to: user.email,
         from: 'rkol2litkoya@gmail.com',
         subject: 'Game Review Email Verification',
-        text: `Your verification code is: ${code}`,
+        text: `Your email verification code is: ${code}`,
       }
 
         sgMail
@@ -204,7 +204,7 @@ app.post('/api/login', async (req, res) => {
       } else {
         // Generate and return JWT token and isConfirmed
         const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY');
-        res.json({ token: token, isConfirmed: user.isConfirmed });
+        res.json({ token: token, isConfirmed: user.isConfirmed, userID: user.UserID });
       }
       
     } catch (err) {
