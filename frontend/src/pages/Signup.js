@@ -131,6 +131,8 @@ function Signup(){
 
                 // proceed to verification step
                 setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
+            } else {
+                console.log(response.body.errors);
             }
         }
     }
