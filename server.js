@@ -55,7 +55,7 @@ const { truncateSync } = require('fs');
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'frontend/build/index.html'), function(err) {
     if (err) {
-      res.status(500).send(err)
+      return res.status(500).send(err)
     }
   })
 })
@@ -216,12 +216,12 @@ app.post('/api/login', async (req, res) => {
       } else {
         // Generate and return JWT token and isConfirmed
         const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY');
-        res.json({ token: token, isConfirmed: user.isConfirmed, userID: user.UserID });
+        return res.json({ token: token, isConfirmed: user.isConfirmed, userID: user.UserID });
       }
       
     } catch (err) {
       console.error('Login error', err);
-      res.status(500).json({ error: 'An internal server error occurred' });
+      return res.status(500).json({ error: 'An internal server error occurred' });
    }
 });
 
@@ -264,9 +264,9 @@ app.post('/api/addreview', async (req, res) => {
     // Save the review to the database
     await newReview.save();
 
-    res.status(201).json({ message: 'Review saved successfully' });
+    return res.status(201).json({ message: 'Review saved successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong' });
   }
 
   if (found) 
@@ -332,7 +332,7 @@ app.post('/api/requestPassReset', async (req, res) => {
     return res.status(200).json({error: ''});
 
   } catch (err) {
-    res.status(500).json({ error: 'An internal server error occurred' });
+    return res.status(500).json({ error: 'An internal server error occurred' });
   }
 });
 
