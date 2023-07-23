@@ -8,7 +8,19 @@ import searchIcon from '../images/search.png';
 
 import { useEffect, useState } from 'react';
 
+const app_name = "gamereview-debf57bc9a85";
+
 function Search(){
+    
+    //Dynamically sets build path for fetch
+    function buildPath(route){
+        if(process.env.NODE_ENV === 'production'){
+            return 'https://' + app_name +'.herokuapp.com' + route;
+        }
+        else{
+            return 'http://localhost:3001' + route;
+        }
+    }
 
     // 0 for users tab, 1 for games tab
     const [toggleTab, setToggleTab] = useState(0);
@@ -24,7 +36,7 @@ function Search(){
     const [users, setUsers] = useState({});
 
     // user input
-    var input;
+    let input;
 
     // search function
     const search = async event =>
@@ -35,7 +47,7 @@ function Search(){
         if (toggleTab === 0) {
             console.log("searchUsers: " + input.value);
             // make API search call for users    
-            const response = await fetch('http://demo7429171.mockable.io/searchUsers', {
+            const response = await fetch(buildPath('/api/searchUsers'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +58,7 @@ function Search(){
             });
 
             // must parse response to become js object instead of json
-            var res = JSON.parse(await response.text());
+            let res = JSON.parse(await response.text());
             console.log(res);
             // console.log(res.game_id);
             
@@ -54,7 +66,7 @@ function Search(){
 
             console.log("searchGames: " + input.value);
             // make API search call for games
-            const response = await fetch('https://www.reddit.com/.json', {
+            const response = await fetch(buildPath('/api/searchGames'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +77,7 @@ function Search(){
             });
 
             // must parse response to become js object instead of json
-            var res = JSON.parse(await response.text());
+            let res = JSON.parse(await response.text());
             console.log(res);
         }
     };
