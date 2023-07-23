@@ -278,6 +278,35 @@ app.post('/api/deletereview', async (req, res) => {
   }
 
 })
+
+// edit reviews API
+app.post('/api/editReviews', async (req, res) => {
+
+  const { userID, reviewID,  gameID, rating, comment } = req.body;
+
+  try {
+    // Find the review based on reviewID
+    const reviewToUpdate = await Review.findOne({ reviewID: reviewID});
+
+    if (!reviewToUpdate) {
+      return res.status(404).json({ message: 'Review not found.' });
+    }
+
+    // Update the review document
+    reviewToUpdate.userID = userID;
+    reviewToUpdate.gameID = gameID;
+    reviewToUpdate.rating = rating;
+    reviewToUpdate.comment = comment;
+
+    await reviewToUpdate.save();
+
+    return res.status(200).json({ message: 'Review updated successfully!' });
+  } catch (err) {
+    return res.status(500).json({ message: 'Internal server error.', error: err.message });
+  }
+})
+
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(

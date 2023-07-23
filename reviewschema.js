@@ -7,6 +7,7 @@ const reviewObject = new mongoose.Schema({
     },
     reviewID: {
         type: Number,
+        unique: true
     },
 
     gameID: {
