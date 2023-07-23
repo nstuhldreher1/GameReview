@@ -116,7 +116,8 @@ app.post('/api/signup', async (req, res) => {
 
     sgMail.send(message, function (err, info) {
       if (err) {
-        return res.status(400).json({error: err});
+        console.log(err);
+        //return res.status(400).json({error: err});
       } else { 
         console.log('Email Sent');
         console.log(info[0].statusCode);
