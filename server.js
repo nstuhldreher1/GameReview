@@ -109,11 +109,11 @@ app.post('/api/signup', async (req, res) => {
     // one of my burner emails is being used (gonna have to put it in .env)
     const message = {
       to: email,
-      from: 'rkol2litkoya@gmail.com',
+      from: 'ryanskolano@gmail.com',
       subject: 'Game Review Email Verification',
       text: `Your email verification code is: ${code}`,
     }
-    console.log('send message');
+
     sgMail.send(message)
       .then((response) => {
         console.log('Email Sent');
@@ -124,10 +124,8 @@ app.post('/api/signup', async (req, res) => {
         return res.status(400).json({error: error});
       });
     
-    console.log('message sent');
     // if all goes well, return 200
     return res.status(200).json({error: ''});
-    console.log('should never be executed');
     
   } catch (err) {
     console.error('Registration error', err);
@@ -195,7 +193,7 @@ app.post('/api/login', async (req, res) => {
       // one of my burner emails is being used (gonna have to put it in .env)
       const message = {
         to: user.email,
-        from: 'rkol2litkoya@gmail.com',
+        from: 'ryanskolano@gmail.com',
         subject: 'Game Review Email Verification',
         text: `Your email verification code is: ${code}`,
       }
@@ -314,7 +312,7 @@ app.post('/api/requestPassReset', async (req, res) => {
     // one of my burner emails is being used (gonna have to put it in .env)
     const message = {
       to: email,
-      from: 'rkol2litkoya@gmail.com',
+      from: 'ryanskolano@gmail.com',
       subject: 'Game Review Email Verification',
       text: `Your password recovery code is: ${otp}`,
     }
