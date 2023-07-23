@@ -1,7 +1,6 @@
 import { useState, createContext } from 'react';
 
 import Login from '../components/Login.js';
-import EmailVerifyForm from '../components/EmailVerifyForm.js';
 import ForgotPassword from '../components/ForgotPassword.js';
 import Otp from '../components/Otp.js';
 import ResetPassword from '../components/ResetPassword.js';
@@ -12,6 +11,7 @@ export const RecoveryContext = createContext();
 
 function LoginPage(){
     const [page, setPage] = useState("login");
+    const [email, setEmail] = useState('');
 
     function Navigate() {
         if (page === "login") return <Login/>;
@@ -22,7 +22,7 @@ function LoginPage(){
     }
 
     return(
-        <RecoveryContext.Provider value={{ page, setPage }}>
+        <RecoveryContext.Provider value={{ page, setPage, email, setEmail }}>
             <div className="flex justify-center items-center">
                 <Navigate/>
             </div>

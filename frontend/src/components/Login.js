@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css';
 import {Link} from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { RecoveryContext } from '../pages/LoginPage';
 import { Navigate } from 'react-router-dom';
@@ -23,6 +23,8 @@ function Login() {
 
     const { setPage } = useContext(RecoveryContext);
 
+    const [email, setEmail] = useState('');
+
     // inputs from the login form
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -33,8 +35,6 @@ function Login() {
     // go to feed page
     const [goToProfile, setGoToProfile] = useState(false);
 
-    // show email verification if needed
-    const [email, setEmail] = useState('');
     const [showVerifyForm, setShowVerifyForm] = useState(false);
 
     if (goToProfile) {
@@ -67,9 +67,7 @@ function Login() {
                 if (data.isConfirmed) {
                     setGoToProfile(true);
                 } else if (data.isConfirmed === false) {
-                    console.log(email);
-                    console.log(username);
-                    setShowVerifyForm(currentShowVerifyForm => currentShowVerifyForm = true);
+                    setShowVerifyForm(true);
                 }
 
             } else {
