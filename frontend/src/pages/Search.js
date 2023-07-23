@@ -23,7 +23,7 @@ function Search() {
         }
     }
 
-    
+
     // 0 for users tab, 1 for games tab
     const [toggleTab, setToggleTab] = useState(0);
 
