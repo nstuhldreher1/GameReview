@@ -18,6 +18,10 @@ const gameObject = new mongoose.Schema({
         type: Number, // this will store the randomly generated game ID to ensure reviews are properly attributed to the game object
         required: true,
         unique: true
+    },
+    gameDescription: { // stores the description of the game object
+        type: String,
+        required: true
     }
 });
 

@@ -6,9 +6,23 @@ import UsersList from '../components/UsersList';
 
 import searchIcon from '../images/search.png';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 
-function Search(){
+export const SearchContext = createContext();
+
+const app_name = "gamereview-debf57bc9a85";
+
+function Search() {
+    //Dynamically sets build path for fetch
+    function buildPath(route){
+        if(process.env.NODE_ENV === 'production'){
+            return 'https://' + app_name +'.herokuapp.com' + route;
+        }
+        else{
+            return 'http://localhost:3001' + route;
+        }
+    }
+
 
     // 0 for users tab, 1 for games tab
     const [toggleTab, setToggleTab] = useState(0);
@@ -24,7 +38,7 @@ function Search(){
     const [users, setUsers] = useState({});
 
     // user input
-    var input;
+    const [input, setInput] = useState('');
 
     // search function
     const search = async event =>
@@ -33,67 +47,69 @@ function Search(){
 
         // depending on what tab is open, make API call for the tab
         if (toggleTab === 0) {
-            console.log("searchUsers: " + input.value);
+            console.log("searchUsers: " + input);
+
             // make API search call for users    
-            const response = await fetch('http://demo7429171.mockable.io/searchUsers', {
+            const usersResponse = await fetch(buildPath('/api/searchUsers'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    searchUsers: input.value
+                    searchUsers: input
                 }),
             });
 
-            // must parse response to become js object instead of json
-            var res = JSON.parse(await response.text());
-            console.log(res);
-            // console.log(res.game_id);
+            console.log(usersResponse);
+            const usersData = await usersResponse.json();
+            console.log(usersData);
             
         } else {
+            console.log("searchGames: " + input);
 
-            console.log("searchGames: " + input.value);
             // make API search call for games
-            const response = await fetch('https://www.reddit.com/.json', {
+            const gamesResponse = await fetch(buildPath('/api/searchGames'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    searchGames: input.value
+                    searchGames: input
                 }),
             });
 
-            // must parse response to become js object instead of json
-            var res = JSON.parse(await response.text());
-            console.log(res);
+            console.log(gamesResponse);
+            const gamesData = await gamesResponse.json();
+            console.log(gamesData);
         }
     };
 
     return (
-        <div id="searchPage">
-            <div id="searchNavigation">
-                <NavBar/>
-            </div>
-            <div id="searchContent">
-                <div id="searchHeader">
-                    <form id="searchBar">
-                        <button id="searchButton" onClick={search}>
-                            <img id="searchIcon" src={searchIcon} alt="Search icon."></img>
-                        </button>
-                        <input id="searchInput" ref={(c) => input = c}></input>
-                    </form>
-                    <div id="searchTabs">
-                        <button id="usersButton" onClick={() => switchTab(0)} style={{ textDecoration: toggleTab ? 'none' : 'underline' }}>Users</button>
-                        <button id="gamesButton" onClick={() => switchTab(1)} style={{ textDecoration: toggleTab ? 'underline' : 'none' }}>Games</button>
+        <SearchContext.Provider value={{games, users}}>
+            <div id="searchPage">
+                <div id="searchNavigation">
+                    <NavBar/>
+                </div>
+                <div id="searchContent">
+                    <div id="searchHeader">
+                        <form id="searchBar">
+                            <button id="searchButton" onClick={search}>
+                                <img id="searchIcon" src={searchIcon} alt="Search icon."></img>
+                            </button>
+                            <input id="searchInput" onChange={(e) => setInput(e.target.value)}/>
+                        </form>
+                        <div id="searchTabs">
+                            <button id="usersButton" onClick={() => switchTab(0)} style={{ textDecoration: toggleTab ? 'none' : 'underline' }}>Users</button>
+                            <button id="gamesButton" onClick={() => switchTab(1)} style={{ textDecoration: toggleTab ? 'underline' : 'none' }}>Games</button>
+                        </div>
+                    </div>
+                    <div id="searchedItems">
+                        {/* depending on toggleState, show the tab */}
+                        {toggleTab === 0 ? <UsersList /> : <GamesGrid />}
                     </div>
                 </div>
-                <div id="searchedItems">
-                    {/* depending on toggleState, show the tab */}
-                    {toggleTab === 0 ? <UsersList /> : <GamesGrid />}
-                </div>
             </div>
-        </div>
+        </SearchContext.Provider>
     );
 }
 

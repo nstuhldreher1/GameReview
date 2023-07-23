@@ -1,49 +1,84 @@
 import React from 'react';
 import './Login.css';
 import {Link} from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { RecoveryContext } from '../pages/LoginPage';
+import { Navigate } from 'react-router-dom';
+
+import EmailVerifyForm from '../components/EmailVerifyForm';
+
+const app_name = "gamereview-debf57bc9a85";
 
 function Login() {
-    const { setEmail, setPage, email, setOTP } = useContext(RecoveryContext);
+    //Dynamically sets build path for fetch
+    function buildPath(route){
+        if(process.env.NODE_ENV === 'production'){
+            return 'https://' + app_name +'.herokuapp.com' + route;
+        }
+        else{
+            return 'http://localhost:3001' + route;
+        }
+    }
+
+    const { setPage } = useContext(RecoveryContext);
+
+    const [email, setEmail] = useState('');
 
     // inputs from the login form
-    var username, password;
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [message, setMessage] = useState('');
+    // error messages for user
+    const [invalidLogin, toggleInvalidLogin] = useState(false);
+    
+    // go to feed page
+    const [goToProfile, setGoToProfile] = useState(false);
+
+    const [showVerifyForm, setShowVerifyForm] = useState(false);
+
+    if (goToProfile) {
+        return <Navigate to="../profile"/>;
+    }
 
     // login
     const login = async event => {
         event.preventDefault();
-        
-        var obj = {username: username.value, password: password.value};
-        var js = JSON.stringify(obj);
 
-        const response = await fetch('http://localhost:3001/login-api', 
-            {method: 'POST', body: js, headers:{'Content-Type': 'application/json'}});
-            
-        var result = JSON.parse(await response.text());
+        try {
+            const response = await fetch(buildPath('/api/login'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
 
-        if(response.id <= 0) {
-            setMessage('Username or Password is incorrect');
-        } else {
-            // get the name and email from api
-            var user = {name: result.name, email: result.email};
+            const data = await response.json();
+            setEmail(data.email);
 
-            // store the info for later use
-            localStorage.setItem('user_data', JSON.stringify(user));
+            // if the user exists in the database, check if they're email verified
+            if (response.status === 200) {
+                toggleInvalidLogin(false);
 
-            // no error so blank out message
-            setMessage('');
+                if (data.isConfirmed) {
+                    setGoToProfile(true);
+                    console.log('welcome user id: ' + data.userID);
+                    localStorage.setItem("userID", data.userID);
+                } else if (data.isConfirmed === false) {
+                    setShowVerifyForm(true);
+                }
 
-            // direct user to feed page
-            window.location.href = '/Feed';
+            } else {
+                toggleInvalidLogin(true);
+            }
+        } catch (error) {
+            console.error('Error fetching data: ', error);
         }
     };
-
-    // check if the user is verified. If not, do email verification
-    
 
     // display forgot password form
     function goToForgotPassword() {
@@ -51,89 +86,39 @@ function Login() {
     }
 
     return (
-        <div id="login">
-            <div id="login-inside">
-                <h1 id="login-title">Login</h1>
-                <form id="form-login">
-                    <p class="form-text">Username</p>
-                    <input type = "text" id="login-username" class="form-data"
-                        ref={(c) => username = c}/>
-                    <p class="form-text">Password</p>
-                    <input type ="password" id="login-password" class="form-data"
-                        ref={(c) => password = c}/>
-                </form>
+        <div>
+            <div id="login">
+                <div id="login-inside">
+                    <h1 id="login-title">Login</h1>
+                    <form id="form-login">
+                        <p className="form-text">Username</p>
+                        <input type = "text" id="login-username" className="form-data"
+                            onChange={(e) => setUsername(e.target.value)}/>
+                        <p className="form-text">Password</p>
+                        <input type ="password" id="login-password" className="form-data"
+                            onChange={(e) => setPassword(e.target.value)}/>
+                    </form>
+                </div>
+
+                <div id="incorrect-info">
+                    {invalidLogin && <p id="incorrect-info-text">Invalid Username/Password</p>}
+                </div>
+
+                <div id="forgot-password">
+                    <a id="forgot-password-text" href ="#" onClick={() => goToForgotPassword()}>Forgot Password?</a>
+                </div>
+
+                <div id="button-position">
+
+                    <input type = "button" id="login-button" value="Login" onClick={login}/>
+                </div>
+
+                <p className="form-text" id="signup-prompt">Don't have an account? <Link to='/signup' id="signup-link">Signup</Link></p>
             </div>
-
-            <div id="incorrect-info">
-                <p id="incorrect-info-text">{message}</p>
-            </div>
-
-            <div id="forgot-password">
-                <a id="forgot-password-text" href ="#" onClick={() => goToForgotPassword()}>Forgot Password?</a>
-            </div>
-
-            <div id="button-position">
-
-                <input type = "button" id="login-button" value="Login" onClick={login}/>
-            </div>
-
-            <p class="form-text" id="signup-prompt">Don't have an account? <Link to='/signup' id="signup-link">Signup</Link></p>
+            {showVerifyForm && <EmailVerifyForm userEmail= {email} username = {username}/>}
         </div>
+        
     );
 };
 
 export default Login;
-
-// from the now deleted 'pages/login.js'
-
-// import './Login.css';
-// import {Link} from 'react-router-dom';
-// import { useState } from 'react';
-
-// function Login(){
-
-//     const [username, setUsername] = useState('');
-//     const [password, setPassword] = useState('');
-
-
-//     async function doLogin(event) 
-//     {
-//         event.preventDefault();
-//         const response = await fetch('http://localhost:3001/login', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-
-//             },
-
-//             body: JSON.stringify({
-//                 username,
-//                 password
-//             }),
-//         })
-
-//         const data = await response.json();
-//         console.log(data);
-//     }
-//     return(
-//         <div id="login">
-//             <div id="login-inside">
-//                 <h1 id="login-title">Login</h1>
-//                 <form id="form-login">
-//                     <p class="form-text">Username</p>
-//                     <input type = "text" onChange={(e) => setUsername(e.target.value)} 
-//                     id="login-username" class="form-data"/>
-//                     <p class="form-text">Password</p>
-//                     <input type ="password" onChange={(e) => setPassword(e.target.value)}
-//                     id="login-password" class="form-data"/>
-//                 </form>
-//             </div>
-//             <div id="button-position">
-//                 <input type = "button" onClick={doLogin} id="login-button"  value="Login"/>
-//             </div>
-//             <p class="form-text" id="signup-prompt">Don't have an account? <Link to='/signup' id="signup-link">Signup</Link></p>
-//         </div>
-//     );
-// }
-
-// export default Login;

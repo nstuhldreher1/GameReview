@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
 /* email verification */
-#verify{
+.verify-form{
     position: absolute;
     top:0;
     bottom: 0;
@@ -16,18 +16,18 @@
     flex-direction: column;
 }
 
-#verify-inside{
+.verify-form-inside{
     padding-left: 65px;
 }
 
-#verify-title{
+.verify-form-title{
     font-family: 'Inter';
     font-size: 36px;
     color: white;
     padding-top: 20px;
 }
 
-#verify-description{
+.verify-form-description{
     padding-right: 40px;
     color: white;
 }
@@ -43,9 +43,10 @@
     font-size: 30px;
     letter-spacing: 2ch;
     border-radius: 15px;
+    border: none;
 }
 
-#verify-button{
+.verify-form-button{
     background-color: #0078E8;
     color: white;
     border: none;
@@ -58,7 +59,7 @@
     margin: 20px auto 0 auto;
 }
 
-#verify-button:hover{
+.verify-form-button:hover{
     cursor: pointer;
     background-color: #3d92e2;
 }

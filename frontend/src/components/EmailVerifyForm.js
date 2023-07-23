@@ -1,7 +1,19 @@
 import './EmailVerifyForm.css';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
+const app_name = "gamereview-debf57bc9a85";
 
 function EmailVerifyForm(props) {
+    //Dynamically sets build path for fetch
+    function buildPath(route){
+        if(process.env.NODE_ENV === 'production'){
+            return 'https://' + app_name +'.herokuapp.com' + route;
+        }
+        else{
+            return 'http://localhost:3001' + route;
+        }
+    }
 
     // user input code
     const [code, setCode] = useState(0);
@@ -9,8 +21,19 @@ function EmailVerifyForm(props) {
     // toggle error messages
     const [invalidCode, toggleInvalidCode] = useState(false);
 
+    // show user that they're verified and go back to login
+    const [verified, showVerified] = useState(false);
+
+    // go to login page
+    const [goToContact, setGoToContact] = useState(false);
+
+    if (goToContact) {
+        return <Navigate to="../login"/>;
+    }
+
     // check code input for validity
     const checkCodeInput = (event) => {
+        event.preventDefault();
         let isValid = true;
 
         console.log(code);
@@ -36,40 +59,54 @@ function EmailVerifyForm(props) {
         if (checkCodeInput(event) === true) {
 
             // call signup API to create user
-            const response = await fetch('http://localhost:3001/verify-api', {
+            const response = await fetch(buildPath('/api/verify'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     username: props.username,
-                    code: code,
+                    code: parseInt(code, 10),
                 }),
-            })
-            .then((response) => {
-                console.log('resolved', response);
-            })
-            .then (data => {
-
             })
             .catch((err) => {
                 console.log('rejected', err);
             });
+
+            if (response.status === 400) {
+                toggleInvalidCode(true);
+            } else if (response.status === 200) {
+                toggleInvalidCode(false);
+                showVerified(true);
+            }
         }
     }
 
     return (
-        <div id="verify">
-            <div id="verify-inside">
-                <h1 id="verify-title">Verify Email Address</h1>
-                <p id="verify-description">We have sent a verification code to {props.userEmail}. Please enter the code you recieved below.</p>
-            </div>
-            <form id="verify-form">
-                <input type="number" onChange={(e) => setCode(e.target.value)} id="verify-input-code"></input>
-            </form>
-            <button id="verify-button" onClick={verifyUser}>Verify</button>
+        <div>
+            {!verified && 
+                <div className="verify-form">
+                    <div className="verify-form-inside">
+                        <h1 className="verify-form-title">Verify Email Address</h1>
+                        <p className="verify-form-description">We have sent a verification code to {props.userEmail}. Please enter the code you recieved below.</p>
+                    </div>
+                    <form id="verify-form">
+                        <input type="text" inputMode="numeric" onChange={(e) => setCode(e.target.value)} id="verify-input-code"></input>
+                    </form>
+                    <button className="verify-form-button" onClick={verifyUser}>Verify</button>
 
-            {invalidCode && <p id="verify-error">Invalid Code</p>}
+                    {invalidCode && <p id="verify-error">Invalid Code</p>}
+                </div>
+            }
+            {verified &&
+                <div className="verify-form">
+                    <div className="verify-form-inside">
+                        <h1 className="verify-form-title">Great!</h1>
+                        <p className="verify-form-description">Now that you are all set up, you can go ahead and log in.</p>
+                        <button className="verify-form-button" onClick={() => {setGoToContact(true)}}>Back to login</button>
+                    </div>
+                </div>
+            }
         </div>
     );
 }
