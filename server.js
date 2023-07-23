@@ -1,6 +1,7 @@
 const path = require('path');
 const User = require('./usermodel');
 const Review = require('./reviewschema');
+const Game = require('./gameschema'); 
 const port = process.env.PORT || 3001;
 const express = require('express');
 const mongoose = require('mongoose');
@@ -365,7 +366,16 @@ app.post('/api/searchGames', async (req, res) => {
   const { searchGames } = req.body;
   console.log("search games input: " + searchGames);
 
-  return res.status(200).json({error: ''});
+  // search for games
+  const games = await Game.find().or([{ searchGames }]);
+  if (games) {
+    console.log('games found: ');
+    console.log(games);
+    return res.status(200).json({error: ''});
+  } else {
+    console.log('games not found');
+    return res.statis(404).json({error: 'games not found'});
+  }
 });
 
 // search users
