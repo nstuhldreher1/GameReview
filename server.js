@@ -102,27 +102,27 @@ app.post('/api/signup', async (req, res) => {
 
     // Send email to confirm account creation using send grid
     // requires api key
-    const sgMail = require('@sendgrid/mail');
+    // const sgMail = require('@sendgrid/mail');
  
-    sgMail.setApiKey(process.env.SEND_GRID);
+    // sgMail.setApiKey(process.env.SEND_GRID);
 
-    // one of my burner emails is being used (gonna have to put it in .env)
-    const message = {
-      to: email,
-      from: 'ryanskolano@gmail.com',
-      subject: 'Game Review Email Verification',
-      text: `Your email verification code is: ${code}`,
-    }
+    // // one of my burner emails is being used (gonna have to put it in .env)
+    // const message = {
+    //   to: email,
+    //   from: 'ryanskolano@gmail.com',
+    //   subject: 'Game Review Email Verification',
+    //   text: `Your email verification code is: ${code}`,
+    // }
 
-    sgMail.send(message)
-      .then((response) => {
-        console.log('Email Sent');
-        console.log(response[0].statusCode);
-        console.log(response[0].headers);
-      })
-      .catch((error) => {
-        return res.status(400).json({error: error});
-      });
+    // sgMail.send(message)
+    //   .then((response) => {
+    //     console.log('Email Sent');
+    //     console.log(response[0].statusCode);
+    //     console.log(response[0].headers);
+    //   })
+    //   .catch((error) => {
+    //     return res.status(400).json({error: error});
+    //   });
     
     // if all goes well, return 200
     return res.status(200).json({error: ''});
