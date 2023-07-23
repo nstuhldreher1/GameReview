@@ -16,7 +16,7 @@ const gameObject = new mongoose.Schema({
     imageURL: {
         type: String,
     },
-    reviews: reviewObject,
+    // reviews: reviewObject,
     
     comment: {
         type: String,
