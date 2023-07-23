@@ -187,55 +187,60 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
     console.log("line 195");
     console.log(user.UserID);
     const documents = await Review.find({userID: user.UserID.valueOf()});
-    console.log(documents);
 
     if(documents) 
     {
-      return documents;
+      res.status(200).json(documents);
     }
     else {
-      return 'no reviews found ';
+      res.status(500).json({error: "review not found"});
     }
   }
   else 
   {
-      console.log("User not found");
-      return null;
+     res.status(500).json({error: "User not found"});
   }
 })
 app.post('/api/addreview', async (req, res) => {
-  const { userID, gameID, reviewID, rating, comment } = req.body;
+  const { userID, reviewID, gameID, rating, comment } = req.body;
+
+
   // check if same reviewID is found
-  const found = await Review.findOne({reviewID});
+  const found = await Review.findOne({userID});
+  // Create a new review document
+  const newReview = new Review({ userID, reviewID,  gameID, rating, comment });
+  // Save the new review to the database
+  await newReview.save()
+  .then(savedReview => {
+    res.status(200).json(newReview);
+  })
+  .catch(err => {
+    res.status(500).json({error: "an error has occured"});
+  });
 
-  try {
-    // Create a new review document
-    const newReview = new Review({ reviewID, userID, gameID, rating, comment });
 
-    // Save the review to the database
-    await newReview.save();
-
-    res.status(201).json({ message: 'Review saved successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' });
-  }
-
-  if (found) 
-  {
-    const groupedReviews = await Review.aggregate([
-      {
-        $group: {
-          _id: '$reviewID', // Group by reviewID
-          reviews: { $push: '$$ROOT' }, // Collect all documents in an array called "reviews"
-        },
-      },
-    ]);
-    
-  }
-
-    
 })
 
+// delete review API
+app.post('/api/deletereview', async (req, res) => {
+  const { reviewID} = req.body;
+
+  try {
+    // Find the review based on reviewID
+    const reviewToDelete = await Review.findOne({ reviewID: reviewID });
+
+    if (reviewToDelete) {
+      // Delete the review
+      await reviewToDelete.deleteOne({reviewID: reviewID});
+      return res.status(200).json({ message: 'Review deleted successfully!' });
+    } else {
+      return res.status(404).json({ message: 'Review not found.' });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: 'Internal server error.', error: err.message });
+  }
+
+})
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(

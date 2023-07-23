@@ -5,14 +5,16 @@ const reviewObject = new mongoose.Schema({
     userID: {
         type: Number,
     },
+    reviewID: {
+        type: Number,
+    },
 
     gameID: {
         type: Number,
-        unique: true,
     },
+    
     rating: {
         type: Number,
-
     },
     comment: {
         type: String,
