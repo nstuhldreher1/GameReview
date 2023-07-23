@@ -111,11 +111,10 @@ app.post('/api/signup', async (req, res) => {
       to: email,
       from: 'rkol2litkoya@gmail.com',
       subject: 'Game Review Email Verification',
-      text: `Your verification code is: ${code}`,
+      text: `Your email verification code is: ${code}`,
     }
     console.log('send message');
-    sgMail
-      .send(message)
+    sgMail.send(message)
       .then((response) => {
         console.log('Email Sent');
         console.log(response[0].statusCode);
@@ -128,6 +127,7 @@ app.post('/api/signup', async (req, res) => {
     console.log('message sent');
     // if all goes well, return 200
     return res.status(200).json({error: ''});
+    console.log('should never be executed');
     
   } catch (err) {
     console.error('Registration error', err);
@@ -316,7 +316,7 @@ app.post('/api/requestPassReset', async (req, res) => {
       to: email,
       from: 'rkol2litkoya@gmail.com',
       subject: 'Game Review Email Verification',
-      text: `Your email recovery code is: ${otp}`,
+      text: `Your password recovery code is: ${otp}`,
     }
 
     sgMail
