@@ -96,7 +96,7 @@ app.post('/api/signup', async (req, res) => {
     // one of my burner emails is being used (gonna have to put it in .env)
     const message = {
       to: email,
-      from: 'ryanskolano@gmail.com',
+      from: process.env.SEND_GRID_EMAIL,
       subject: 'Game Review Email Verification',
       text: `Your email verification code is: ${code}`,
     }
@@ -181,7 +181,7 @@ app.post('/api/login', async (req, res) => {
       // one of my burner emails is being used (gonna have to put it in .env)
       const message = {
         to: user.email,
-        from: 'ryanskolano@gmail.com',
+        from: process.env.SEND_GRID_EMAIL,
         subject: 'Game Review Email Verification',
         text: `Your email verification code is: ${code}`,
       }
@@ -300,7 +300,7 @@ app.post('/api/requestPassReset', async (req, res) => {
     // one of my burner emails is being used (gonna have to put it in .env)
     const message = {
       to: email,
-      from: 'ryanskolano@gmail.com',
+      from: process.env.SEND_GRID_EMAIL,
       subject: 'Game Review Email Verification',
       text: `Your password recovery code is: ${otp}`,
     }
@@ -360,7 +360,23 @@ app.post('/api/resetPassword', async (req, res) => {
   }
 });
 
+// search games
+app.post('/api/searchGames', async (req, res) => {
+  const { searchGames } = req.body;
+  console.log("search games input: " + searchGames);
 
+  return res.status(200).json({error: ''});
+});
+
+// search users
+app.post('/api/searchUsers', async (req, res) => {
+  const { searchUsers } = req.body;
+  console.log("search users input: " + searchUsers);
+
+  return res.status(200).json({error: ''});
+});
+
+// header stuff
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
