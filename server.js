@@ -119,8 +119,8 @@ app.post('/api/signup', async (req, res) => {
         return res.status(400).json({error: err});
       } else { 
         console.log('Email Sent');
-        console.log(response[0].statusCode);
-        console.log(response[0].headers);
+        console.log(info[0].statusCode);
+        console.log(info[0].headers);
       }
     });
     
