@@ -113,7 +113,7 @@ app.post('/api/signup', async (req, res) => {
       subject: 'Game Review Email Verification',
       text: `Your verification code is: ${code}`,
     }
-
+    console.log('send message');
     sgMail
       .send(message)
       .then((response) => {
@@ -124,7 +124,8 @@ app.post('/api/signup', async (req, res) => {
       .catch((error) => {
         return res.status(400).json({error: error});
       });
-
+    
+    console.log('message sent');
     // if all goes well, return 200
     return res.status(200).json({error: ''});
     
