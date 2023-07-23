@@ -101,16 +101,14 @@ app.post('/api/signup', async (req, res) => {
       text: `Your email verification code is: ${code}`,
     }
 
-    // sgMail.send(message, function (err, info) {
-    //   if (err) {
-    //     console.log(err);
-    //     //return res.status(400).json({error: err});
-    //   } else { 
-    //     console.log('Email Sent');
-    //     console.log(info[0].statusCode);
-    //     console.log(info[0].headers);
-    //   }
-    // });
+    sgMail.send(message, function (err, info) {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({error: err});
+      } else { 
+        console.log('Email Sent');
+      }
+    });
     
     // if all goes well, return 200
     return res.status(200).json({error: ''});
