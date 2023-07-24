@@ -2,6 +2,7 @@ import GameCard from './GameCard.js';
 
 import { useContext } from 'react';
 import { SearchContext } from '../pages/Search';
+import { Link } from 'react-router-dom';
 
 import './GamesGrid.css';
 
@@ -13,7 +14,11 @@ function GamesGrid(){
     return(
         <div id="grid">
             {games.map((game) => {
-                return <GameCard name={game.name} gameCover={game.gameCover}/>;
+                return (
+                    <Link to={`/game/${game.gameId}`} style={{ textDecoration: 'none' }}>
+                        <GameCard name={game.name} gameCover={game.gameCover}/>
+                    </Link>
+                );
             })}
         </div>
     );
