@@ -57,8 +57,27 @@
 
     margin: 0 0 0 10px;
     grid-row: 4 / 5;
-    grid-column: 3 / 10;
+    grid-column: 3 / 5;
     font-size: clamp(21px, 1.5vw, 35px);
+}
+
+#gameStars{
+    display: inline-block;
+    grid-row: 4 / 5;
+    grid-column: 5 / 8;
+    margin: 0;
+}
+
+.gameStarFull {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.gameStarEmpty {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
 }
 
 #gameDescription{
@@ -174,6 +193,21 @@
     #gameDescription{
         grid-row: 4 / 5;
     }
+
+    #gameStars{
+        grid-row: 3 / 4;
+        grid-column: 5 / 10;
+    }
+    
+    .gameStarFull {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .gameStarEmpty {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media (max-width: 1149px) and (min-width: 890px){
@@ -207,6 +241,23 @@
         grid-row: 7 / -1;    
         margin-left: 0;
     } 
+
+    
+    #gameStars{
+        grid-row: 5 / 6;
+        grid-column: 4 / 10;
+        margin-left: 10px;
+    }
+    
+    .gameStarFull {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .gameStarEmpty {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media (max-width: 889px) and (min-width: 750px){
@@ -239,6 +290,22 @@
         grid-column: 1 / 10;
         grid-row: 7 / -1;     
     } 
+
+    #gameStars{
+        grid-row: 5 / 6;
+        grid-column: 4 / 10;
+        margin-left: 10px;
+    }
+    
+    .gameStarFull {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .gameStarEmpty {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media (max-width: 749px) {
@@ -248,7 +315,7 @@
 
     #imageContainer{
         grid-column: 3 / 6;
-        grid-row: 2 / 7;      
+        grid-row: 1 / 7;      
     }
 
     #gameTitle{
@@ -267,7 +334,7 @@
     
     #avgRating{
         grid-column: 1 / 10;
-        grid-row: 9 / 10;  
+        grid-row: 9 / 11;  
     }
     
     #gameDescription{
@@ -276,4 +343,20 @@
         overflow: hidden;
         overflow-y: auto;
     } 
+
+    #gameStars{
+        grid-row: 10 / 11;
+        grid-column: 1 / 10;
+        margin-left: 10px;
+    }
+    
+    .gameStarFull {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .gameStarEmpty {
+        width: 30px;
+        height: 30px;
+    }
 }

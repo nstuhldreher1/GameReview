@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
-import placeHolder from '../images/placeHolderImage.png';
+import fullstar from '../images/fullstar.svg';
+import emptystar from '../images/emptystar.svg';
 
 import './Game.css';
 
 // this returns a div that "contains" all the info needed for the game
 // this JSX is returned for the Game Page
-function Game(){
+function Game(props){
 
     const [showReviewPopup, setShowReviewPopup] = useState(false);
 
@@ -19,16 +20,34 @@ function Game(){
         setShowReviewPopup(false);
     }
 
+    const StarRating = () => {
+        const filledStars = Math.round(props.stars);
+        const emptyStars = 5 - filledStars;
+
+        const stars = [];
+
+        for (let i = 0; i < filledStars; i++) {
+            stars.push(<img className="gameStarFull" src={fullstar}></img>);
+        }
+
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<img className="gameStarEmpty" src={emptystar}></img>);
+        }
+
+        return stars;
+    }
+
     return (
         <div>
             <div id="gameContainer">
                 <div id="imageContainer">
-                    <img src={placeHolder} alt="Video game cover art." id="gameImage"></img>
+                    <img src={props.image} alt="Video game cover art." id="gameImage"></img>
                 </div>
-                <p id="gameTitle">Game Title</p>
+                <p id="gameTitle">{props.title}</p>
                 <button id="reviewButton" onClick={openReviewPopup}>Review</button>
                 <p id="avgRating">Avg Rating</p>
-                <p id="gameDescription">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis.</p>    
+                <p id="gameStars"><StarRating/></p>
+                <p id="gameDescription">{props.description}</p>    
             </div>
             {/* below is an AND expression for the review popup form */}
             { showReviewPopup && <div id="reviewPopup">

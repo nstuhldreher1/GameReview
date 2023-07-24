@@ -430,6 +430,25 @@ app.post('/api/searchUsers', async (req, res) => {
 
 });
 
+// load game info
+app.post('/api/loadGameInfo', async (req, res) => {
+  const { gameId } = req.body;
+  console.log("gameId: " + gameId);
+  
+  //search for users
+  const gameInfo = await Game.findOne().or([{ gameId }]);
+
+  if(gameInfo){
+    console.log('game info found: ');
+    console.log(gameInfo);
+    return res.status(200).json({error: '', gameInfo: gameInfo});
+  } else{
+    console.log('game info not found');
+    return res.status(404).json({error: 'game info not found'})
+  }
+
+});
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
