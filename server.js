@@ -306,6 +306,118 @@ app.post('/api/editReviews', async (req, res) => {
   }
 })
 
+// request a password reset
+app.post('/api/requestPassReset', async (req, res) => {
+  const { email } = req.body;
+
+  // find user in database and send otp email
+  try {
+    const existingUser = await User.findOne({ email });
+
+    // if user does not exist
+    if (!existingUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // if the user exists, begin creating 4-digit otp email
+    const min = 100000;
+    const max = 999999;
+    const otp = Math.floor((Math.random() * (max - min + 1))) + min;
+
+    const update = await User.findOneAndUpdate({email: email}, {verifyCode: otp}, {new: true});
+
+
+    const sgMail = require('@sendgrid/mail');
+
+    sgMail.setApiKey(process.env.SEND_GRID);
+
+    // one of my burner emails is being used (gonna have to put it in .env)
+    const message = {
+      to: email,
+      from: process.env.SEND_GRID_EMAIL,
+      subject: 'Game Review Email Verification',
+      text: `Your password recovery code is: ${otp}`,
+    }
+
+    sgMail
+      .send(message)
+      .then((response) => {
+        console.log('Email Sent');
+        console.log(response[0].statusCode);
+        console.log(response[0].headers);
+      })
+      .catch((error) => {
+        return res.status(400).json({error: error});
+      });
+
+    return res.status(200).json({error: ''});
+
+  } catch (err) {
+    return res.status(500).json({ error: 'An internal server error occurred' });
+  }
+});
+
+// verify the otp
+app.post('/api/verifyOtp', async (req, res) => {
+  const { email, otp } = req.body;
+
+  // search db for email and compare codes
+  const existingUser = await User.findOne().or([{ email }]);
+  if (existingUser) {
+    if (otp === existingUser.verifyCode) {
+      console.log('code verification success');
+      return res.status(200).json({error: ''});
+    } else {
+      console.log('code verification fail');
+      return res.status(400).json({error: 'Incorrect verification code'});
+    }
+  } else {
+    return res.status(404).json({error: 'User not found'});
+  }
+});
+
+// reset the password
+app.post('/api/resetPassword', async (req, res) => {
+  const { newPassword, email } = req.body;
+
+  // Hash the password
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  // find user by email and update!
+  const update = await User.findOneAndUpdate({email: email}, {password: hashedPassword}, {new: true});
+  if (update) {
+    console.log('password successfully reset');
+    return res.status(200).json({error: ''})
+  } else {
+    console.log('password reset failure');
+    return res.status(404).json({error: 'User not found'});
+  }
+});
+
+// search games
+app.post('/api/searchGames', async (req, res) => {
+  const { searchGames } = req.body;
+  console.log("search games input: " + searchGames);
+  
+  // search for games
+  const games = await Game.find({name: {$regex: searchGames, $options: 'i'}});
+  if (games) {
+    console.log('games found: ');
+    console.log(games);
+    return res.status(200).json({error: '', gamesFound: games});
+  } else {
+    console.log('games not found');
+    return res.status(404).json({error: 'games not found'});
+  }
+});
+
+// search users
+app.post('/api/searchUsers', async (req, res) => {
+  const { searchUsers } = req.body;
+  console.log("search users input: " + searchUsers);
+
+  return res.status(200).json({error: ''});
+});
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

@@ -78,9 +78,8 @@ function Search() {
                 }),
             });
 
-            console.log(gamesResponse);
             const gamesData = await gamesResponse.json();
-            console.log(gamesData);
+            setGames(gamesData.gamesFound);
         }
     };
 

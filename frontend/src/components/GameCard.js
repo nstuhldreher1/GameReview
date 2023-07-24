@@ -1,16 +1,23 @@
-import placeHolder from '../images/placeHolderImage.png';
+import GameCard from './GameCard.js';
 
-import './GameCard.css';
+import { useContext } from 'react';
+import { SearchContext } from '../pages/Search';
 
-// returns a JSX "box" that houses the information about a game
-// this is returned to the search page (games tab)
-function GameCard(){
-    return (
-        <div className="card">
-            <img id="cardImage" src={placeHolder} alt="Game cover art."></img>
-            <p id="cardGameTitle">The Legend of Zelda: Tears of the Kingdom</p>
+import './GamesGrid.css';
+
+// returns a JSX "box" that holds all of the games that were searched
+// this returns to the search page (games tab)
+function GamesGrid(){
+
+    const { games } = useContext(SearchContext);
+    return(
+        <div id="grid">
+            {games.map((game) => {
+                return <GameCard name={game.name} gameCover={game.gameCover}/>;
+            })}
+
         </div>
     );
 }
 
-export default GameCard;
+export default GamesGrid;
