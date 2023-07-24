@@ -3,6 +3,7 @@ import './UsersList.css';
 import User from './User.js';
 import { useContext } from 'react';
 import { SearchContext } from '../pages/Search';
+import { Link } from 'react-router-dom';
 
 // returns to search page (users tab)
 function UsersList(){
