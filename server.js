@@ -415,8 +415,19 @@ app.post('/api/searchGames', async (req, res) => {
 app.post('/api/searchUsers', async (req, res) => {
   const { searchUsers } = req.body;
   console.log("search users input: " + searchUsers);
+  
+  //search for users
+  const users = await User.find({name: {$regex: searchUsers, $options : 'i'}});
 
-  return res.status(200).json({error: ''});
+  if(users){
+    console.log('users found: ');
+    console.log(users);
+    return res.status(200).json({error: '', usersFound: users});
+  } else{
+    console.log('users not found');
+    return res.status(404).json({error: 'users not found'})
+  }
+
 });
 
 app.use((req, res, next) => {
