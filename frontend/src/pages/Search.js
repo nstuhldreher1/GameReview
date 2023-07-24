@@ -62,6 +62,7 @@ function Search() {
 
             console.log(usersResponse);
             const usersData = await usersResponse.json();
+            setUsers(usersData.usersFound);
             console.log(usersData);
             
         } else {
