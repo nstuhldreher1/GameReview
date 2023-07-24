@@ -417,7 +417,7 @@ app.post('/api/searchUsers', async (req, res) => {
   console.log("search users input: " + searchUsers);
   
   //search for users
-  const users = await User.find({name: {$regex: searchUsers, $options : 'i'}});
+  const users = await User.find({username: {$regex: searchUsers, $options : 'i'}});
 
   if(users){
     console.log('users found: ');
