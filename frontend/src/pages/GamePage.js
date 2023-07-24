@@ -7,6 +7,8 @@ import ReviewList from '../components/ReviewList.js';
 // gamepage split into navigation and content sections
 // content section split into game and review sections
 function GamePage(){
+
+
     return(
         <div id="gamePage">
             <div id="navigation">
