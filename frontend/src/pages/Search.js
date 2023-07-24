@@ -34,8 +34,8 @@ function Search() {
 
 
     // shows currently displayed games/users
-    const [games, setGames] = useState({});
-    const [users, setUsers] = useState({});
+    const [games, setGames] = useState([]);
+    const [users, setUsers] = useState([]);
 
     // user input
     const [input, setInput] = useState('');

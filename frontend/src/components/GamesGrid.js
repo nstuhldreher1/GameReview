@@ -10,11 +10,11 @@ import './GamesGrid.css';
 function GamesGrid(){
 
     const { games } = useContext(SearchContext);
-
     return(
         <div id="grid">
-            {/* placeholder cards */}
-
+            {games.map((game) => {
+                return <GameCard name={game.name} gameCover={game.gameCover}/>;
+            })}
         </div>
     );
 }

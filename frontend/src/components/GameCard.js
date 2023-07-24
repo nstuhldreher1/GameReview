@@ -1,23 +1,16 @@
-import GameCard from './GameCard.js';
+import placeHolder from '../images/placeHolderImage.png';
 
-import { useContext } from 'react';
-import { SearchContext } from '../pages/Search';
+import './GameCard.css';
 
-import './GamesGrid.css';
-
-// returns a JSX "box" that holds all of the games that were searched
-// this returns to the search page (games tab)
-function GamesGrid(){
-
-    const { games } = useContext(SearchContext);
-    return(
-        <div id="grid">
-            {games.map((game) => {
-                return <GameCard name={game.name} gameCover={game.gameCover}/>;
-            })}
-
+// returns a JSX "box" that houses the information about a game
+// this is returned to the search page (games tab)
+function GameCard(props){
+    return (
+        <div className="card">
+            <img id="cardImage" src={props.gameCover} alt="Game cover art."></img>
+            <p id="cardGameTitle">{props.name}</p>
         </div>
     );
 }
 
-export default GamesGrid;
+export default GameCard;
