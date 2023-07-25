@@ -3,6 +3,8 @@ import { useState } from 'react';
 import fullstar from '../images/fullstar.svg';
 import emptystar from '../images/emptystar.svg';
 
+import StarRating from './StarRating';
+
 import './Game.css';
 
 // this returns a div that "contains" all the info needed for the game
@@ -20,7 +22,7 @@ function Game(props){
         setShowReviewPopup(false);
     }
 
-    const StarRating = () => {
+    const GameStarRating = () => {
         const filledStars = Math.round(props.stars);
         const emptyStars = 5 - filledStars;
 
@@ -46,13 +48,17 @@ function Game(props){
                 <p id="gameTitle">{props.title}</p>
                 <button id="reviewButton" onClick={openReviewPopup}>Review</button>
                 <p id="avgRating">Avg Rating</p>
-                <p id="gameStars"><StarRating/></p>
+                <p id="gameStars"><GameStarRating/></p>
                 <p id="gameDescription">{props.description}</p>    
             </div>
             {/* below is an AND expression for the review popup form */}
             { showReviewPopup && <div id="reviewPopup">
                         <button id="reviewPopupCloseButton" onClick={closeReviewPopup}>X</button>
-                        <p id="reviewPopupRateText">Rate </p>
+                        <p id="reviewPopupRateText">Rate</p>
+                        <div id="reviewPopupStars">
+                            <StarRating />
+                        </div>
+                        
                         <form id="reviewPopupForm">
                             <textarea id="reviewPopupInput"></textarea>
                         </form>

@@ -29,13 +29,15 @@
 #activity{
     margin-left: 10px;
     grid-row: 1 / 2;
-    grid-column: 2 / 8;
+    grid-column: 2 / 7;
     font-size: clamp(0.8rem, 1.5vw, 1.2rem); 
 }
 
 #reviewDescription{
+    overflow: hidden;
+    overflow-y: scroll;
     margin-left: 10px;
-    grid-row: 2 / 3;
+    grid-row: 2 / 4;
     grid-column: 2 / 8;
     font-size: clamp(0.8rem, 1.5vw, 1.2rem);
 }
@@ -48,6 +50,24 @@
     grid-row: 3 / 4;
     grid-column: 1 / 2;
     margin-left: 3px;
+}
+
+#reviewStars{
+    grid-row: 1 / 2;
+    grid-column: 7 / 9;
+    text-align: right;
+}
+
+.reviewStarFull {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.reviewStarEmpty {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
 }
 
 #heart{
@@ -65,4 +85,47 @@
 
     align-self: center;
     margin-left: 8px;
+}
+
+@media (max-width: 1288px) and (min-width: 1013px) {
+    .reviewStarFull {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .reviewStarEmpty {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 1012px) and (min-width: 400px) {
+    #reviewStars{
+        grid-row: 1 / 2;
+        grid-column: 6 / 9;
+    }
+    .reviewStarFull {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .reviewStarEmpty {
+        width: 20px;
+        height: 20px;
+    }
+
+    #gamereviewContainer{
+        grid-template-rows: repeat(4, 60px);
+        height: 240px;
+    }
+
+    #activity{
+        grid-row: 1 / 2;
+        grid-column: 2 / 6;
+    }
+
+    #reviewDescription{
+        grid-row: 2 / 5;
+        grid-column: 2 / 8;
+    }
 }

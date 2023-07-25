@@ -457,6 +457,43 @@ app.post('/api/loadGameInfo', async (req, res) => {
 
 });
 
+// load game reviews
+app.post('/api/loadGameReviews', async (req, res) => {
+  const { gameId } = req.body;
+  console.log("gameId: " + gameId);
+  
+  //search for users
+  const foundReviews = await Review.find({ gameID: gameId });
+  if(foundReviews.length > 0){
+
+    let numberOfStars = 0;
+    console.log('reviews found: ');
+    foundReviews.forEach(element => {
+      numberOfStars += element.rating;
+    });
+
+    console.log('number of reviews: ' + foundReviews.length);
+    console.log('number of stars: ' + numberOfStars);
+
+    const gameStars = Math.ceil(numberOfStars / foundReviews.length);
+    console.log(gameStars);
+    const updateGame = await Game.findOneAndUpdate({gameId: gameId}, {reviewStars: gameStars}, {new: true});
+    console.log(updateGame);
+    if (updateGame) {
+      console.log('updated game rating');
+      console.log(foundReviews);
+      return res.status(200).json({error: '', foundReviews: foundReviews});
+    } else {
+      return res.status(500).json({error: 'An internal server error occurred'});
+    }
+  } else{
+    console.log('No reviews for this game :(');
+    return res.status(404).json({error: 'No reviews for this game.', foundReviews: foundReviews })
+  }
+
+});
+
+// header stuff
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(

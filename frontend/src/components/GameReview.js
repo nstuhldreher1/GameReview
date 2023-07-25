@@ -1,23 +1,37 @@
 import './GameReview.css';
 
-import placeHolder from '../images/placeHolderImage.png';
-import emptyHeart from '../images/heartEmpty.png';
-// import heart from '../images/heart.png';
-
+import placeHolder from '../images/profilePicturePlaceHolder.png';
+import fullstar from '../images/fullstar.svg';
+import emptystar from '../images/emptystar.svg';
 
 // returns a "box" that contains the information related to a user's review
 // this is returned to the Game Page
-function GameReview(){
+function GameReview(props){
+
+    const StarRating = () => {
+        const filledStars = Math.round(props.stars);
+        const emptyStars = 5 - filledStars;
+
+        const stars = [];
+
+        for (let i = 0; i < filledStars; i++) {
+            stars.push(<img className="reviewStarFull" src={fullstar}></img>);
+        }
+
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<img className="reviewStarEmpty" src={emptystar}></img>);
+        }
+
+        return stars;
+    }
+
     return (
         <div>
             <div id="gamereviewContainer">
                 <img id="reviewerProfilePicture" src={placeHolder} alt="Reviewer profile icon"></img>
-                <p id="activity">Nicholas Stuhlreher @nstuhldreher reviewed Diablo 4</p>
-                <p id="reviewDescription">I really have been enjoying this game a lot so far. Excited to see where it goes in the future!</p>
-                {/*<button id="likeButton">
-                    <img id="heart" src={emptyHeart} alt="Heart icon."></img>
-                    <p id="likes">20 likes</p>
-                </button> */}
+                <p id="activity">{props.activity}</p>
+                <p id="reviewStars"><StarRating/></p>
+                <p id="reviewDescription">{props.comment}</p>
             </div>
         </div>
     );
