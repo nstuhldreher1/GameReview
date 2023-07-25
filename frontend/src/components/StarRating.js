@@ -3,8 +3,8 @@ import './StarRating.css'
 import fullstar from '../images/fullstar.svg';
 import emptystar from '../images/emptystar.svg';
 
-const StarRating = () => {
-    const [rating, setRating] = useState(null);
+const StarRating = ({rating, setRating}) => {
+    
     const [hover, setHover] = useState(null);
 
     return (

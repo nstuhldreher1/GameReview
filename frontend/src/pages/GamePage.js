@@ -14,11 +14,13 @@ import { createContext } from 'react';
 const app_name = "gamereview-debf57bc9a85";
 
 export const ReviewsContext = createContext();
+export const HasReviewedContext = createContext();
 
 function GamePage() {
 
     const [gameInfo, setGameInfo] = useState({});
     const [gameReviews, setGameReviews] = useState([]);
+    const [reviewed, setReviewed] = useState(false);
 
     //Dynamically sets build path for fetch
     function buildPath(route){
@@ -39,6 +41,7 @@ function GamePage() {
     useEffect(() => {
         loadGameReviews();
     }, []);
+
     
     const loadGameInfo = async () => {
         try {
@@ -54,7 +57,7 @@ function GamePage() {
 
             console.log(response);
             const data = await response.json();
-            console.log(data);
+            console.log('data.gameInfo' + data.gameInfo);
             setGameInfo(data.gameInfo);
 
             // if the user exists in the database, check if they're email verified
@@ -76,7 +79,8 @@ function GamePage() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    gameId: gameId
+                    gameId: gameId,
+                    userID: localStorage.getItem('userID'),
                 })
             });
 
@@ -84,6 +88,9 @@ function GamePage() {
             const data = await response.json();
             console.log(data);
             setGameReviews(data.foundReviews);
+            console.log(data.userReviewedGame);
+            setReviewed(data.userReviewedGame);
+            console.log('reviewed: ' + reviewed);
 
             // if the user exists in the database, check if they're email verified
             if (response.status === 200) {
@@ -108,7 +115,9 @@ function GamePage() {
                     </ReviewsContext.Provider>
                 </div>
                 <div id="game">
-                    <Game title={gameInfo.name} image={gameInfo.gameCover} description={gameInfo.gameDescription} stars={gameInfo.reviewStars}/>
+                    <HasReviewedContext.Provider value={{ reviewed, setReviewed}}>
+                        <Game id={gameInfo.gameId} title={gameInfo.name} image={gameInfo.gameCover} description={gameInfo.gameDescription} stars={gameInfo.reviewStars}/>
+                    </HasReviewedContext.Provider>
                 </div>
             </div>
         </div>
