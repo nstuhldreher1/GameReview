@@ -2,8 +2,10 @@ import './Feed.css';
 import NavBar from '../components/NavBar.js';
 import Post from '../components/Post.js';
 import ReviewList from '../components/ReviewList';
-const app_name = "gamereview-debf57bc9a85";
+import { useContext } from 'react';
 
+const app_name = "gamereview-debf57bc9a85";
+let review = [];
 
 const input = [
     
@@ -19,8 +21,6 @@ const input = [
 
 
 function Feed(){
-
-    let review = [];
 
     //Dynamically sets build path for fetch
     function buildPath(route){
@@ -62,22 +62,8 @@ function Feed(){
     return(
         <div id="feed" onLoad={fetchFeed}>
             <NavBar/>
-            {/* <div id="posts"  onLoad={fetchFeed}>
-                    {input.map(post =>{
-                        return(
-                           
-                            <Post image = {post.image} name={post.name} username={post.username} review= {post.review} likes={post.likes}></Post>
-
-                        );
-                    })}
-            </div> */}
             <div id="reviews">
-            {review.map(review =>{
-                        return(
-                            <ReviewList  review = {review.comment} ></ReviewList>
-
-                        );
-                    })}
+                <ReviewList reviews={review}></ReviewList>
             </div>
         </div>
     );
