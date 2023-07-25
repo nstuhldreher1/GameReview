@@ -186,6 +186,42 @@
     margin-top: 20px;
 }
 
+#reviewPopupEditButton{
+    width: 160px;
+    height: 40px;
+    background-color: #0078E8;
+    font-family: 'Inter';
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+
+    grid-row: 6 / 7;
+    grid-column:  8 / 9;
+    text-align: center;
+    font-size: clamp(16px, 2vw, 24px);
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#reviewPopupDeleteButton{
+    width: 160px;
+    height: 40px;
+    background-color: #e80000;
+    font-family: 'Inter';
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+
+    grid-row: 6 / 7;
+    grid-column:  2 / 3;
+    text-align: center;
+    font-size: clamp(16px, 2vw, 20px);
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
 #reviewPopupPostButton:hover{
     background-color: #3d92e2;
 }
