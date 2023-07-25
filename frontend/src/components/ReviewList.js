@@ -1,16 +1,21 @@
-import GameReview from './GameReview.js';
 import './ReviewList.css';
+
+import { useContext } from 'react';
+import { ReviewsContext } from '../pages/GamePage.js';
 
 // returns a JSX "box" that houses all of the review components
 // this is returned to the game Page
 function ReviewList(){
-    function showUsers({ users }) {
-        
-    }
-    
+
+    const { gameReviews, setGameReviews } = useContext(ReviewsContext);
+
     return (
         <div id="reviewContainer">
-            {/* place holder review components below */}
+            {gameReviews.map((review) => {
+                return (
+                    <GameReview activity={review.activity} profilePicture={review.profilePicture} stars={review.rating} comment={review.comment}/>
+                );
+            })}
         </div>
     );
 }

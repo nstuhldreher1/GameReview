@@ -459,6 +459,26 @@ app.post('/api/loadGameInfo', async (req, res) => {
 
 });
 
+// load game reviews
+app.post('/api/loadGameReviews', async (req, res) => {
+  const { gameId } = req.body;
+  console.log("gameId: " + gameId);
+  
+  //search for users
+  const foundReviews = await Review.find({ gameID: gameId });
+
+  if(foundReviews){
+    console.log('reviews found: ');
+    console.log(foundReviews);
+    return res.status(200).json({error: '', foundReviews: foundReviews});
+  } else{
+    console.log('reviews not found');
+    return res.status(404).json({error: 'No reviews found'})
+  }
+
+});
+
+// header stuff
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
