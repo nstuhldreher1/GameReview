@@ -17,7 +17,8 @@ const router = createBrowserRouter([
   //{path: '/feed', element: <Feed/>},
   {path: '/profile', element: <Profile/>},
   {path: '/search', element: <Search/>},
-  {path: '/game/:gameId', element: <GamePage/>}
+  {path: '/game/:gameId', element: <GamePage/>},
+  {path: '/user/:userId', element: <Profile/>}
 ]);
 
 function App() {

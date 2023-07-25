@@ -4,12 +4,12 @@ import placeHolder from '../images/placeHolderImage.png';
 
 // A component for each user (rectangle with stuff in it)
 // Gets sent to UsersList
-function User(){
+function User(props){
     return(
         <div id = "userContainer">
             <img id="userProfilePicture" src={placeHolder} alt=" of user."></img>
-            <p id="userName">Nicholas Stuhlreher</p>
-            <p id="userEmail">@nstuhldreher</p>
+            <p id="userName">{props.name}</p>
+            <p id="userEmail">{props.username}</p>
         </div>
     );
 }

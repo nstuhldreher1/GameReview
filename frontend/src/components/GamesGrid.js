@@ -11,6 +11,7 @@ import './GamesGrid.css';
 function GamesGrid(){
 
     const { games } = useContext(SearchContext);
+    
     return(
         <div id="grid">
             {games.map((game) => {
