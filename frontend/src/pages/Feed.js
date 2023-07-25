@@ -1,10 +1,10 @@
 import './Feed.css';
 import NavBar from '../components/NavBar.js';
 import Post from '../components/Post.js';
-import Login from '../components/Login';
-import reviewschema from '../../../reviewschema';
-const app_name = "gamereview-debf57bc9a85";
+import {myUsername} from '../components/Login';
 import ReviewList from '../components/ReviewList';
+const app_name = "gamereview-debf57bc9a85";
+
 
 const input = [
     
@@ -17,9 +17,11 @@ const input = [
     },
 
 ];
-const review = [];
+
 
 function Feed(){
+
+    let review = [];
 
     //Dynamically sets build path for fetch
     function buildPath(route){
@@ -30,10 +32,11 @@ function Feed(){
             return 'http://localhost:3001' + route;
         }
     }
-    // fetch cards
-    const feed = async event => {
+    async function fetchFeed(event) {
         event.preventDefault();
 
+        console.log("response");
+        console.log(myUsername);
         try {
             const response = await fetch(buildPath('/api/userfeed'), {
                 method: 'POST',
@@ -41,9 +44,10 @@ function Feed(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: Login.username,
+                    username: myUsername,
                 })
             });
+            if(response.status === 500) console.log("no reviews found")
             review.add(response.json);
 
         }
@@ -52,13 +56,22 @@ function Feed(){
         }
     }
     return(
-        <div id="feed">
+        <div id="feed" onLoad={fetchFeed}>
             <NavBar/>
-            <div id="posts">
+            {/* <div id="posts" onLoad={fetchFeed}>
                     {input.map(post =>{
                         return(
+                           
                             <Post image = {post.image} name={post.name} username={post.username} review= {post.review} likes={post.likes}></Post>
-                        
+
+                        );
+                    })}
+            </div> */}
+            <div id="reviews">
+            {review.map(review =>{
+                        return(
+                            <ReviewList  review = {review.comment} ></ReviewList>
+
                         );
                     })}
             </div>
