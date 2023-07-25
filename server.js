@@ -226,7 +226,8 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
 
     if(documents) 
     {
-      res.status(200).json(documents);
+      return documents;
+      
     }
     else {
       res.status(500).json({error: "review not found"});
@@ -239,11 +240,20 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
 });
 
 app.post('/api/addreview', async (req, res) => {
-  const { userID, reviewID, gameID, rating, comment } = req.body;
 
+  let reviewID = Math.floor(Math.random() * 10000000);
+
+  const { userID, gameID, rating, comment } = req.body;
+   
 
   // check if same reviewID is found
-  const found = await Review.findOne({userID});
+  let found = await Review.findOne({reviewID});
+  while (found) 
+  {
+    reviewID = Math.floor(Math.random() * (Number.MAX_VALUE - Number.MIN_VALUE))
+     + Number.MIN_VALUE;
+    found = await Review.findOne({reviewID});
+  }
   // Create a new review document
   const newReview = new Review({ userID, reviewID,  gameID, rating, comment });
   // Save the new review to the database
