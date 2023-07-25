@@ -466,14 +466,31 @@ app.post('/api/loadGameReviews', async (req, res) => {
   
   //search for users
   const foundReviews = await Review.find({ gameID: gameId });
+  if(foundReviews.length > 0){
 
-  if(foundReviews){
+    let numberOfStars = 0;
     console.log('reviews found: ');
-    console.log(foundReviews);
-    return res.status(200).json({error: '', foundReviews: foundReviews});
+    foundReviews.forEach(element => {
+      numberOfStars += element.rating;
+    });
+
+    console.log('number of reviews: ' + foundReviews.length);
+    console.log('number of stars: ' + numberOfStars);
+
+    const gameStars = Math.ceil(numberOfStars / foundReviews.length);
+    console.log(gameStars);
+    const updateGame = await Game.findOneAndUpdate({gameId: gameId}, {reviewStars: gameStars}, {new: true});
+    console.log(updateGame);
+    if (updateGame) {
+      console.log('updated game rating');
+      console.log(foundReviews);
+      return res.status(200).json({error: '', foundReviews: foundReviews});
+    } else {
+      return res.status(500).json({error: 'An internal server error occurred'});
+    }
   } else{
-    console.log('reviews not found');
-    return res.status(404).json({error: 'No reviews found'})
+    console.log('No reviews for this game :(');
+    return res.status(404).json({error: 'No reviews for this game.', foundReviews: foundReviews })
   }
 
 });
