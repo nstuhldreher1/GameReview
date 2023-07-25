@@ -217,16 +217,14 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
   const { username } = req.body; // changing to have req store userID
   const user = await User.findOne({username});
 
-  console.log("line 192");
+
   if(user)
   {
-    console.log("line 195");
-    console.log(user.UserID);
-    const documents = await Review.find({userID: user.UserID.valueOf()});
+    const documents = await Review.find({userID: user.UserID});
 
     if(documents) 
     {
-      return documents;
+      res.status(200).json(documents);
       
     }
     else {

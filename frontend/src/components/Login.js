@@ -9,6 +9,7 @@ import { Navigate } from 'react-router-dom';
 import EmailVerifyForm from '../components/EmailVerifyForm';
 
 const app_name = "gamereview-debf57bc9a85";
+export let myUsername = "";
 
 function Login() {
     //Dynamically sets build path for fetch
@@ -28,7 +29,6 @@ function Login() {
     // inputs from the login form
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     // error messages for user
     const [invalidLogin, toggleInvalidLogin] = useState(false);
     
@@ -85,6 +85,12 @@ function Login() {
         setPage("forgot");
     }
 
+    const handleUsername = (e) => {
+      setUsername(e.target.value);
+      localStorage.setItem("username", e.target.value);
+
+    }
+
     return (
         <div>
             <div id="login">
@@ -93,7 +99,7 @@ function Login() {
                     <form id="form-login">
                         <p className="form-text">Username</p>
                         <input type = "text" id="login-username" className="form-data"
-                            onChange={(e) => setUsername(e.target.value)}/>
+                            onChange={handleUsername}/>
                         <p className="form-text">Password</p>
                         <input type ="password" id="login-password" className="form-data"
                             onChange={(e) => setPassword(e.target.value)}/>
@@ -122,3 +128,4 @@ function Login() {
 };
 
 export default Login;
+
