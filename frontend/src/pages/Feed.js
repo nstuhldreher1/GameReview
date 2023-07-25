@@ -1,7 +1,6 @@
 import './Feed.css';
 import NavBar from '../components/NavBar.js';
 import Post from '../components/Post.js';
-import {myUsername} from '../components/Login';
 import ReviewList from '../components/ReviewList';
 const app_name = "gamereview-debf57bc9a85";
 
@@ -36,7 +35,9 @@ function Feed(){
         event.preventDefault();
 
         console.log("response");
-        console.log(myUsername);
+        let username = localStorage.getItem("username");
+        let data;
+        console.log(username);
         try {
             const response = await fetch(buildPath('/api/userfeed'), {
                 method: 'POST',
@@ -44,21 +45,24 @@ function Feed(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: myUsername,
+                    username: username,
                 })
             });
-            if(response.status === 500) console.log("no reviews found")
-            review.add(response.json);
+            if(response.status === 500) console.log("no reviews found");
+            data = await response.json();
+            console.log(data);
 
         }
         catch(error){
             console.error('Error fetching data: ', error);
         }
+        review.push(data);
+        console.log(review);
     }
     return(
         <div id="feed" onLoad={fetchFeed}>
             <NavBar/>
-            {/* <div id="posts" onLoad={fetchFeed}>
+            {/* <div id="posts"  onLoad={fetchFeed}>
                     {input.map(post =>{
                         return(
                            

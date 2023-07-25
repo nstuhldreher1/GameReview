@@ -87,7 +87,7 @@ function Login() {
 
     const handleUsername = (e) => {
       setUsername(e.target.value);
-      myUsername = e.target.value;
+      localStorage.setItem("username", e.target.value);
 
     }
 

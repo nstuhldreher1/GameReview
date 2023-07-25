@@ -224,7 +224,7 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
 
     if(documents) 
     {
-      return documents;
+      res.status(200).json(documents);
       
     }
     else {
