@@ -43,7 +43,6 @@ function Game(props) {
     }
 
 
-    
     const GameStarRating = () => {
         const filledStars = Math.round(props.stars);
         const emptyStars = 5 - filledStars;

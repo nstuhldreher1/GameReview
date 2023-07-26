@@ -434,27 +434,8 @@ app.post('/api/searchUsers', async (req, res) => {
 
 });
 
-// load game info
-app.post('/api/loadGameInfo', async (req, res) => {
-  const { gameId } = req.body;
-  console.log("gameId: " + gameId);
-  
-  //search for users
-  const gameInfo = await Game.findOne().or([{ gameId }]);
-
-  if(gameInfo){
-    console.log('game info found: ');
-    console.log(gameInfo);
-    return res.status(200).json({error: '', gameInfo: gameInfo});
-  } else{
-    console.log('game info not found');
-    return res.status(404).json({error: 'game info not found'})
-  }
-
-});
-
-// load game reviews
-app.post('/api/loadGameReviews', async (req, res) => {
+// load game page
+app.post('/api/loadGamePage', async (req, res) => {
   const { gameId, userID } = req.body;
   console.log("gameId: " + gameId);
   
@@ -465,7 +446,6 @@ app.post('/api/loadGameReviews', async (req, res) => {
 
     // update game rating
     let numberOfStars = 0;
-    console.log('reviews found: ');
     foundReviews.forEach(element => {
       numberOfStars += element.rating;
     });
@@ -477,23 +457,21 @@ app.post('/api/loadGameReviews', async (req, res) => {
       userReviewedGame = true;
     }
 
-    console.log('number of reviews: ' + foundReviews.length);
-    console.log('number of stars: ' + numberOfStars);
-
     const gameStars = Math.ceil(numberOfStars / foundReviews.length);
-    console.log('gameStars: ' + gameStars);
+
     const updateGame = await Game.findOneAndUpdate({gameId: gameId}, {reviewStars: gameStars}, {new: true});
     console.log(updateGame);
     if (updateGame) {
-      console.log('updated game rating');
-      console.log(foundReviews);
-      return res.status(200).json({error: '', foundReviews: foundReviews, userReviewedGame: userReviewedGame });
+
+      return res.status(200).json({error: '', foundReviews: foundReviews, userReviewedGame: userReviewedGame, gameInfo: updateGame });
     } else {
       return res.status(500).json({error: 'An internal server error occurred', userReviewedGame: userReviewedGame});
     }
   } else{
     console.log('No reviews for this game :(');
-    return res.status(404).json({error: 'No reviews for this game.', foundReviews: foundReviews, userReviewedGame: userReviewedGame });
+    const updateGame = await Game.findOne({gameId: gameId});
+
+    return res.status(404).json({error: 'No reviews for this game.', foundReviews: foundReviews, userReviewedGame: userReviewedGame, gameInfo: updateGame });
   }
 });
 

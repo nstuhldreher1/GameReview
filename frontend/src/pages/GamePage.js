@@ -35,45 +35,12 @@ function GamePage() {
     const { gameId } = useParams();
 
     useEffect(() => {
-        loadGameInfo();
+        loadGamePage();
     }, []);
 
-    useEffect(() => {
-        loadGameReviews();
-    }, []);
-
-    
-    const loadGameInfo = async () => {
+    const loadGamePage = async () => {
         try {
-            const response = await fetch(buildPath('/api/loadGameInfo'), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    gameId: gameId
-                })
-            });
-
-            console.log(response);
-            const data = await response.json();
-            console.log('data.gameInfo' + data.gameInfo);
-            setGameInfo(data.gameInfo);
-
-            // if the user exists in the database, check if they're email verified
-            if (response.status === 200) {
-                console.log('Game info recieved');
-            } else {
-                console.log('Error fetching data');
-            }
-        } catch (error) {
-            console.error('Error fetching data: ', error);
-        }
-    }
-
-    const loadGameReviews = async () => {
-        try {
-            const response = await fetch(buildPath('/api/loadGameReviews'), {
+            const response = await fetch(buildPath('/api/loadGamePage'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,6 +55,7 @@ function GamePage() {
             const data = await response.json();
             console.log(data);
             setGameReviews(data.foundReviews);
+            setGameInfo(data.gameInfo);
             console.log(data.userReviewedGame);
             setReviewed(data.userReviewedGame);
             console.log('reviewed: ' + reviewed);
