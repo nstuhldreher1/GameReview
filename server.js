@@ -253,7 +253,7 @@ app.post('/api/addreview', async (req, res) => {
   // create activity and profilePicture
   const existingUser = await User.findOne({ UserID: userID });
   let activity = "";
-  let profilePicture = "";
+  let profilePicture = existingUser.profilePicture;
   if (existingUser) {
     console.log('User found by ID');
     console.log(existingUser);

@@ -26,7 +26,6 @@ const reviewObject = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: "",
     }
 
 })
