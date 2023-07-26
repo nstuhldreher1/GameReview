@@ -80,7 +80,8 @@ app.post('/api/signup', async (req, res) => {
         email,
         username,
         password: hashedPassword,
-        verifyCode: code // used for both email/forgot pass
+        verifyCode: code, // used for both email/forgot pass
+        profilePicture,
     });
     console.log("line 61");
 
