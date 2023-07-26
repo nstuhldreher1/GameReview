@@ -62,7 +62,7 @@ app.post('/api/signup', async (req, res) => {
       return res.status(409).json({ error: 'User already exists' });
     }
 
-    // Hash the password
+    // Hash the password  
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // create the six digit verification code
@@ -81,7 +81,6 @@ app.post('/api/signup', async (req, res) => {
         username,
         password: hashedPassword,
         verifyCode: code, // used for both email/forgot pass
-        profilePicture,
     });
     console.log("line 61");
 
