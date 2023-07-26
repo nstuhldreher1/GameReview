@@ -1,6 +1,5 @@
 import './GameReview.css';
 
-import placeHolder from '../images/profilePicturePlaceHolder.png';
 import fullstar from '../images/fullstar.svg';
 import emptystar from '../images/emptystar.svg';
 
@@ -28,7 +27,7 @@ function GameReview(props){
     return (
         <div>
             <div id="gamereviewContainer">
-                <img id="reviewerProfilePicture" src={placeHolder} alt="Reviewer profile icon"></img>
+                <img id="reviewerProfilePicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
                 <p id="activity">{props.activity}</p>
                 <p id="reviewStars"><StarRating/></p>
                 <p id="reviewDescription">{props.comment}</p>
