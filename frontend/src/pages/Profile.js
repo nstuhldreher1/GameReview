@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { createContext } from 'react';
 import placeHolder from '../images/placeHolderImage.png';
+import GameReview from '../components/GameReview';
 
 const input = [
     
@@ -20,7 +21,7 @@ const input = [
 
 ];
 
-
+export const ReviewsContext = createContext();
 
 const app_name = "gamereview-debf57bc9a85";
 
@@ -37,6 +38,7 @@ function Profile(){
     }
 
     const [userInfo, setUserInfo] = useState({});
+    const [userReviews, setUserReviews] = useState({});
 
     useEffect(()=>{
         loadUserInfo();
@@ -60,6 +62,7 @@ function Profile(){
             const data = await response.json();
             console.log(data);
             setUserInfo(data.userInfo);
+            setUserReviews(data.userReviews);
 
             // if the user exists in the database, check if they're email verified
             if (response.status === 200) {
@@ -82,9 +85,9 @@ function Profile(){
                         <p id= "usernameOfUser">@{userInfo.username}</p>
                     </div>
                 </div>
-                {input.map(post =>{
+                {userReviews.map(review =>{
                         return(
-                            <Post image = {post.image} name={post.name} username={post.username} review= {post.review} game={post.game} ></Post>
+                            <GameReview activity={review.activity} profilePicture={review.profilePicture} stars={review.rating} comment={review.comment}/>
                         );
                 })}
             </div>

@@ -481,9 +481,12 @@ app.post('/api/loadUserInfo', async (req, res) =>{
 
   //search for user
   const userInfo = await User.findOne().or([{ UserID }]);
+
+  //search for reviews
+  const userReviews = await Review.find({UserID: UserID});
   if(userInfo){
     console.log('user info found: ' + userInfo);
-    return res.status(200).json({error: '', userInfo: userInfo});
+    return res.status(200).json({error: '', userInfo: userInfo, userReviews: userReviews});
   }
   else{
     console.log('user info not found');
