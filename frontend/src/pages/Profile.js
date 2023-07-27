@@ -69,7 +69,7 @@ function Profile(){
         <div id="profilePage">
             <NavBar/>
             <div id="posts">
-                <img className = "UserHeader" id="userProfilePicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
+                <img className = "UserHeader" id="userPicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
                     <div className = "UserHeader" id="UserTitle">
                         <p  id="nameOfUser">{userInfo.name}</p>
                         <p  id= "usernameOfUser">@{userInfo.username}</p>
