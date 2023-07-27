@@ -69,14 +69,11 @@ function Profile(){
         <div id="profilePage">
             <NavBar/>
             <div id="posts">
-                <div id="UserHeader">
-                <img id="userProfilePicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
-
-                    <div id="UserTitle">
-                        <p id="nameOfUser">{userInfo.name}</p>
-                        <p id= "usernameOfUser">@{userInfo.username}</p>
+                <img className = "UserHeader" id="userProfilePicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
+                    <div className = "UserHeader" id="UserTitle">
+                        <p  id="nameOfUser">{userInfo.name}</p>
+                        <p  id= "usernameOfUser">@{userInfo.username}</p>
                     </div>
-                </div>
                 {userReviews.map(review =>{
                         return(
                             <GameReview activity={review.activity} profilePicture={review.profilePicture} stars={review.rating} comment={review.comment}/>
