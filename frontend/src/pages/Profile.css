@@ -35,16 +35,15 @@
 }
 
 #userProfilePicture{
-    height: 80px;
-    width: 80px;
-    border-radius: 80px;
+    height: 200px;
+    width: 200px;
+    border-radius: 200px;
     margin-top: 10px;
     margin-left: 10px;
 }
 
 #UserHeader{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: inline-block;
 }
 
 @media (max-width: 869px) and (min-width: 701px){
