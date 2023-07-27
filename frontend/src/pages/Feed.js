@@ -1,10 +1,11 @@
 import './Feed.css';
 import NavBar from '../components/NavBar.js';
 import Post from '../components/Post.js';
-import Login from '../components/Login';
-import reviewschema from '../../../reviewschema';
-const app_name = "gamereview-debf57bc9a85";
 import ReviewList from '../components/ReviewList';
+import { useContext } from 'react';
+
+const app_name = "gamereview-debf57bc9a85";
+let review = [];
 
 const input = [
     
@@ -17,7 +18,7 @@ const input = [
     },
 
 ];
-const review = [];
+
 
 function Feed(){
 
@@ -30,10 +31,13 @@ function Feed(){
             return 'http://localhost:3001' + route;
         }
     }
-    // fetch cards
-    const feed = async event => {
+    async function fetchFeed(event) {
         event.preventDefault();
 
+        console.log("response");
+        let username = localStorage.getItem("username");
+        let data;
+        console.log(username);
         try {
             const response = await fetch(buildPath('/api/userfeed'), {
                 method: 'POST',
@@ -41,26 +45,25 @@ function Feed(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: Login.username,
+                    username: username,
                 })
             });
-            review.add(response.json);
+            if(response.status === 500) console.log("no reviews found");
+            data = await response.json();
+            console.log(data);
 
         }
         catch(error){
             console.error('Error fetching data: ', error);
         }
+        review.push(data);
+        console.log(review);
     }
     return(
-        <div id="feed">
+        <div id="feed" onLoad={fetchFeed}>
             <NavBar/>
-            <div id="posts">
-                    {input.map(post =>{
-                        return(
-                            <Post image = {post.image} name={post.name} username={post.username} review= {post.review} likes={post.likes}></Post>
-                        
-                        );
-                    })}
+            <div id="reviews">
+                <ReviewList reviews={review}></ReviewList>
             </div>
         </div>
     );

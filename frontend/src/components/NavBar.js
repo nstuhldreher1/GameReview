@@ -9,6 +9,7 @@ function NavBar(){
             <Link to={`/user/${localStorage.getItem('userID')}`} className="nav-text"><h1 id="home" >Home</h1></Link>
             <Link to="/search" className="nav-text"><h1 id="search" >Search</h1></Link>
             <Link to="/login" className="nav-text"><h1 id="logout" >Logout</h1></Link>
+            <Link to="/feed" className='nav-text'><h1 id="feed">Feed</h1></Link>
         </div>
     );
 }
