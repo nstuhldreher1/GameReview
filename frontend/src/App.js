@@ -15,10 +15,9 @@ const router = createBrowserRouter([
   {path: '/login', element: <LoginPage/>},
   {path: '/signup', element: <Signup/>},
   //{path: '/feed', element: <Feed/>},
-  {path: '/profile', element: <Profile/>},
   {path: '/search', element: <Search/>},
   {path: '/game/:gameId', element: <GamePage/>},
-  {path: '/user/:userId', element: <Profile/>}
+  {path: '/user/:UserID', element: <Profile/>}
 ]);
 
 function App() {

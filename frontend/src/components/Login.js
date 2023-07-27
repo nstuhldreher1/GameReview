@@ -38,7 +38,7 @@ function Login() {
     const [showVerifyForm, setShowVerifyForm] = useState(false);
 
     if (goToProfile) {
-        return <Navigate to="../profile"/>;
+        return <Navigate to= {`/user/${localStorage.getItem('userID')}`}/>;
     }
 
     // login

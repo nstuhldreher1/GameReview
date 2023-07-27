@@ -19,6 +19,22 @@
     font-size: clamp(0.983rem, -0.179rem + 2.976vw, 2.5rem);
 }
 
+#usernameOfUser{
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+#nameOfUser{
+    color:white;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+#UserTitle{
+    line-height: 20px;
+}
+
 @media (max-width: 869px) and (min-width: 701px){
     #yourratings{
         top: 14%;

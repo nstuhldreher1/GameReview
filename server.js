@@ -478,6 +478,22 @@ app.post('/api/loadGameReviews', async (req, res) => {
 
 });
 
+app.post('/api/loadUserInfo', async (req, res) =>{
+  const{UserID} = req.body;
+  console.log("userId: " + UserID);
+
+  //search for user
+  const userInfo = await User.findOne().or([{ UserID }]);
+  if(userInfo){
+    console.log('user info found: ' + userInfo);
+    return res.status(200).json({error: '', userInfo: userInfo});
+  }
+  else{
+    console.log('user info not found');
+    return res.status(404).json({error: 'user info not found'});
+  }
+});
+
 // header stuff
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
