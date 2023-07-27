@@ -38,7 +38,7 @@ function Profile(){
     }
 
     const [userInfo, setUserInfo] = useState({});
-    const [userReviews, setUserReviews] = useState({});
+    const [userReviews, setUserReviews] = useState([]);
 
     useEffect(()=>{
         loadUserInfo();
