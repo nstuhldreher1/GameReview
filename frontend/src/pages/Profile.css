@@ -34,6 +34,19 @@
     line-height: 20px;
 }
 
+#userProfilePicture{
+    height: 80px;
+    width: 80px;
+    border-radius: 80px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#UserHeader{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 @media (max-width: 869px) and (min-width: 701px){
     #yourratings{
         top: 14%;

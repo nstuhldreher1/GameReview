@@ -9,17 +9,7 @@ import { createContext } from 'react';
 import placeHolder from '../images/placeHolderImage.png';
 import GameReview from '../components/GameReview';
 
-const input = [
-    
-    {
-        "name" : "Nicholas Stuhldreher",
-        "image" : "profileimage.jpg",
-        "username": "nstuhldreher",
-        "review": "This game is awesome!",
-        "game": "Diablo 4",
-    },
 
-];
 
 export const ReviewsContext = createContext();
 
@@ -80,6 +70,8 @@ function Profile(){
             <NavBar/>
             <div id="posts">
                 <div id="UserHeader">
+                <img id="userProfilePicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
+
                     <div id="UserTitle">
                         <p id="nameOfUser">{userInfo.name}</p>
                         <p id= "usernameOfUser">@{userInfo.username}</p>
