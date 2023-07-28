@@ -138,27 +138,22 @@ function Signup(){
     return(
         <div>
             <div id="signup">
-                <div id="signup-inside">
+                <div title="signupForm" id="signup-inside">
                     <h1 id="signup-title">Signup</h1>
                     <form id="form-signup">
 
                         <div id="first-last">
                             <p className="form-text">First Name</p>
                             <p className="form-text">Last Name</p>
-                            <input type="text" onChange={(e) => setFN(e.target.value)}
-                            className="form-data-small" id="signup-firstname"/>
-                            <input type="text" onChange={(e) => setLN(e.target.value)} 
-                            className="form-data-small" id="signup-lastname"/>
+                            <input type="text" title="firstName" onChange={(e) => setFN(e.target.value)} className="form-data-small" id="signup-firstname"/>
+                            <input type="text" title="lastName" onChange={(e) => setLN(e.target.value)} className="form-data-small" id="signup-lastname"/>
                         </div>
                         <p className="form-text">Email</p>
-                        <input type="text" onChange={(e) => setEmail(e.target.value)}
-                        id="signup-email" className="form-data"/>
+                        <input type="text" title="email" onChange={(e) => setEmail(e.target.value)} id="signup-email" className="form-data"/>
                         <p className="form-text">Username</p>
-                        <input type = "text" onChange={(e) => setUsername(e.target.value)}  
-                        id="signup-username" className="form-data"/>
+                        <input type = "text" title="username" onChange={(e) => setUsername(e.target.value)} id="signup-username" className="form-data"/>
                         <p className="form-text">Password</p>
-                        <input type ="password" onChange={(e) => setPassword(e.target.value)} 
-                        id="signup-password" className="form-data"/>
+                        <input type ="password" title="password" onChange={(e) => setPassword(e.target.value)} id="signup-password" className="form-data"/>
                     </form>
                 </div>
                 
@@ -168,7 +163,7 @@ function Signup(){
                 <p className="form-text" id="login-prompt"><Link to='/login' id="login-link">Login</Link></p>
 
                 {/* error message section for user */}
-                <div id="signup-errors">
+                <div title="signupErrors" id="signup-errors">
                     {userTaken && <p className="error-text" id="userTaken">Username taken. Please try another.</p>}
                     {missingField && <p className="error-text">Please fill out all fields.</p>}
                     {invalidEmail && <p className="error-text">Email invalid. Please check that the email is formatted correctly.</p>}
