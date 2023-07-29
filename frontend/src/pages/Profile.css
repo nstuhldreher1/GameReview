@@ -48,7 +48,7 @@
     border-color: white;
 }
 
-#userPictureEditable{
+/* #userPictureEditable{
     height: 200px;
     width: 200px;
     border-radius: 200px;
@@ -72,11 +72,11 @@
 #picture{
     width: 200px;
     display: inline-block;
-}
+} 
 
 #file-input{
     display: none;
-}
+} */
 
 .UserHeader{
     display: inline-block;
