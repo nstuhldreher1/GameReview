@@ -37,6 +37,7 @@ function Login() {
 
     const [showVerifyForm, setShowVerifyForm] = useState(false);
 
+
     if (goToProfile) {
         return <Navigate to= {`/user/${localStorage.getItem('userID')}`}/>;
     }
@@ -59,6 +60,8 @@ function Login() {
 
             const data = await response.json();
             setEmail(data.email);
+            console.log(data.token);
+            localStorage.setItem("jwt", data.token);
 
             // if the user exists in the database, check if they're email verified
             if (response.status === 200) {
