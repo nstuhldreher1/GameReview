@@ -13,7 +13,7 @@ function UsersList(){
             {users.map((user)=>{
                 return(
                     <Link to={`/user/${user.UserID}`} style = {{textDecoration: 'none'}}> 
-                        <User username={user.username} name={user.name}/>
+                        <User username={user.username} name={user.name} profilePicture={user.profilePicture}/>
                     </Link> 
                 );
             })}

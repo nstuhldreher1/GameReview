@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 require('dotenv').config();
 
 const corsOptions = {
@@ -493,6 +494,37 @@ app.post('/api/loadUserInfo', async (req, res) =>{
     return res.status(404).json({error: 'user info not found'});
   }
 });
+
+// middleware for multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'frontend/public/images')
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+
+const upload = multer({storage: storage});
+
+app.post('/api/changeProfilePicture', upload.single('profilePicture'), async (req, res) =>{
+  const { userID } = req.body;
+
+  // change profile picture string
+  const newProfilePictureURL = `/images/${req.file.filename}`;
+  const updateProfilePicture = await User.findOneAndUpdate({ UserID: userID }, { profilePicture: newProfilePictureURL }, { new: true });
+  if (updateProfilePicture) {
+    console.log("profile picture uploaded successfully");
+    return res.status(200).json({ message: 'Profile picture uploaded successfully' });
+  } else {
+    console.log("An internal server error occurred");
+    return res.status(500).json({ error: 'An internal server error occurred' });
+  }
+});
+
+
 
 // header stuff
 app.use((req, res, next) => {

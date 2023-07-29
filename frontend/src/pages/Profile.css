@@ -22,12 +22,14 @@
     color: white;
     font-size: 36px;
     font-weight: bold;
+    margin-left: 20px;
 }
 
 #nameOfUser{
     color:white;
-    font-size: 48px;
+    font-size: 56px;
     font-weight: bold;
+    margin-left: 20px;
 }
 
 #UserTitle{
@@ -42,6 +44,38 @@
     border-radius: 200px;
     margin-top: 10px;
     margin-left: 10px;
+    border: solid;
+    border-color: white;
+}
+
+#userPictureEditable{
+    height: 200px;
+    width: 200px;
+    border-radius: 200px;
+    transition: opacity 0.1s ease-in-out;
+    border: solid;
+    border-color: white;
+}
+
+.image-upload{
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+
+#userPictureEditable:hover{
+    cursor: pointer;
+    
+    filter: brightness(50%);
+}
+
+#picture{
+    width: 200px;
+    display: inline-block;
+}
+
+#file-input{
+    display: none;
 }
 
 .UserHeader{
