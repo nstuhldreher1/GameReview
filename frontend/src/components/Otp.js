@@ -78,7 +78,7 @@ function Otp() {
 
     return (
         <div>
-             <div className="form">
+             <div title="otpForm" className="form">
                 <div className="form-inside">
                     <h1 className="form-title">Request Password Reset</h1>
                     <p className="form-description">Please check your email and enter the reset code below.</p>

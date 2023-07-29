@@ -7,7 +7,7 @@ function GameCard(props){
     return (
         <div className="card">
             <img id="cardImage" src={props.gameCover} alt="Game cover art."></img>
-            <p id="cardGameTitle">{props.name}</p>
+            <p title="gameTitle" id="cardGameTitle">{props.name}</p>
         </div>
     );
 }

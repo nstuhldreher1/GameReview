@@ -13,7 +13,7 @@ function RecoveredPassword(){
 
     return (
         <div>
-            <div className="form">
+            <div title="yay" className="form">
                 <div className="form-inside">
                     <h1 className="form-title">Password Successfully Reset</h1>
                     

@@ -7,12 +7,12 @@ function LandingPage(){
     return (
         <div id="landing-page">
             <div id="landingPageHeader">
-                <h1 id="title">Welcome to Game Review</h1>
+                <h1 title="welcomeMessage" id="title">Welcome to Game Review</h1>
                 <Link to="/login" id="link">
-                    <button id="linkButton">Get Started</button>
+                    <button title="getStartedButton" id="linkButton">Get Started</button>
                 </Link>
             </div>
-            <img src={logo} id="landingPageLogo" alt="Website logo"></img>
+            <img src={logo} title="logo" id="landingPageLogo" alt="Website logo"></img>
         </div>
     );
 }

@@ -73,16 +73,16 @@ function GamePage() {
 
     return(
         <div id="gamePage">
-            <div id="navigation">
+            <div title="navbar" id="navigation">
                 <NavBar/>    
             </div>
             <div id="content">
-                <div id="review">
+                <div title="reviews" id="review">
                     <ReviewsContext.Provider value={{ gameReviews, setGameReviews }}>
                         <ReviewList/>
                     </ReviewsContext.Provider>
                 </div>
-                <div id="game">
+                <div title="game" id="game">
                     <HasReviewedContext.Provider value={{ reviewed, setReviewed}}>
                         <Game id={gameInfo.gameId} title={gameInfo.name} image={gameInfo.gameCover} description={gameInfo.gameDescription} stars={gameInfo.reviewStars}/>
                     </HasReviewedContext.Provider>

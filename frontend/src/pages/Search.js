@@ -87,11 +87,11 @@ function Search() {
     return (
         <SearchContext.Provider value={{games, users}}>
             <div id="searchPage">
-                <div id="searchNavigation">
+                <div title="navbar" id="searchNavigation">
                     <NavBar/>
                 </div>
                 <div id="searchContent">
-                    <div id="searchHeader">
+                    <div title="searchHeader" id="searchHeader">
                         <form id="searchBar">
                             <button id="searchButton" onClick={search}>
                                 <img id="searchIcon" src={searchIcon} alt="Search icon."></img>
@@ -103,7 +103,7 @@ function Search() {
                             <button id="gamesButton" onClick={() => switchTab(1)} style={{ textDecoration: toggleTab ? 'underline' : 'none' }}>Games</button>
                         </div>
                     </div>
-                    <div id="searchedItems">
+                    <div title="searchResults" id="searchedItems">
                         {/* depending on toggleState, show the tab */}
                         {toggleTab === 0 ? <UsersList /> : <GamesGrid />}
                     </div>

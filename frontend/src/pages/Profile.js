@@ -35,7 +35,7 @@ function Profile(){
     }, []);
 
     const { UserID } = useParams();
-    console.log(UserID);
+    // console.log(UserID);
     const loadUserInfo = async () => {
         try {
             const response = await fetch(buildPath('/api/loadUserInfo'), {
@@ -67,8 +67,8 @@ function Profile(){
 
     return(
         <div id="profilePage">
-            <NavBar/>
-            <div id="posts">
+            <NavBar title="navbar" />
+            <div title = "posts" id="posts">
                 <img className = "UserHeader" id="userPicture" src={'/images/profilePicturePlaceHolder.png'} alt="Reviewer profile icon"></img>
                     <div className = "UserHeader" id="UserTitle">
                         <p  id="nameOfUser">{userInfo.name}</p>

@@ -8,8 +8,8 @@ function User(props){
     return(
         <div id = "userContainer">
             <img id="userProfilePicture" src={placeHolder} alt=" of user."></img>
-            <p id="userName">{props.name}</p>
-            <p id="userEmail">{props.username}</p>
+            <p title="username" id="userName">{props.name}</p>
+            <p title="email" id="userEmail">{props.username}</p>
         </div>
     );
 }

@@ -85,7 +85,7 @@ function EmailVerifyForm(props) {
     return (
         <div>
             {!verified && 
-                <div className="verify-form">
+                <div title="emailVerifyForm" className="verify-form">
                     <div className="verify-form-inside">
                         <h1 className="verify-form-title">Verify Email Address</h1>
                         <p className="verify-form-description">We have sent a verification code to {props.userEmail}. Please enter the code you recieved below.</p>

@@ -94,7 +94,7 @@ function Login() {
     return (
         <div>
             <div id="login">
-                <div id="login-inside">
+                <div title="loginForm" id="login-inside">
                     <h1 id="login-title">Login</h1>
                     <form id="form-login">
                         <p className="form-text">Username</p>
