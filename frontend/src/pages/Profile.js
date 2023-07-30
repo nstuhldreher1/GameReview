@@ -122,9 +122,10 @@ function Profile(){
 
     return(
         <div id="profilePage">
-            <NavBar title="navbar" />
-            <div title="posts" id="posts">
-            <img className = "UserHeader" id="userPicture" src={userInfo.profilePicture} alt="Reviewer profile icon"></img>
+            <div id="profileNavbar">
+                <NavBar title="navbar" />
+            </div>
+            <div title="posts" id="profileContent">
                 {/* {profilePictureEditable && 
                 <div className="image-upload">
                     <label id="picture" htmlFor="file-input">
@@ -134,15 +135,18 @@ function Profile(){
                 </div>}
                 {!profilePictureEditable && <img className = "UserHeader" id="userPicture" src={userInfo.profilePicture} alt="Reviewer profile icon"></img>} */}
 
-                    <div className = "UserHeader" id="UserTitle">
-                        <p  id="nameOfUser">{userInfo.name}</p>
-                        <p  id= "usernameOfUser">@{userInfo.username}</p>
-                    </div>
-                {userReviews.map(review =>{
-                        return(
-                            <GameReview activity={review.activity} profilePicture={review.profilePicture} stars={review.rating} comment={review.comment}/>
-                        );
-                })}
+                <div className = "UserHeader" id="UserTitle">
+                    <img className = "UserHeader" id="userPicture" src={userInfo.profilePicture} alt="Reviewer profile icon"></img>
+                    <p  id="nameOfUser">{userInfo.name}</p>
+                    <p  id= "usernameOfUser">@{userInfo.username}</p>
+                </div>
+                <div id="userReviews">
+                    {userReviews.map(review =>{
+                            return(
+                                <GameReview activity={review.activity} profilePicture={review.profilePicture} stars={review.rating} comment={review.comment}/>
+                            );
+                    })}
+                </div>
             </div>
         </div>
     );
