@@ -37,8 +37,10 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         unique: true
     },
 
-    // reviews: reviewObject,
-    
+    profilePicture: {
+        type: String,
+        default: "/images/profilePicturePlaceHolder.png",
+    },    
     name: {
         type: String,
         required: true,

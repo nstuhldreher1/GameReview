@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+// const multer = require('multer');
 require('dotenv').config();
 
 const corsOptions = {
@@ -62,7 +63,7 @@ app.post('/api/signup', async (req, res) => {
       return res.status(409).json({ error: 'User already exists' });
     }
 
-    // Hash the password
+    // Hash the password  
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // create the six digit verification code
@@ -80,7 +81,7 @@ app.post('/api/signup', async (req, res) => {
         email,
         username,
         password: hashedPassword,
-        verifyCode: code // used for both email/forgot pass
+        verifyCode: code, // used for both email/forgot pass
     });
     console.log("line 61");
 
@@ -122,7 +123,6 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// cant figure out how to change the user's isConfirmed to true 
 // Verify route
 app.post('/api/verify', async (req, res) => {
 
@@ -240,9 +240,7 @@ app.post('/api/userfeed', async (req, res) => { // not sure if 'userfeed' is the
 app.post('/api/addreview', async (req, res) => {
 
   let reviewID = Math.floor(Math.random() * 10000000);
-
-  const { userID, gameID, rating, comment } = req.body;
-   
+  const { userID, gameID, rating, comment, gameName } = req.body;
 
   // check if same reviewID is found
   let found = await Review.findOne({reviewID});
@@ -252,31 +250,40 @@ app.post('/api/addreview', async (req, res) => {
      + Number.MIN_VALUE;
     found = await Review.findOne({reviewID});
   }
+
+  // create activity and profilePicture
+  const existingUser = await User.findOne({ UserID: userID });
+  let activity = "";
+  let profilePicture = existingUser.profilePicture;
+  if (existingUser) {
+    console.log('User found by ID');
+    console.log(existingUser);
+    activity = `${existingUser.name} @${existingUser.username} reviewed ${gameName}`;
+  } else {
+    return res.status(500).json({error: 'An internal server error occurred'});
+  }
+
   // Create a new review document
-  const newReview = new Review({ userID, reviewID,  gameID, rating, comment });
+  const newReview = new Review({ activity, profilePicture, userID, reviewID,  gameID, rating, comment });
   // Save the new review to the database
   await newReview.save()
   .then(savedReview => {
-    res.status(200).json(newReview);
+    return res.status(200).json(newReview);
   })
   .catch(err => {
-    res.status(500).json({error: "an error has occured"});
+    return res.status(500).json({error: "an error has occured"});
   });
-
-
-})
+});
 
 // delete review API
 app.post('/api/deletereview', async (req, res) => {
-  const { reviewID} = req.body;
+  const { userID, gameID } = req.body;
 
   try {
-    // Find the review based on reviewID
-    const reviewToDelete = await Review.findOne({ reviewID: reviewID });
+    // Find the review based on userID and gameID
+    const reviewToDelete = await Review.findOneAndDelete({ userID, userID, gameID: gameID });
 
     if (reviewToDelete) {
-      // Delete the review
-      await reviewToDelete.deleteOne({reviewID: reviewID});
       return res.status(200).json({ message: 'Review deleted successfully!' });
     } else {
       return res.status(404).json({ message: 'Review not found.' });
@@ -284,35 +291,25 @@ app.post('/api/deletereview', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: 'Internal server error.', error: err.message });
   }
-
-})
+});
 
 // edit reviews API
-app.post('/api/editReviews', async (req, res) => {
-
-  const { userID, reviewID,  gameID, rating, comment } = req.body;
-
+app.post('/api/editReview', async (req, res) => {
+  const { userID,  gameID, rating, comment } = req.body;
   try {
-    // Find the review based on reviewID
-    const reviewToUpdate = await Review.findOne({ reviewID: reviewID});
+    // Find the review based on userID and gameID
+    const reviewToUpdate = await Review.findOneAndUpdate({ userID: userID, gameID: gameID }, { $set: {rating: rating, comment: comment}});
 
     if (!reviewToUpdate) {
       return res.status(404).json({ message: 'Review not found.' });
     }
-
-    // Update the review document
-    reviewToUpdate.userID = userID;
-    reviewToUpdate.gameID = gameID;
-    reviewToUpdate.rating = rating;
-    reviewToUpdate.comment = comment;
-
-    await reviewToUpdate.save();
 
     return res.status(200).json({ message: 'Review updated successfully!' });
   } catch (err) {
     return res.status(500).json({ message: 'Internal server error.', error: err.message });
   }
 })
+
 
 // request a password reset
 app.post('/api/requestPassReset', async (req, res) => {
@@ -438,60 +435,96 @@ app.post('/api/searchUsers', async (req, res) => {
 
 });
 
-// load game info
-app.post('/api/loadGameInfo', async (req, res) => {
-  const { gameId } = req.body;
-  console.log("gameId: " + gameId);
-  
-  //search for users
-  const gameInfo = await Game.findOne().or([{ gameId }]);
-
-  if(gameInfo){
-    console.log('game info found: ');
-    console.log(gameInfo);
-    return res.status(200).json({error: '', gameInfo: gameInfo});
-  } else{
-    console.log('game info not found');
-    return res.status(404).json({error: 'game info not found'})
-  }
-
-});
-
-// load game reviews
-app.post('/api/loadGameReviews', async (req, res) => {
-  const { gameId } = req.body;
+// load game page
+app.post('/api/loadGamePage', async (req, res) => {
+  const { gameId, userID } = req.body;
   console.log("gameId: " + gameId);
   
   //search for users
   const foundReviews = await Review.find({ gameID: gameId });
+  let userReviewedGame = false;
   if(foundReviews.length > 0){
 
+    // update game rating
     let numberOfStars = 0;
-    console.log('reviews found: ');
     foundReviews.forEach(element => {
       numberOfStars += element.rating;
     });
 
-    console.log('number of reviews: ' + foundReviews.length);
-    console.log('number of stars: ' + numberOfStars);
+    // check to see if the user already reviewed x game
+    const reviewed = await Review.findOne({ userID: userID, gameID: gameId });
+    if (reviewed) {
+      console.log('user already reviewed the game!');
+      userReviewedGame = true;
+    }
 
     const gameStars = Math.ceil(numberOfStars / foundReviews.length);
-    console.log(gameStars);
+
     const updateGame = await Game.findOneAndUpdate({gameId: gameId}, {reviewStars: gameStars}, {new: true});
     console.log(updateGame);
     if (updateGame) {
-      console.log('updated game rating');
-      console.log(foundReviews);
-      return res.status(200).json({error: '', foundReviews: foundReviews});
+
+      return res.status(200).json({error: '', foundReviews: foundReviews, userReviewedGame: userReviewedGame, gameInfo: updateGame });
     } else {
-      return res.status(500).json({error: 'An internal server error occurred'});
+      return res.status(500).json({error: 'An internal server error occurred', userReviewedGame: userReviewedGame});
     }
   } else{
     console.log('No reviews for this game :(');
-    return res.status(404).json({error: 'No reviews for this game.', foundReviews: foundReviews })
-  }
+    const updateGame = await Game.findOne({gameId: gameId});
 
+    return res.status(404).json({error: 'No reviews for this game.', foundReviews: foundReviews, userReviewedGame: userReviewedGame, gameInfo: updateGame });
+  }
 });
+
+app.post('/api/loadUserInfo', async (req, res) =>{
+  const{UserID} = req.body;
+  console.log("userId: " + UserID);
+
+  //search for user
+  const userInfo = await User.findOne().or([{ UserID }]);
+
+  //search for reviews
+  const userReviews = await Review.find({userID: UserID});
+  if(userInfo){
+    console.log('user info found: ' + userInfo);
+    return res.status(200).json({error: '', userInfo: userInfo, userReviews: userReviews});
+  }
+  else{
+    console.log('user info not found');
+    return res.status(404).json({error: 'user info not found'});
+  }
+});
+
+// middleware for multer
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'frontend/public/images')
+//   },
+//   filename: (req, file, cb) => {
+//     console.log(file);
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   }
+// });
+
+
+// const upload = multer({storage: storage});
+
+// app.post('/api/changeProfilePicture', upload.single('profilePicture'), async (req, res) =>{
+//   const { userID } = req.body;
+
+//   // change profile picture string
+//   const newProfilePictureURL = `/images/${req.file.filename}`;
+//   const updateProfilePicture = await User.findOneAndUpdate({ UserID: userID }, { profilePicture: newProfilePictureURL }, { new: true });
+//   if (updateProfilePicture) {
+//     console.log("profile picture uploaded successfully");
+//     return res.status(200).json({ message: 'Profile picture uploaded successfully' });
+//   } else {
+//     console.log("An internal server error occurred");
+//     return res.status(500).json({ error: 'An internal server error occurred' });
+//   }
+// });
+
+
 
 // header stuff
 app.use((req, res, next) => {

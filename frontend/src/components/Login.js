@@ -37,8 +37,9 @@ function Login() {
 
     const [showVerifyForm, setShowVerifyForm] = useState(false);
 
+
     if (goToProfile) {
-        return <Navigate to="../profile"/>;
+        return <Navigate to= {`/user/${localStorage.getItem('userID')}`}/>;
     }
 
     // login
@@ -59,6 +60,8 @@ function Login() {
 
             const data = await response.json();
             setEmail(data.email);
+            console.log(data.token);
+            localStorage.setItem("jwt", data.token);
 
             // if the user exists in the database, check if they're email verified
             if (response.status === 200) {
@@ -94,7 +97,7 @@ function Login() {
     return (
         <div>
             <div id="login">
-                <div id="login-inside">
+                <div title="loginForm" id="login-inside">
                     <h1 id="login-title">Login</h1>
                     <form id="form-login">
                         <p className="form-text">Username</p>

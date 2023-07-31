@@ -54,7 +54,7 @@ function ForgotPassword(){
 
     return (
         <div id="forgot">
-            <div id="forgot-inside">
+            <div title="forgotForm" id="forgot-inside">
                 <h1 id="forgot-title">Forgot Password</h1>
                 <p id="forgot-description">To begin resetting your password, enter your email below.</p>
                 <form id="form-forgot">

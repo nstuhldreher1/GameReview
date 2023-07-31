@@ -90,7 +90,7 @@ function ResetPassword(){
 
     return (
         <div>
-            <div className="form">
+            <div title="resetForm" className="form">
                 <div className="form-inside">
                     <h1 className="form-title">Reset Password</h1>
                     <form id="reset-form">

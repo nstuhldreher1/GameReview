@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import LoginPage from "../pages/LoginPage";
+import EmailVerifyForm from "../components/EmailVerifyForm";
 import { BrowserRouter } from "react-router-dom";
 
 // test block defined as:
@@ -8,11 +8,11 @@ import { BrowserRouter } from "react-router-dom";
 // 3. interact with those elements
 // 4. assert that the results are as expected
 
-test('upon loading the login page, the login form should be the first to display', async () => {
+test('Email verify form should be available on the login page', async () => {
     // render the component
-    render(<BrowserRouter><LoginPage /></BrowserRouter>);
+    render(<BrowserRouter><EmailVerifyForm /></BrowserRouter>);
 
-    const loginForm = await screen.findByTitle("loginForm");
+    const emailVerifyForm = await screen.findByTitle("emailVerifyForm");
 
-    expect(loginForm).toBeInTheDocument();
+    expect(emailVerifyForm).toBeInTheDocument();
 });

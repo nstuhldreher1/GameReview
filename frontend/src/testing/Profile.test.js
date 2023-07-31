@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import LoginPage from "../pages/LoginPage";
+import Profile from "../pages/Profile";
 import { BrowserRouter } from "react-router-dom";
 
 // test block defined as:
@@ -8,11 +8,11 @@ import { BrowserRouter } from "react-router-dom";
 // 3. interact with those elements
 // 4. assert that the results are as expected
 
-test('upon loading the login page, the login form should be the first to display', async () => {
+test('upon loading the profile page of a user, the users posts should be displayed', async () => {
     // render the component
-    render(<BrowserRouter><LoginPage /></BrowserRouter>);
+    render(<BrowserRouter><Profile /></BrowserRouter>);
 
-    const loginForm = await screen.findByTitle("loginForm");
+    const posts = await screen.findByTitle("posts");
 
-    expect(loginForm).toBeInTheDocument();
+    expect(posts).toBeInTheDocument();
 });

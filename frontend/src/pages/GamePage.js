@@ -14,11 +14,13 @@ import { createContext } from 'react';
 const app_name = "gamereview-debf57bc9a85";
 
 export const ReviewsContext = createContext();
+export const HasReviewedContext = createContext();
 
 function GamePage() {
 
     const [gameInfo, setGameInfo] = useState({});
     const [gameReviews, setGameReviews] = useState([]);
+    const [reviewed, setReviewed] = useState(false);
 
     //Dynamically sets build path for fetch
     function buildPath(route){
@@ -33,50 +35,19 @@ function GamePage() {
     const { gameId } = useParams();
 
     useEffect(() => {
-        loadGameInfo();
+        loadGamePage();
     }, []);
 
-    useEffect(() => {
-        loadGameReviews();
-    }, []);
-    
-    const loadGameInfo = async () => {
+    const loadGamePage = async () => {
         try {
-            const response = await fetch(buildPath('/api/loadGameInfo'), {
+            const response = await fetch(buildPath('/api/loadGamePage'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    gameId: gameId
-                })
-            });
-
-            console.log(response);
-            const data = await response.json();
-            console.log(data);
-            setGameInfo(data.gameInfo);
-
-            // if the user exists in the database, check if they're email verified
-            if (response.status === 200) {
-                console.log('Game info recieved');
-            } else {
-                console.log('Error fetching data');
-            }
-        } catch (error) {
-            console.error('Error fetching data: ', error);
-        }
-    }
-
-    const loadGameReviews = async () => {
-        try {
-            const response = await fetch(buildPath('/api/loadGameReviews'), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    gameId: gameId
+                    gameId: gameId,
+                    userID: localStorage.getItem('userID'),
                 })
             });
 
@@ -84,6 +55,10 @@ function GamePage() {
             const data = await response.json();
             console.log(data);
             setGameReviews(data.foundReviews);
+            setGameInfo(data.gameInfo);
+            console.log(data.userReviewedGame);
+            setReviewed(data.userReviewedGame);
+            console.log('reviewed: ' + reviewed);
 
             // if the user exists in the database, check if they're email verified
             if (response.status === 200) {
@@ -98,17 +73,19 @@ function GamePage() {
 
     return(
         <div id="gamePage">
-            <div id="navigation">
+            <div title="navbar" id="navigation">
                 <NavBar/>    
             </div>
             <div id="content">
-                <div id="review">
+                <div title="reviews" id="review">
                     <ReviewsContext.Provider value={{ gameReviews, setGameReviews }}>
                         <ReviewList/>
                     </ReviewsContext.Provider>
                 </div>
-                <div id="game">
-                    <Game title={gameInfo.name} image={gameInfo.gameCover} description={gameInfo.gameDescription} stars={gameInfo.reviewStars}/>
+                <div title="game" id="game">
+                    <HasReviewedContext.Provider value={{ reviewed, setReviewed}}>
+                        <Game id={gameInfo.gameId} title={gameInfo.name} image={gameInfo.gameCover} description={gameInfo.gameDescription} stars={gameInfo.reviewStars}/>
+                    </HasReviewedContext.Provider>
                 </div>
             </div>
         </div>

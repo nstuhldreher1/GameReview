@@ -19,7 +19,15 @@ const reviewObject = new mongoose.Schema({
     },
     comment: {
         type: String,
+    },
+    activity: {
+        type: String,
+        default: "",
+    },
+    profilePicture: {
+        type: String,
     }
+
 })
 
 module.exports = mongoose.model('review', reviewObject);

@@ -12,8 +12,8 @@ function UsersList(){
         <div id="list">
             {users.map((user)=>{
                 return(
-                    <Link to = {'/profile/${user.userId}'} style = {{textDecoration: 'none'}}> 
-                        <User username={user.username} name={user.name}/>
+                    <Link to={`/user/${user.UserID}`} style = {{textDecoration: 'none'}}> 
+                        <User username={user.username} name={user.name} profilePicture={user.profilePicture}/>
                     </Link> 
                 );
             })}

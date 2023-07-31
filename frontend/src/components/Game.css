@@ -18,6 +18,7 @@
 }
 
 #gameImage{
+    box-shadow: 5px 5px 5px black;
     width: 100%;
     height: 100%;
 }
@@ -186,6 +187,42 @@
     margin-top: 20px;
 }
 
+#reviewPopupEditButton{
+    width: 160px;
+    height: 40px;
+    background-color: #0078E8;
+    font-family: 'Inter';
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+
+    grid-row: 6 / 7;
+    grid-column:  8 / 9;
+    text-align: center;
+    font-size: clamp(16px, 2vw, 24px);
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#reviewPopupDeleteButton{
+    width: 160px;
+    height: 40px;
+    background-color: #e80000;
+    font-family: 'Inter';
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+
+    grid-row: 6 / 7;
+    grid-column:  2 / 3;
+    text-align: center;
+    font-size: clamp(16px, 2vw, 20px);
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
 #reviewPopupPostButton:hover{
     background-color: #3d92e2;
 }
@@ -267,7 +304,7 @@
     } 
 
     #reviewPopup{
-        width: 50%;
+        width: 60%;
     }
 
     
@@ -340,6 +377,17 @@
         width: 30px;
         height: 30px;
     }
+
+    #reviewPopupEditButton{
+        width: 120px;
+        height: 40px;
+    }
+
+    #reviewPopupDeleteButton{
+        width: 120px;
+        height: 40px;
+    }
+
 }
 
 @media (max-width: 749px) {
@@ -358,7 +406,7 @@
     }
 
     #reviewPopup{
-        width: 70%;
+        width: 75%;
     }
     
     #reviewButton{
@@ -396,5 +444,26 @@
     .gameStarEmpty {
         width: 30px;
         height: 30px;
+    }
+
+    #reviewPopupEditButton{
+        width: 120px;
+        height: 40px;
+        grid-column: 2 / 3;
+    }
+
+    #reviewPopupDeleteButton{
+        width: 120px;
+        height: 40px;
+        grid-column: 1 / 2;
+    }
+
+    #reviewPopupStars{
+        grid-column: 2 / 9;
+        margin-left: 2px;
+    }
+
+    #reviewPopupCloseButton{
+
     }
 }
