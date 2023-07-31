@@ -31,7 +31,11 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
         type: Number
     },
 
-    UserID: {type: Number, default: Math.floor((Math.random() * 10000))},
+    UserID: {
+        type: Number,
+        default: Math.floor((Math.random() * 10000)),
+        unique: true
+    },
 
     // reviews: reviewObject,
     
