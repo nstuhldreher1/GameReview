@@ -33,8 +33,8 @@ const userObject = new mongoose.Schema({ // reference as const User = require('.
 
     UserID: {
         type: Number,
-        default: Math.floor((Math.random() * 10000)),
-        unique: true
+        unique: true,
+        
     },
 
     profilePicture: {

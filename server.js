@@ -80,6 +80,7 @@ app.post('/api/signup', async (req, res) => {
         name,
         email,
         username,
+        UserID: Math.floor(Math.random() * 100000),
         password: hashedPassword,
         verifyCode: code, // used for both email/forgot pass
     });
